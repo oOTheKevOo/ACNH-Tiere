@@ -37,6 +37,67 @@
       gap: 14px;
     }
 
+    .filter-toggle {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      padding: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+
+    .filter-toggle svg {
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+
+    .filter-toggle.active {
+      background: #e8f5e9;
+      border-color: #6abf69;
+    }
+
+    .filter-panel {
+      display: none;
+      width: min(980px, 100%);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #e1d7c8;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+    }
+
+    .filter-panel.show {
+      display: block;
+    }
+
+    .filter-panel-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .refresh-button {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     select, button {
       padding: 12px 14px;
       font-size: 16px;
@@ -77,6 +138,18 @@
       padding: 14px;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.2);
+    }
+
+    .card:focus {
+      outline: 3px solid #7abf7a;
+      outline-offset: 3px;
     }
 
     .card img {
@@ -134,6 +207,174 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 18px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      width: min(680px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+      padding: 22px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: none;
+      background: #f0f0f0;
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .modal-header {
+      text-align: center;
+      padding-right: 30px;
+    }
+
+    .modal-header img {
+      width: 105px;
+      height: 105px;
+      object-fit: contain;
+    }
+
+    .modal-header h2 {
+      margin: 6px 0 8px 0;
+      font-size: 30px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .check-card {
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .check-card input {
+      width: 22px;
+      height: 22px;
+    }
+
+    .detail-section {
+      border-top: 1px solid #ddd;
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .detail-section h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+    }
+
+    .knowledge-text {
+      line-height: 1.55;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .knowledge-text ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .knowledge-text li {
+      margin: 5px 0;
+    }
+
+
+    .animal-blurb {
+      background: #faf7ef;
+      border: 1px solid #eadfcb;
+      border-radius: 16px;
+      padding: 14px;
+      margin: 0 0 14px 0;
+      line-height: 1.6;
+    }
+
+    .detail-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .fact-card {
+      background: #f7f7f7;
+      border: 1px solid #e1e1e1;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .fact-label {
+      display: block;
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .fact-value {
+      display: block;
+      font-size: 16px;
+      color: #222;
+      font-weight: bold;
+    }
+
+    .price-tile {
+      margin-top: 14px;
+      padding: 15px;
+      border-radius: 16px;
+      background: #e8f5e9;
+      color: #1b5e20;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .price-tile span {
+      display: block;
+      font-size: 13px;
+      color: #2e7d32;
+      margin-bottom: 3px;
+    }
+
     @media (max-width: 760px) {
       h1 {
         font-size: 34px;
@@ -147,6 +388,24 @@
         width: 100%;
         flex-direction: column;
       }
+
+      .filter-panel {
+        padding: 14px;
+      }
+
+      .filter-toggle {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+      }
+
+      .check-row {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-facts {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -156,39 +415,86 @@
   <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
 
   <div class="controls-wrapper">
-    <div class="controls">
-      <select id="category">
-        <option value="all">Alles anzeigen</option>
-        <option value="Fisch">Nur Fische</option>
-        <option value="Insekt">Nur Insekten</option>
-        <option value="Meereswesen">Nur Meereswesen</option>
-      </select>
+    <button id="filterToggle" class="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Filter öffnen" aria-expanded="false" title="Filter">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h16l-6.2 7.1v5.2l-3.6 1.9v-7.1L4 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span class="visually-hidden">Filter</span>
+    </button>
 
-      <select id="hemisphere">
-        <option value="northern">Nordhalbkugel</option>
-        <option value="southern">Südhalbkugel</option>
-      </select>
+    <div id="filterPanel" class="filter-panel">
+      <div class="filter-panel-title">Filter auswählen</div>
+      <div class="controls">
+        <select id="category">
+          <option value="all">Alles anzeigen</option>
+          <option value="Fisch">Nur Fische</option>
+          <option value="Insekt">Nur Insekten</option>
+          <option value="Meereswesen">Nur Meereswesen</option>
+        </select>
 
-      <select id="timeFilter">
-        <option value="all">Alle Zeiten</option>
-        <option value="allDay">Nur ganztägig</option>
-        <option value="timeWindow">Nur mit Uhrzeit</option>
-      </select>
+        <select id="hemisphere">
+          <option value="northern">Nordhalbkugel</option>
+          <option value="southern">Südhalbkugel</option>
+        </select>
 
-      <select id="sort">
-        <option value="ending">Läuft bald ab</option>
-        <option value="type">Nach Art sortieren</option>
-        <option value="rarity">Nach Seltenheit sortieren</option>
-        <option value="name">Nach Name sortieren</option>
-      </select>
+        <select id="timeFilter">
+          <option value="all">Alle Zeiten</option>
+          <option value="allDay">Nur ganztägig</option>
+          <option value="timeWindow">Nur mit Uhrzeit</option>
+        </select>
+
+        <select id="progressFilter">
+          <option value="all">Alle Gefangen-/Spenden-Status</option>
+          <option value="caught">Nur gefundene Tiere</option>
+          <option value="notCaught">Nur nicht gefundene Tiere</option>
+          <option value="donated">Nur gespendete Tiere</option>
+          <option value="notDonated">Nur nicht gespendete Tiere</option>
+        </select>
+
+        <select id="sort">
+          <option value="ending">Läuft bald ab</option>
+          <option value="type">Nach Art sortieren</option>
+          <option value="rarity">Nach Seltenheit sortieren</option>
+          <option value="name">Nach Name sortieren</option>
+        </select>
+      </div>
     </div>
 
-    <button onclick="loadData(true)">Aktualisieren</button>
+    <button class="refresh-button" onclick="loadData(true)">Aktualisieren</button>
   </div>
 
   <p id="status">Daten werden geladen...</p>
 
   <div id="list" class="grid"></div>
+
+  <div id="detailOverlay" class="modal-overlay" onclick="closeCritterDetail(event)">
+    <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" onclick="closeCritterDetail()" aria-label="Fenster schließen">×</button>
+
+      <div class="modal-header">
+        <img id="detailImage" src="" alt="" onerror="this.style.display='none'">
+        <h2 id="detailTitle">Tier</h2>
+        <div id="detailType" class="tag"></div>
+      </div>
+
+      <div class="check-row">
+        <label class="check-card">
+          <input id="detailCaught" type="checkbox" onchange="saveDetailProgress('caught', this.checked)">
+          Gefunden
+        </label>
+
+        <label class="check-card">
+          <input id="detailDonated" type="checkbox" onchange="saveDetailProgress('donated', this.checked)">
+          Gespendet
+        </label>
+      </div>
+
+      <div class="detail-section">
+        <h3>Wissenswertes</h3>
+        <div id="detailKnowledge" class="knowledge-text"></div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const endpoints = [
@@ -210,6 +516,9 @@
     ];
 
     let rawCritters = [];
+    let activeCritterKey = null;
+
+    const progressStorageKey = "acnhCritterProgress";
 
     const translations = {
       location: {
@@ -280,6 +589,66 @@
       "Januar", "Februar", "März", "April", "Mai", "Juni",
       "Juli", "August", "September", "Oktober", "November", "Dezember"
     ];
+
+
+    function escapeHTML(value) {
+      if (value === null || value === undefined) return "";
+
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getSavedProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(progressStorageKey)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveProgress(progress) {
+      localStorage.setItem(progressStorageKey, JSON.stringify(progress));
+    }
+
+    function getCritterStorageKey(critter) {
+      const fileName = critter["file-name"] || getGermanName(critter);
+      const type = critter.type || "Tier";
+
+      return `${type}-${fileName}`;
+    }
+
+    function getCritterProgress(key) {
+      const progress = getSavedProgress();
+
+      return progress[key] || {
+        caught: false,
+        donated: false
+      };
+    }
+
+    function setCritterProgress(key, field, value) {
+      const progress = getSavedProgress();
+
+      if (!progress[key]) {
+        progress[key] = {
+          caught: false,
+          donated: false
+        };
+      }
+
+      progress[key][field] = value;
+
+      saveProgress(progress);
+    }
+
+    function formatBells(value) {
+      if (!value && value !== 0) return "";
+      return Number(value).toLocaleString("de-DE") + " Sternis";
+    }
 
     function getCurrentGermanMonth() {
       const now = new Date();
@@ -588,6 +957,22 @@
       return `https://raw.githubusercontent.com/alexislours/ACNHAPI/master/icons/${folder}/${fileName}.png`;
     }
 
+    function toggleFilterPanel(forceState) {
+      const panel = document.getElementById("filterPanel");
+      const button = document.getElementById("filterToggle");
+
+      if (!panel || !button) return;
+
+      const shouldShow = typeof forceState === "boolean"
+        ? forceState
+        : !panel.classList.contains("show");
+
+      panel.classList.toggle("show", shouldShow);
+      button.classList.toggle("active", shouldShow);
+      button.setAttribute("aria-expanded", shouldShow ? "true" : "false");
+      button.setAttribute("aria-label", shouldShow ? "Filter schließen" : "Filter öffnen");
+    }
+
     async function loadData(forceReload = false) {
       const list = document.getElementById("list");
       const status = document.getElementById("status");
@@ -666,6 +1051,7 @@
       const hemisphere = document.getElementById("hemisphere").value;
       const category = document.getElementById("category").value;
       const timeFilter = document.getElementById("timeFilter").value;
+      const progressFilter = document.getElementById("progressFilter").value;
       const sort = document.getElementById("sort").value;
 
       const now = new Date();
@@ -675,13 +1061,17 @@
         .map(critter => {
           const remaining = getRemainingInfo(critter, hemisphere, now);
           const originalRarity = normalizeRarity(critter.availability.rarity);
+          const key = getCritterStorageKey(critter);
+          const progress = getCritterProgress(key);
 
           return {
+            key: key,
             original: critter,
             type: critter.type,
             name: getGermanName(critter),
             image: getImageUrl(critter, critter.folder),
             location: translateValue("location", critter.availability.location),
+            bestPlace: getBestEncounterHint(critter),
             rarityOriginal: originalRarity,
             rarity: translateValue("rarity", originalRarity),
             rarityNumber: rarityRank[originalRarity] || 0,
@@ -691,6 +1081,9 @@
             hasTimeWindow: hasTimeWindowCritter(critter),
             shadow: translateShadow(critter.shadow),
             speed: translateValue("speed", critter.speed),
+            price: critter.price ? formatBells(critter.price) : "",
+            caught: progress.caught === true,
+            donated: progress.donated === true,
             remainingText: remaining.text,
             remainingMs: remaining.ms,
             remainingClass: remaining.className
@@ -707,6 +1100,22 @@
 
       if (timeFilter === "timeWindow") {
         allCritters = allCritters.filter(critter => critter.hasTimeWindow);
+      }
+
+      if (progressFilter === "caught") {
+        allCritters = allCritters.filter(critter => critter.caught === true);
+      }
+
+      if (progressFilter === "notCaught") {
+        allCritters = allCritters.filter(critter => critter.caught !== true);
+      }
+
+      if (progressFilter === "donated") {
+        allCritters = allCritters.filter(critter => critter.donated === true);
+      }
+
+      if (progressFilter === "notDonated") {
+        allCritters = allCritters.filter(critter => critter.donated !== true);
       }
 
       if (sort === "ending") {
@@ -754,50 +1163,494 @@
       allCritters.forEach(critter => {
         const card = document.createElement("div");
         card.className = "card";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Details zu ${critter.name} öffnen`);
 
         let timeInfo = "";
 
         if (critter.time && critter.time !== "") {
-          timeInfo = `<p class="small">Zeit: ${critter.time}</p>`;
+          timeInfo = `<p class="small">Zeit: ${escapeHTML(critter.time)}</p>`;
         }
 
         let monthInfo = "";
 
         if (critter.monthsText && critter.monthsText !== "") {
-          monthInfo = `<p class="small">Verfügbar: ${critter.monthsText}</p>`;
+          monthInfo = `<p class="small">Verfügbar: ${escapeHTML(critter.monthsText)}</p>`;
         }
 
         let extraInfo = "";
 
         if (critter.shadow && critter.shadow !== "Keine Angabe") {
-          extraInfo += `<p class="small">Schatten: ${critter.shadow}</p>`;
+          extraInfo += `<p class="small">Schatten: ${escapeHTML(critter.shadow)}</p>`;
         }
 
         if (critter.speed && critter.speed !== "Keine Angabe") {
-          extraInfo += `<p class="small">Geschwindigkeit: ${critter.speed}</p>`;
+          extraInfo += `<p class="small">Geschwindigkeit: ${escapeHTML(critter.speed)}</p>`;
         }
 
         card.innerHTML = `
-          <img src="${critter.image}" alt="${critter.name}" onerror="this.style.display='none'">
-          <h3>${critter.name}</h3>
-          <div class="tag">${critter.type}</div>
-          <p class="small">Ort: ${critter.location}</p>
+          <img src="${escapeHTML(critter.image)}" alt="${escapeHTML(critter.name)}" onerror="this.style.display='none'">
+          <h3>${escapeHTML(critter.name)}</h3>
+          <div class="tag">${escapeHTML(critter.type)}</div>
+          <p class="small">Ort: ${escapeHTML(critter.location)}</p>
           ${timeInfo}
           ${monthInfo}
-          <p class="small">Seltenheit: ${critter.rarity}</p>
+          <p class="small">Seltenheit: ${escapeHTML(critter.rarity)}</p>
           ${extraInfo}
-          <div class="counter ${critter.remainingClass}">
-            ${critter.remainingText}
+          <div class="counter ${escapeHTML(critter.remainingClass)}">
+            ${escapeHTML(critter.remainingText)}
           </div>
         `;
+
+        card.addEventListener("click", () => openCritterDetail(critter));
+        card.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openCritterDetail(critter);
+          }
+        });
 
         list.appendChild(card);
       });
     }
 
+
+    function getOriginalEnglishName(critter) {
+      const original = critter.original || critter;
+
+      if (original.name && original.name["name-USen"]) {
+        return original.name["name-USen"];
+      }
+
+      return "";
+    }
+
+    function getBestEncounterHint(critter) {
+      const original = critter.original || critter;
+      const rawLocation = original.availability && original.availability.location
+        ? original.availability.location
+        : "";
+      const germanName = getGermanName(original).toLowerCase();
+      const englishName = getOriginalEnglishName(critter).toLowerCase();
+      const combinedName = germanName + " " + englishName;
+
+      if (combinedName.includes("schwalbenschwanz") || combinedName.includes("butterfly") || combinedName.includes("falter") || combinedName.includes("weißling") || combinedName.includes("morpho") || combinedName.includes("pfauenauge") || combinedName.includes("agrias")) {
+        return "Bei Blumen und auf offenen Grasflächen. Am besten langsam mit dem Netz nähern.";
+      }
+
+      if (combinedName.includes("motte") || combinedName.includes("moth")) {
+        return "Abends und nachts in der Nähe von Lichtquellen oder im Flug über der Insel.";
+      }
+
+      if (combinedName.includes("spinne") || combinedName.includes("spider")) {
+        return "In Bäumen. Schüttle Laub- oder Nadelbäume, dann kann sie am Faden herabhängen.";
+      }
+
+      if (combinedName.includes("tarantel") || combinedName.includes("tarantula") || combinedName.includes("skorpion") || combinedName.includes("scorpion")) {
+        return "Auf dem Boden, meist nachts. Langsam annähern und stehen bleiben, wenn sie droht.";
+      }
+
+      if (combinedName.includes("wespe") || combinedName.includes("wasp")) {
+        return "In Bäumen. Beim Schütteln von Bäumen kann ein Wespennest herunterfallen.";
+      }
+
+      if (combinedName.includes("biene") || combinedName.includes("bee")) {
+        return "Bei Blumen. Besonders gut dort suchen, wo viele Blüten zusammenstehen.";
+      }
+
+      if (combinedName.includes("libelle") || combinedName.includes("dragonfly") || combinedName.includes("damselfly")) {
+        return "Über freien Flächen und oft in Wassernähe. Mit etwas Abstand verfolgen und dann zuschlagen.";
+      }
+
+      if (combinedName.includes("zikade") || combinedName.includes("cicada")) {
+        return "An Baumstämmen. Erst auf das Geräusch achten, dann langsam zum Baum gehen.";
+      }
+
+      if (combinedName.includes("käfer") || combinedName.includes("beetle") || combinedName.includes("hirsch") || combinedName.includes("stag") || combinedName.includes("horned")) {
+        if (rawLocation.includes("palm")) {
+          return "An Palmen am Strand. Sehr langsam annähern, weil seltene Käfer schnell flüchten.";
+        }
+
+        return "An Baumstämmen. Bei seltenen Arten langsam gehen und das Netz erst nah genug schwingen.";
+      }
+
+      if (combinedName.includes("floh") || combinedName.includes("flea")) {
+        return "Auf Bewohnern. Achte auf kleine Sprünge und darauf, ob ein Bewohner sich unwohl fühlt.";
+      }
+
+      if (combinedName.includes("fliege") || combinedName.includes("fly")) {
+        return "Bei Müll, verdorbenen Rüben oder anderen schmutzigen Gegenständen.";
+      }
+
+      if (combinedName.includes("maulwurfsgrille") || combinedName.includes("mole cricket")) {
+        return "Unter der Erde. Dem Zirpen folgen und an der lautesten Stelle graben.";
+      }
+
+      if (rawLocation === "Flying near flowers" || rawLocation === "Flying near hybrid flowers" || rawLocation === "Flying near blue/purple/black flowers") {
+        return "Bei Blumen. Je nach Art können bestimmte Blütenfarben oder Hybridblumen wichtig sein.";
+      }
+
+      if (rawLocation === "Flying near water") {
+        return "In Wassernähe, also bei Flüssen, Teichen oder am Ufer.";
+      }
+
+      if (rawLocation === "Flying") {
+        return "Im Flug über der Insel. Offene Flächen machen das Verfolgen einfacher.";
+      }
+
+      if (rawLocation === "On trees") {
+        return "An Baumstämmen. Langsam annähern, damit das Tier nicht wegfliegt.";
+      }
+
+      if (rawLocation === "On palm trees") {
+        return "An Palmen am Strand. Besonders nachts lohnt sich dort ein genauer Blick.";
+      }
+
+      if (rawLocation === "On tree stumps") {
+        return "Auf Baumstümpfen. Dafür brauchst du gefällte Bäume, deren Stumpf stehen bleibt.";
+      }
+
+      if (rawLocation === "Shaking trees") {
+        return "In Bäumen. Schüttle Laub- oder Nadelbäume und halte dein Netz bereit.";
+      }
+
+      if (rawLocation === "On flowers" || rawLocation === "On white flowers") {
+        return "Direkt auf Blumen. Bei weißen Blumen wirklich gezielt die hellen Blüten kontrollieren.";
+      }
+
+      if (rawLocation === "Under rocks") {
+        return "Unter Steinen. Mit der Schaufel oder Axt gegen Steine schlagen.";
+      }
+
+      if (rawLocation === "On rocks") {
+        return "Auf Felsen. Schaue die Steine auf deiner Insel regelmäßig ab.";
+      }
+
+      if (rawLocation === "On the ground") {
+        return "Auf dem Boden. Langsam suchen, weil kleine Tiere leicht zwischen Gras und Wegen verschwinden.";
+      }
+
+      if (rawLocation === "Underground") {
+        return "Unter der Erde. Achte auf Geräusche und grabe an der passenden Stelle.";
+      }
+
+      if (rawLocation === "On villagers") {
+        return "Auf Bewohnern. Sprich sie an oder beobachte sie, wenn sie sich kratzen.";
+      }
+
+      if (rawLocation === "Near trash" || rawLocation === "On trash items") {
+        return "Bei Müllgegenständen. Alte Dosen, Reifen oder verdorbene Dinge können helfen.";
+      }
+
+      if (rawLocation === "On rotten food") {
+        return "Auf verdorbenem Essen, zum Beispiel auf einer verdorbenen Rübe.";
+      }
+
+      if (rawLocation === "River (clifftop)") {
+        return "In Flüssen auf der Klippenebene. Also oberhalb der ersten Ebene fischen.";
+      }
+
+      if (rawLocation === "River (mouth)") {
+        return "An der Flussmündung, dort wo der Fluss ins Meer übergeht.";
+      }
+
+      if (rawLocation === "River") {
+        return "Im Fluss. Laufe die Ufer entlang und achte auf die passende Schattengröße.";
+      }
+
+      if (rawLocation === "Pond") {
+        return "In Teichen. Kleine stehende Gewässer sind hier der richtige Ort.";
+      }
+
+      if (rawLocation === "Sea (rainy days)") {
+        return "Im Meer bei Regen. Regenschauer sind hier der entscheidende Hinweis.";
+      }
+
+      if (rawLocation === "Sea") {
+        return "Im Meer. Am Strand entlanglaufen und auf Fischschatten im Wasser achten.";
+      }
+
+      if (rawLocation === "Pier") {
+        return "Am Steg. Stelle dich direkt auf den Steg und fische von dort aus.";
+      }
+
+      if (critter.type === "Meereswesen") {
+        if (critter.speed && critter.speed !== "Keine Angabe" && critter.speed !== "Bewegt sich nicht") {
+          return "Beim Tauchen im Meer. Folge den Blasen und nähere dich dem Schatten ruhig von hinten.";
+        }
+
+        return "Beim Tauchen im Meer. Achte auf Blasen an der Wasseroberfläche und tauche genau dort ab.";
+      }
+
+      if (critter.type === "Fisch") {
+        return "Am passenden Gewässer. Die Schattengröße ist der wichtigste zusätzliche Hinweis.";
+      }
+
+      return critter.location || "Auf der Insel. Standort und Uhrzeit helfen dir beim gezielten Suchen.";
+    }
+
+    function getCreatureGroupInfo(critter) {
+      const germanName = critter.name.toLowerCase();
+      const englishName = (critter.original.name && critter.original.name["name-USen"]
+        ? critter.original.name["name-USen"].toLowerCase()
+        : "");
+      const combinedName = germanName + " " + englishName;
+
+      const rules = [
+        {
+          words: ["schwalbenschwanz", "butterfly", "falter", "weißling", "morpho", "motte", "pfauenauge", "agrias", "atlasspinner", "schwärmer"],
+          label: "Falter",
+          text: "Falter erkennt man vor allem an ihren Flügeln und ihrem leichten Flug. Viele von ihnen sind tagaktiv und wirken harmlos, verschwinden aber schnell aus dem Blick, wenn man sie übersieht."
+        },
+        {
+          words: ["libelle", "dragonfly", "damselfly"],
+          label: "Libelle",
+          text: "Libellen sind flinke Flugkünstler mit langem Körper und durchsichtigen Flügeln. Sie patrouillieren oft über offenen Flächen oder in Wassernähe."
+        },
+        {
+          words: ["käfer", "beetle", "hirsch", "scarab", "goliath", "elephant", "hercules", "cyclommatus", "gold stag", "horned"],
+          label: "Käfer",
+          text: "Käfer besitzen harte Flügeldecken und wirken oft robuster als andere Insekten. Viele seltene Arten sitzen an Bäumen oder Palmen und reagieren empfindlich auf hastige Bewegungen."
+        },
+        {
+          words: ["zikade", "cicada"],
+          label: "Zikade",
+          text: "Zikaden sind für ihre lauten Rufe bekannt. Man bemerkt sie meist zuerst am Geräusch, bevor man sie an Bäumen entdeckt."
+        },
+        {
+          words: ["heuschrecke", "grasshopper", "locust", "grille", "cricket", "maulwurfsgrille"],
+          label: "Heuschrecke oder Grille",
+          text: "Diese Insekten leben nah am Boden und fallen oft durch Sprünge oder Geräusche auf. Geduld hilft, weil sie leicht übersehen werden."
+        },
+        {
+          words: ["biene", "wespe", "bee", "wasp"],
+          label: "Stechinsekt",
+          text: "Stechinsekten sind klein, aber auffällig durch ihr Verhalten. Besonders Wespen machen sofort klar, dass man nicht zu lange zögern sollte."
+        },
+        {
+          words: ["spinne", "tarantel", "skorpion", "scorpion", "tarantula", "spider"],
+          label: "Spinnentier",
+          text: "Spinnentiere sind keine Insekten, werden im Spiel aber zusammen mit ihnen gesammelt. Sie können überraschend auftauchen und verlangen etwas Vorsicht."
+        },
+        {
+          words: ["fliege", "mücke", "floh", "mosquito", "fly", "flea"],
+          label: "kleines Insekt",
+          text: "Kleine Plagegeister wie Fliegen, Mücken oder Flöhe sind nicht besonders prachtvoll, gehören aber trotzdem zu einer vollständigen Sammlung."
+        },
+        {
+          words: ["hai", "shark"],
+          label: "Hai",
+          text: "Haie gehören zu den eindrucksvollsten Fischen im Meer. Im Spiel verrät sie oft die Flosse am Schatten, wodurch sie sich von vielen anderen Fischen abheben."
+        },
+        {
+          words: ["goldfisch", "koi", "karpfen", "carp", "goldfish"],
+          label: "Karpfenfisch",
+          text: "Karpfenfische sind ruhige Süßwasserfische. Viele von ihnen wirken unscheinbar, manche Arten sind aber wegen ihrer Farben besonders beliebt."
+        },
+        {
+          words: ["lachs", "salmon", "stör", "sturgeon", "forelle", "trout", "saibling"],
+          label: "Wander- oder Flussfisch",
+          text: "Diese Fische stehen oft mit Flüssen, Mündungen oder kühleren Gewässern in Verbindung. Der richtige Ort ist bei ihnen besonders wichtig."
+        },
+        {
+          words: ["aal", "eel", "muräne"],
+          label: "aalartiger Fisch",
+          text: "Aalartige Fische haben einen langen, schmalen Körper und unterscheiden sich dadurch deutlich von den meisten anderen Fischen."
+        },
+        {
+          words: ["thunfisch", "tuna", "marlin", "schwertfisch"],
+          label: "großer Meeresfisch",
+          text: "Große Meeresfische sind kräftige Schwimmer und zählen oft zu den wertvolleren Fängen. Bei ihnen lohnt sich ein genauer Blick auf Fangort und Schatten."
+        },
+        {
+          words: ["seestern", "starfish"],
+          label: "Seestern",
+          text: "Seesterne sind Meeresbewohner mit sternförmigem Körper. Sie bewegen sich langsam und gehören zu den klassischen Bewohnern des Meeresbodens."
+        },
+        {
+          words: ["qualle", "jellyfish"],
+          label: "Qualle",
+          text: "Quallen bestehen zu einem großen Teil aus Wasser und treiben elegant durchs Meer. Ihre zarte Form macht sie unverwechselbar."
+        },
+        {
+          words: ["krabbe", "krebs", "hummer", "languste", "crab", "lobster", "crayfish"],
+          label: "Krebstier",
+          text: "Krebstiere tragen einen festen Panzer und bewegen sich oft am Meeresboden entlang. Manche sind gemächlich, andere können erstaunlich schnell sein."
+        },
+        {
+          words: ["oktopus", "octopus", "kalmar", "squid", "tintenfisch"],
+          label: "Kopffüßer",
+          text: "Kopffüßer sind intelligente Meeresbewohner mit weichem Körper und beweglichen Armen. Im Wasser wirken sie fast geheimnisvoll."
+        },
+        {
+          words: ["muschel", "auster", "clam", "oyster", "scallop", "abalone"],
+          label: "Muschel",
+          text: "Muscheln leben geschützt in harten Schalen. Sie wirken unscheinbar, sind aber ein wichtiger Teil des Lebens am Meeresboden."
+        },
+        {
+          words: ["seeigel", "urchin", "anemone", "seeanemone", "seegurke", "sea cucumber"],
+          label: "Meeresbodentier",
+          text: "Diese Tiere leben direkt am Meeresboden. Sie wirken oft ruhig, haben aber ganz eigene Schutz- und Überlebensweisen."
+        }
+      ];
+
+      for (const rule of rules) {
+        if (rule.words.some(word => combinedName.includes(word))) {
+          return {
+            label: rule.label,
+            text: rule.text
+          };
+        }
+      }
+
+      if (critter.type === "Fisch") {
+        return {
+          label: "Fisch",
+          text: "Dieser Fisch ist ein Wasserbewohner, den du vor allem über Fangort, Uhrzeit und Schattengröße einordnen kannst. Genau diese Hinweise machen den Unterschied zwischen einem gewöhnlichen Fang und einem besonderen Fund."
+        };
+      }
+
+      if (critter.type === "Insekt") {
+        return {
+          label: "Insekt",
+          text: "Dieses kleine Tier gehört zur Insektensammlung. Bei Insekten entscheidet oft der genaue Standort, denn viele Arten erscheinen nur unter bestimmten Bedingungen."
+        };
+      }
+
+      if (critter.type === "Meereswesen") {
+        return {
+          label: "Meereswesen",
+          text: "Dieses Meereswesen lebt unter der Wasseroberfläche. Beim Tauchen helfen dir Blasen, Schatten und Bewegung dabei, es richtig einzuschätzen."
+        };
+      }
+
+      return {
+        label: "Tier",
+        text: "Dieses Tier ist Teil deiner Sammlung. Achte auf Zeitraum, Uhrzeit und Standort, damit du es gezielt finden kannst."
+      };
+    }
+
+    function getArticleForType(type) {
+      if (type === "Fisch") return "ein Fisch";
+      if (type === "Insekt") return "ein Insekt";
+      if (type === "Meereswesen") return "ein Meereswesen";
+      return "ein Tier";
+    }
+
+    function getCleanTimeText(critter) {
+      if (critter.time) return critter.time;
+      if (critter.isAllDay) return "Ganztägig";
+      return "Keine Angabe";
+    }
+
+    function getCleanMonthText(critter) {
+      if (critter.monthsText) return critter.monthsText;
+      return "Ganzjährig";
+    }
+
+    function makeFactCard(label, value) {
+      if (!value || value === "Keine Angabe") return "";
+
+      return `
+        <div class="fact-card">
+          <span class="fact-label">${escapeHTML(label)}</span>
+          <span class="fact-value">${escapeHTML(value)}</span>
+        </div>
+      `;
+    }
+
+    function buildKnowledgeHTML(critter) {
+      const groupInfo = getCreatureGroupInfo(critter);
+
+      const mainText = `
+        <p class="animal-blurb">
+          <strong>${escapeHTML(critter.name)}</strong> gehört zur Gruppe <strong>${escapeHTML(groupInfo.label)}</strong>.
+          ${escapeHTML(groupInfo.text)}
+        </p>
+      `;
+
+      let facts = "";
+      facts += makeFactCard("Standort", critter.location);
+      facts += makeFactCard("Am besten anzutreffen", critter.bestPlace);
+      facts += makeFactCard("Uhrzeit", getCleanTimeText(critter));
+      facts += makeFactCard("Zeitraum", getCleanMonthText(critter));
+      facts += makeFactCard("Seltenheit", critter.rarity);
+
+      if (critter.shadow && critter.shadow !== "Keine Angabe") {
+        facts += makeFactCard("Schatten", critter.shadow);
+      }
+
+      if (critter.speed && critter.speed !== "Keine Angabe") {
+        facts += makeFactCard("Geschwindigkeit", critter.speed);
+      }
+
+      facts += makeFactCard("Aktuell", critter.remainingText);
+
+      const priceText = critter.price ? critter.price : "Keine Angabe";
+
+      return `
+        ${mainText}
+        <div class="detail-facts">
+          ${facts}
+        </div>
+        <div class="price-tile">
+          <span>Verkaufspreis</span>
+          ${escapeHTML(priceText)}
+        </div>
+      `;
+    }
+
+    function openCritterDetail(critter) {
+      activeCritterKey = critter.key;
+
+      const progress = getCritterProgress(activeCritterKey);
+      const overlay = document.getElementById("detailOverlay");
+      const detailImage = document.getElementById("detailImage");
+
+      detailImage.style.display = "inline-block";
+      detailImage.src = critter.image;
+      detailImage.alt = critter.name;
+
+      document.getElementById("detailTitle").textContent = critter.name;
+      document.getElementById("detailType").textContent = critter.type;
+      document.getElementById("detailCaught").checked = progress.caught === true;
+      document.getElementById("detailDonated").checked = progress.donated === true;
+      document.getElementById("detailKnowledge").innerHTML = buildKnowledgeHTML(critter);
+
+      overlay.classList.add("show");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeCritterDetail(event) {
+      if (event && event.target !== document.getElementById("detailOverlay")) {
+        return;
+      }
+
+      document.getElementById("detailOverlay").classList.remove("show");
+      document.body.classList.remove("modal-open");
+      activeCritterKey = null;
+    }
+
+    function saveDetailProgress(field, value) {
+      if (!activeCritterKey) return;
+
+      setCritterProgress(activeCritterKey, field, value);
+
+      renderCritters();
+    }
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeCritterDetail();
+        toggleFilterPanel(false);
+      }
+    });
+
     document.getElementById("hemisphere").addEventListener("change", renderCritters);
     document.getElementById("category").addEventListener("change", renderCritters);
     document.getElementById("timeFilter").addEventListener("change", renderCritters);
+    document.getElementById("progressFilter").addEventListener("change", renderCritters);
     document.getElementById("sort").addEventListener("change", renderCritters);
 
     loadData();
