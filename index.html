@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ACNH Tiere aktuell fangen</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4efe3;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 46px;
+    }
+
+    .controls-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    select, button {
+      padding: 12px 14px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #999;
+      background: #fff;
+      min-width: 220px;
+    }
+
+    button {
+      cursor: pointer;
+      min-width: auto;
+      padding: 12px 18px;
+    }
+
+    button:hover {
+      background: #e8e8e8;
+    }
+
+    #status {
+      text-align: center;
+      font-weight: bold;
+      margin: 20px 0 25px 0;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+    }
+
+    .card h3 {
+      margin: 8px 0;
+      font-size: 20px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #eee;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .counter {
+      margin-top: 12px;
+      padding: 9px;
+      border-radius: 10px;
+      background: #e8f5e9;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .counter.warning {
+      background: #fff3cd;
+      color: #7a5200;
+    }
+
+    .counter.danger {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .error {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: 20px auto;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      select {
+        min-width: 100%;
+      }
+
+      .controls {
+        width: 100%;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
+
+  <div class="controls-wrapper">
+    <div class="controls">
+      <select id="category">
+        <option value="all">Alles anzeigen</option>
+        <option value="Fisch">Nur Fische</option>
+        <option value="Insekt">Nur Insekten</option>
+        <option value="Meereswesen">Nur Meereswesen</option>
+      </select>
+
+      <select id="hemisphere">
+        <option value="northern">Nordhalbkugel</option>
+        <option value="southern">Südhalbkugel</option>
+      </select>
+
+      <select id="timeFilter">
+        <option value="all">Alle Zeiten</option>
+        <option value="allDay">Nur ganztägig</option>
+        <option value="timeWindow">Nur mit Uhrzeit</option>
+      </select>
+
+      <select id="sort">
+        <option value="ending">Läuft bald ab</option>
+        <option value="type">Nach Art sortieren</option>
+        <option value="rarity">Nach Seltenheit sortieren</option>
+        <option value="name">Nach Name sortieren</option>
+      </select>
+    </div>
+
+    <button onclick="loadData(true)">Aktualisieren</button>
+  </div>
+
+  <p id="status">Daten werden geladen...</p>
+
+  <div id="list" class="grid"></div>
+
+  <script>
+    const endpoints = [
+      {
+        type: "Fisch",
+        folder: "fish",
+        url: "https://raw.githubusercontent.com/alexislours/ACNHAPI/master/v1a/fish.json"
+      },
+      {
+        type: "Insekt",
+        folder: "bugs",
+        url: "https://raw.githubusercontent.com/alexislours/ACNHAPI/master/v1a/bugs.json"
+      },
+      {
+        type: "Meereswesen",
+        folder: "sea",
+        url: "https://raw.githubusercontent.com/alexislours/ACNHAPI/master/v1a/sea.json"
+      }
+    ];
+
+    let rawCritters = [];
+
+    const translations = {
+      location: {
+        "River": "Fluss",
+        "River (clifftop)": "Fluss auf Klippenebene",
+        "River (mouth)": "Flussmündung",
+        "Pond": "Teich",
+        "Sea": "Meer",
+        "Pier": "Steg",
+        "Sea (rainy days)": "Meer bei Regen",
+        "Flying": "Fliegend",
+        "Flying near water": "Fliegend in Wassernähe",
+        "Flying near flowers": "Fliegend bei Blumen",
+        "Flying near hybrid flowers": "Fliegend bei Hybridblumen",
+        "Flying near blue/purple/black flowers": "Fliegend bei blauen, lila oder schwarzen Blumen",
+        "On trees": "An Bäumen",
+        "On palm trees": "An Palmen",
+        "On tree stumps": "Auf Baumstümpfen",
+        "On flowers": "Auf Blumen",
+        "On white flowers": "Auf weißen Blumen",
+        "On the ground": "Auf dem Boden",
+        "On rocks": "Auf Felsen",
+        "Under rocks": "Unter Felsen",
+        "On villagers": "Auf Bewohnern",
+        "On the beach": "Am Strand",
+        "Underground": "Unter der Erde",
+        "Near trash": "In der Nähe von Müll",
+        "On trash items": "Auf Müllgegenständen",
+        "On rotten food": "Auf verdorbenem Essen",
+        "On snowballs": "Auf Schneekugeln",
+        "Shaking trees": "Durch Schütteln von Bäumen",
+        "On ponds and rivers": "An Teichen und Flüssen",
+        "On rivers and ponds": "An Flüssen und Teichen",
+        "Disguised underneath trees": "Getarnt unter Bäumen"
+      },
+
+      rarity: {
+        "Common": "Häufig",
+        "Uncommon": "Nicht so häufig",
+        "Rare": "Selten",
+        "Very rare": "Sehr selten",
+        "Very Rare": "Sehr selten",
+        "Ultra-rare": "Extrem selten",
+        "Ultra Rare": "Extrem selten"
+      },
+
+      speed: {
+        "Stationary": "Bewegt sich nicht",
+        "Very slow": "Sehr langsam",
+        "Slow": "Langsam",
+        "Medium": "Mittel",
+        "Fast": "Schnell",
+        "Very fast": "Sehr schnell"
+      }
+    };
+
+    const rarityRank = {
+      "Common": 1,
+      "Uncommon": 2,
+      "Rare": 3,
+      "Very rare": 4,
+      "Very Rare": 4,
+      "Ultra-rare": 5,
+      "Ultra Rare": 5
+    };
+
+    const monthNames = [
+      "Januar", "Februar", "März", "April", "Mai", "Juni",
+      "Juli", "August", "September", "Oktober", "November", "Dezember"
+    ];
+
+    function getCurrentGermanMonth() {
+      const now = new Date();
+      const month = now.toLocaleDateString("de-DE", { month: "long" });
+      return month.charAt(0).toUpperCase() + month.slice(1);
+    }
+
+    function updateTitle() {
+      const month = getCurrentGermanMonth();
+
+      document.getElementById("mainTitle").textContent =
+        `Animal Crossing: Jetzt fangbar im ${month}`;
+    }
+
+    function translateValue(category, value) {
+      if (!value || value === "") return "Keine Angabe";
+
+      if (translations[category] && translations[category][value]) {
+        return translations[category][value];
+      }
+
+      return value;
+    }
+
+    function translateShadow(value) {
+      if (!value || value === "") return "Keine Angabe";
+
+      const shadowTranslations = {
+        "Smallest": "Winzig",
+        "Small": "Klein",
+        "Medium": "Mittel",
+        "Large": "Groß",
+        "Largest": "Riesig",
+        "Narrow": "Schmal",
+        "Long and thin": "Lang und dünn",
+        "Medium with fin": "Mittel mit Flosse",
+        "Large with fin": "Groß mit Flosse",
+        "Largest with fin": "Riesig mit Flosse",
+        "Medium w/ fin": "Mittel mit Flosse",
+        "Large w/ fin": "Groß mit Flosse",
+        "Largest w/ fin": "Riesig mit Flosse",
+        "X-Small": "Sehr klein",
+        "X-Smallest": "Winzig",
+        "X-Large": "Sehr groß",
+        "Huge": "Riesig"
+      };
+
+      if (shadowTranslations[value]) {
+        return shadowTranslations[value];
+      }
+
+      return value
+        .replaceAll("Long and thin", "Lang und dünn")
+        .replaceAll("with fin", "mit Flosse")
+        .replaceAll("w/ fin", "mit Flosse")
+        .replaceAll("Smallest", "Winzig")
+        .replaceAll("Largest", "Riesig")
+        .replaceAll("Medium", "Mittel")
+        .replaceAll("Small", "Klein")
+        .replaceAll("Large", "Groß")
+        .replaceAll("Narrow", "Schmal");
+    }
+
+    function normalizeRarity(value) {
+      if (!value || value === "") return "Keine Angabe";
+      if (value === "Very Rare") return "Very rare";
+      if (value === "Ultra Rare") return "Ultra-rare";
+      return value;
+    }
+
+    function translateTime(timeText, isAllDay) {
+      if (isAllDay === true) return "";
+      if (!timeText || timeText === "") return "";
+
+      return timeText
+        .replace(/(\d{1,2})(am|pm)/gi, function(match, number, period) {
+          let hour = parseInt(number, 10);
+
+          if (period.toLowerCase() === "am") {
+            if (hour === 12) hour = 0;
+          } else {
+            if (hour !== 12) hour += 12;
+          }
+
+          return String(hour).padStart(2, "0") + ":00";
+        })
+        .replaceAll(" - ", " bis ")
+        .replaceAll(" & ", " und ");
+    }
+
+    function isAllDayCritter(critter) {
+      return critter.availability && critter.availability.isAllDay === true;
+    }
+
+    function hasTimeWindowCritter(critter) {
+      const availability = critter.availability;
+
+      if (!availability) return false;
+      if (availability.isAllDay === true) return false;
+
+      const hours = availability["time-array"] || [];
+
+      return hours.length > 0;
+    }
+
+    function areMonthsConsecutive(current, next) {
+      return next === current + 1 || (current === 12 && next === 1);
+    }
+
+    function getMonthAvailabilityText(critter, hemisphere) {
+      const availability = critter.availability;
+
+      if (!availability) return "";
+      if (availability.isAllYear === true) return "";
+
+      const monthKey = hemisphere === "northern"
+        ? "month-array-northern"
+        : "month-array-southern";
+
+      let months = availability[monthKey] || [];
+
+      months = [...new Set(months)].sort((a, b) => a - b);
+
+      if (months.length === 0) return "";
+      if (months.length === 12) return "";
+
+      let breaks = [];
+
+      for (let i = 0; i < months.length; i++) {
+        const current = months[i];
+        const next = months[(i + 1) % months.length];
+
+        if (!areMonthsConsecutive(current, next)) {
+          breaks.push(i);
+        }
+      }
+
+      let orderedMonths = months;
+
+      if (breaks.length === 1) {
+        const startIndex = (breaks[0] + 1) % months.length;
+        orderedMonths = months.slice(startIndex).concat(months.slice(0, startIndex));
+      }
+
+      const ranges = [];
+      let start = orderedMonths[0];
+      let previous = orderedMonths[0];
+
+      for (let i = 1; i < orderedMonths.length; i++) {
+        const current = orderedMonths[i];
+
+        if (areMonthsConsecutive(previous, current)) {
+          previous = current;
+        } else {
+          ranges.push([start, previous]);
+          start = current;
+          previous = current;
+        }
+      }
+
+      ranges.push([start, previous]);
+
+      return ranges.map(range => {
+        const from = monthNames[range[0] - 1];
+        const to = monthNames[range[1] - 1];
+
+        if (from === to) {
+          return from;
+        }
+
+        return `${from} bis ${to}`;
+      }).join(", ");
+    }
+
+    function isAvailableAt(critter, hemisphere, date) {
+      const availability = critter.availability;
+
+      const month = date.getMonth() + 1;
+      const hour = date.getHours();
+
+      const monthKey = hemisphere === "northern"
+        ? "month-array-northern"
+        : "month-array-southern";
+
+      const months = availability[monthKey] || [];
+      const hours = availability["time-array"] || [];
+
+      const monthOk = availability.isAllYear || months.includes(month);
+      const hourOk = availability.isAllDay || hours.includes(hour);
+
+      return monthOk && hourOk;
+    }
+
+    function getUnavailableDate(critter, hemisphere, now) {
+      const checkDate = new Date(now);
+
+      checkDate.setMinutes(0, 0, 0);
+      checkDate.setHours(checkDate.getHours() + 1);
+
+      for (let i = 0; i < 24 * 370; i++) {
+        if (!isAvailableAt(critter, hemisphere, checkDate)) {
+          return new Date(checkDate);
+        }
+
+        checkDate.setHours(checkDate.getHours() + 1);
+      }
+
+      return null;
+    }
+
+    function formatDuration(ms) {
+      const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+
+      if (totalSeconds < 60) {
+        return `${totalSeconds} Sek.`;
+      }
+
+      const totalMinutes = Math.floor(totalSeconds / 60);
+
+      if (totalMinutes < 60) {
+        return `${totalMinutes} Min.`;
+      }
+
+      const totalHours = Math.floor(totalMinutes / 60);
+
+      if (totalHours < 24) {
+        return `${totalHours} Std.`;
+      }
+
+      const totalDays = Math.floor(totalHours / 24);
+
+      if (totalDays < 7) {
+        if (totalDays === 1) {
+          return `${totalDays} Tag`;
+        }
+
+        return `${totalDays} Tage`;
+      }
+
+      const totalWeeks = Math.floor(totalDays / 7);
+      const restDays = totalDays % 7;
+
+      if (restDays === 0) {
+        if (totalWeeks === 1) {
+          return `${totalWeeks} Woche`;
+        }
+
+        return `${totalWeeks} Wochen`;
+      }
+
+      if (totalWeeks === 1) {
+        return `${totalWeeks} Woche ${restDays} Tage`;
+      }
+
+      return `${totalWeeks} Wochen ${restDays} Tage`;
+    }
+
+    function getRemainingInfo(critter, hemisphere, now) {
+      const endDate = getUnavailableDate(critter, hemisphere, now);
+
+      if (!endDate) {
+        return {
+          text: "Immer verfügbar",
+          ms: Infinity,
+          className: ""
+        };
+      }
+
+      const remainingMs = endDate - now;
+      const remainingText = "Noch " + formatDuration(remainingMs);
+
+      let className = "";
+
+      if (remainingMs <= 60 * 1000) {
+        className = "danger";
+      } else if (remainingMs <= 60 * 60 * 1000) {
+        className = "warning";
+      }
+
+      return {
+        text: remainingText,
+        ms: remainingMs,
+        className: className
+      };
+    }
+
+    function getGermanName(critter) {
+      if (critter.name && critter.name["name-EUde"]) {
+        return critter.name["name-EUde"];
+      }
+
+      if (critter.name && critter.name["name-USen"]) {
+        return critter.name["name-USen"];
+      }
+
+      return "Unbekannt";
+    }
+
+    function getImageUrl(critter, folder) {
+      const fileName = critter["file-name"];
+
+      if (!fileName) {
+        return "";
+      }
+
+      return `https://raw.githubusercontent.com/alexislours/ACNHAPI/master/icons/${folder}/${fileName}.png`;
+    }
+
+    async function loadData(forceReload = false) {
+      const list = document.getElementById("list");
+      const status = document.getElementById("status");
+
+      updateTitle();
+
+      if (rawCritters.length > 0 && !forceReload) {
+        renderCritters();
+        return;
+      }
+
+      list.innerHTML = "";
+      status.textContent = "Daten werden geladen...";
+
+      try {
+        rawCritters = [];
+
+        for (const endpoint of endpoints) {
+          const response = await fetch(endpoint.url);
+
+          if (!response.ok) {
+            throw new Error("Konnte diese Datei nicht laden: " + endpoint.url);
+          }
+
+          const data = await response.json();
+
+          const preparedData = data.map(critter => {
+            return {
+              ...critter,
+              type: endpoint.type,
+              folder: endpoint.folder
+            };
+          });
+
+          rawCritters = rawCritters.concat(preparedData);
+        }
+
+        renderCritters();
+
+      } catch (error) {
+        status.textContent = "Fehler: Daten konnten nicht geladen werden.";
+
+        list.innerHTML = `
+          <div class="error">
+            <p><strong>Fehlerdetails:</strong></p>
+            <p>${error.message}</p>
+          </div>
+        `;
+
+        console.error(error);
+      }
+    }
+
+    function sortByEnding(a, b) {
+      if (a.remainingMs === Infinity && b.remainingMs === Infinity) {
+        return a.name.localeCompare(b.name);
+      }
+
+      if (a.remainingMs === Infinity) {
+        return 1;
+      }
+
+      if (b.remainingMs === Infinity) {
+        return -1;
+      }
+
+      return a.remainingMs - b.remainingMs;
+    }
+
+    function renderCritters() {
+      const list = document.getElementById("list");
+      const status = document.getElementById("status");
+
+      updateTitle();
+
+      const hemisphere = document.getElementById("hemisphere").value;
+      const category = document.getElementById("category").value;
+      const timeFilter = document.getElementById("timeFilter").value;
+      const sort = document.getElementById("sort").value;
+
+      const now = new Date();
+
+      let allCritters = rawCritters
+        .filter(critter => isAvailableAt(critter, hemisphere, now))
+        .map(critter => {
+          const remaining = getRemainingInfo(critter, hemisphere, now);
+          const originalRarity = normalizeRarity(critter.availability.rarity);
+
+          return {
+            original: critter,
+            type: critter.type,
+            name: getGermanName(critter),
+            image: getImageUrl(critter, critter.folder),
+            location: translateValue("location", critter.availability.location),
+            rarityOriginal: originalRarity,
+            rarity: translateValue("rarity", originalRarity),
+            rarityNumber: rarityRank[originalRarity] || 0,
+            time: translateTime(critter.availability.time, critter.availability.isAllDay),
+            monthsText: getMonthAvailabilityText(critter, hemisphere),
+            isAllDay: isAllDayCritter(critter),
+            hasTimeWindow: hasTimeWindowCritter(critter),
+            shadow: translateShadow(critter.shadow),
+            speed: translateValue("speed", critter.speed),
+            remainingText: remaining.text,
+            remainingMs: remaining.ms,
+            remainingClass: remaining.className
+          };
+        });
+
+      if (category !== "all") {
+        allCritters = allCritters.filter(critter => critter.type === category);
+      }
+
+      if (timeFilter === "allDay") {
+        allCritters = allCritters.filter(critter => critter.isAllDay);
+      }
+
+      if (timeFilter === "timeWindow") {
+        allCritters = allCritters.filter(critter => critter.hasTimeWindow);
+      }
+
+      if (sort === "ending") {
+        allCritters.sort(sortByEnding);
+      }
+
+      if (sort === "rarity") {
+        allCritters.sort((a, b) => {
+          if (b.rarityNumber !== a.rarityNumber) {
+            return b.rarityNumber - a.rarityNumber;
+          }
+
+          return sortByEnding(a, b);
+        });
+      }
+
+      if (sort === "name") {
+        allCritters.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (sort === "type") {
+        allCritters.sort((a, b) => {
+          if (a.type !== b.type) {
+            return a.type.localeCompare(b.type);
+          }
+
+          return sortByEnding(a, b);
+        });
+      }
+
+      status.textContent =
+        `Gefunden: ${allCritters.length} Tiere | Datum: ${now.toLocaleDateString("de-DE")} | Uhrzeit: ${now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`;
+
+      list.innerHTML = "";
+
+      if (allCritters.length === 0) {
+        list.innerHTML = `
+          <div class="error">
+            Aktuell wurde nichts gefunden.
+          </div>
+        `;
+        return;
+      }
+
+      allCritters.forEach(critter => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        let timeInfo = "";
+
+        if (critter.time && critter.time !== "") {
+          timeInfo = `<p class="small">Zeit: ${critter.time}</p>`;
+        }
+
+        let monthInfo = "";
+
+        if (critter.monthsText && critter.monthsText !== "") {
+          monthInfo = `<p class="small">Verfügbar: ${critter.monthsText}</p>`;
+        }
+
+        let extraInfo = "";
+
+        if (critter.shadow && critter.shadow !== "Keine Angabe") {
+          extraInfo += `<p class="small">Schatten: ${critter.shadow}</p>`;
+        }
+
+        if (critter.speed && critter.speed !== "Keine Angabe") {
+          extraInfo += `<p class="small">Geschwindigkeit: ${critter.speed}</p>`;
+        }
+
+        card.innerHTML = `
+          <img src="${critter.image}" alt="${critter.name}" onerror="this.style.display='none'">
+          <h3>${critter.name}</h3>
+          <div class="tag">${critter.type}</div>
+          <p class="small">Ort: ${critter.location}</p>
+          ${timeInfo}
+          ${monthInfo}
+          <p class="small">Seltenheit: ${critter.rarity}</p>
+          ${extraInfo}
+          <div class="counter ${critter.remainingClass}">
+            ${critter.remainingText}
+          </div>
+        `;
+
+        list.appendChild(card);
+      });
+    }
+
+    document.getElementById("hemisphere").addEventListener("change", renderCritters);
+    document.getElementById("category").addEventListener("change", renderCritters);
+    document.getElementById("timeFilter").addEventListener("change", renderCritters);
+    document.getElementById("sort").addEventListener("change", renderCritters);
+
+    loadData();
+
+    setInterval(renderCritters, 1000);
+  </script>
+
+</body>
+</html>
