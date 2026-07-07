@@ -19,6 +19,155 @@
       overflow-x: hidden;
     }
 
+    body {
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(159, 206, 112, 0.18), transparent 28%),
+        radial-gradient(circle at 82% 14%, rgba(255, 231, 121, 0.12), transparent 26%),
+        linear-gradient(180deg, #09110d 0%, #111c15 48%, #172417 100%);
+      color: #f7efd8;
+    }
+
+    body.dark-mode h1 {
+      color: #fff6d2;
+      text-shadow: 0 0 18px rgba(255, 236, 134, 0.18);
+    }
+
+    body.dark-mode select,
+    body.dark-mode button {
+      background: #202d22;
+      color: #f7efd8;
+      border-color: #5a6d52;
+    }
+
+    body.dark-mode button:hover,
+    body.dark-mode .filter-toggle:hover,
+    body.dark-mode .menu-button:hover {
+      background: #2d3e2d;
+    }
+
+    body.dark-mode .menu-button,
+    body.dark-mode .filter-toggle,
+    body.dark-mode .card,
+    body.dark-mode .progress-card,
+    body.dark-mode .filter-panel,
+    body.dark-mode .modal,
+    body.dark-mode .error,
+    body.dark-mode .app-menu-panel {
+      background: rgba(24, 34, 26, 0.96);
+      border-color: #485a43;
+      color: #f7efd8;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.34);
+    }
+
+    body.dark-mode .menu-line {
+      background: #f7efd8;
+    }
+
+    body.dark-mode .menu-button.active,
+    body.dark-mode .filter-toggle.active {
+      background: #24452c;
+      border-color: #8acb75;
+    }
+
+    body.dark-mode .menu-switch,
+    body.dark-mode .time-insight {
+      background: rgba(67, 54, 25, 0.9);
+      border-color: #a78b3f;
+      color: #fff0b8;
+    }
+
+    body.dark-mode .menu-note,
+    body.dark-mode .small,
+    body.dark-mode .progress-details,
+    body.dark-mode .progress-title span:last-child,
+    body.dark-mode .fact-label {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .tag {
+      background: #2f4c35;
+      color: #dbffd8;
+    }
+
+    body.dark-mode .progress-bar {
+      background: #33402e;
+    }
+
+    body.dark-mode .progress-bar-fill {
+      background: #9ad27d;
+    }
+
+    body.dark-mode .progress-card.museum .progress-bar-fill {
+      background: #84cfa2;
+    }
+
+    body.dark-mode .counter {
+      background: #173d21;
+      color: #b7f5b8;
+    }
+
+    body.dark-mode .counter.warning {
+      background: #4a3d19;
+      color: #ffe18a;
+    }
+
+    body.dark-mode .counter.danger {
+      background: #4b2020;
+      color: #ffb5b5;
+    }
+
+    body.dark-mode .counter.unavailable {
+      background: #2b302c;
+      color: #d2d2cc;
+    }
+
+    body.dark-mode .modal-overlay {
+      background: rgba(0,0,0,0.68);
+    }
+
+    body.dark-mode .animal-blurb,
+    body.dark-mode .fact-card,
+    body.dark-mode .status-toggle {
+      background: #1d2b20;
+      border-color: #425640;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .status-toggle.active {
+      background: #214b2c;
+      border-color: #93d27b;
+      color: #cfffbc;
+    }
+
+    body.dark-mode .status-icon {
+      background: #384237;
+      color: #d8d1bd;
+    }
+
+    body.dark-mode .fact-value,
+    body.dark-mode .knowledge-text {
+      color: #f7efd8;
+    }
+
+    body.dark-mode .price-tile {
+      background: #123d22;
+      color: #c6ffc8;
+    }
+
+    body.dark-mode .price-tile span {
+      color: #8ee29a;
+    }
+
+    body.dark-mode .modal-close {
+      background: #2d3b2f;
+      color: #f7efd8;
+    }
+
+
     .ambient-layer {
       position: fixed;
       inset: 0;
@@ -169,6 +318,40 @@
       display: block;
       animation: ambientFlutter 0.9s ease-in-out infinite alternate;
       transform-origin: center;
+    }
+
+    .ambient-critter.firefly {
+      left: -50px;
+      filter: drop-shadow(0 0 8px rgba(220,255,126,0.75));
+      opacity: var(--opacity);
+    }
+
+    .ambient-critter.firefly span {
+      width: var(--firefly-size);
+      height: var(--firefly-size);
+      border-radius: 999px;
+      background: radial-gradient(circle, #fffbd0 0%, #ddff87 42%, rgba(180, 255, 89, 0.28) 72%, transparent 100%);
+      box-shadow:
+        0 0 8px rgba(234,255,139,0.9),
+        0 0 18px rgba(177,255,92,0.55),
+        0 0 32px rgba(134,255,77,0.25);
+      animation: fireflyGlow var(--glow-duration) ease-in-out infinite alternate, ambientFlutter 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes fireflyGlow {
+      0% {
+        opacity: 0.35;
+        transform: scale(0.75) translateY(-3px);
+      }
+
+      55% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.65;
+        transform: scale(1.18) translateY(4px);
+      }
     }
 
     @keyframes ambientFly {
@@ -903,11 +1086,11 @@
       </label>
 
       <label class="menu-switch">
-        <span>Hintergrundmelodie</span>
-        <input id="musicToggle" type="checkbox" checked onchange="setMusicPreference(this.checked)">
+        <span>Dunkelmodus</span>
+        <input id="darkModeToggle" type="checkbox" onchange="setDarkModePreference(this.checked)">
       </label>
 
-      <p id="musicHint" class="menu-note">Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick.</p>
+      <p class="menu-note">Im Dunkelmodus fliegen Glühwürmchen im Hintergrund.</p>
     </div>
   </div>
 
@@ -1033,28 +1216,7 @@
 
     const progressStorageKey = "acnhCritterProgress";
     const animationStorageKey = "acnhAmbientAnimations";
-    const musicStorageKey = "acnhBackgroundMelody";
-
-    let musicAudioContext = null;
-    let musicMasterGain = null;
-    let musicTimer = null;
-    let musicStep = 0;
-    let isMusicPlaying = false;
-
-    const melodyNotes = [
-      { frequency: 392.00, duration: 0.45 },
-      { frequency: 440.00, duration: 0.45 },
-      { frequency: 523.25, duration: 0.70 },
-      { frequency: 493.88, duration: 0.45 },
-      { frequency: 440.00, duration: 0.65 },
-      { frequency: null, duration: 0.30 },
-      { frequency: 349.23, duration: 0.45 },
-      { frequency: 392.00, duration: 0.45 },
-      { frequency: 440.00, duration: 0.70 },
-      { frequency: 392.00, duration: 0.50 },
-      { frequency: 329.63, duration: 0.80 },
-      { frequency: null, duration: 0.70 }
-    ];
+    const darkModeStorageKey = "acnhDarkMode";
 
     const translations = {
       location: {
@@ -1166,140 +1328,22 @@
     }
 
 
-    function areMusicEnabled() {
-      return localStorage.getItem(musicStorageKey) !== "false";
+    function isDarkModeEnabled() {
+      return localStorage.getItem(darkModeStorageKey) === "true";
     }
 
-    function updateMusicToggle(enabled, hintText) {
-      const toggle = document.getElementById("musicToggle");
-      const hint = document.getElementById("musicHint");
+    function setDarkModePreference(enabled, refreshAmbient = true) {
+      localStorage.setItem(darkModeStorageKey, enabled ? "true" : "false");
+      document.body.classList.toggle("dark-mode", enabled);
+
+      const toggle = document.getElementById("darkModeToggle");
 
       if (toggle) {
         toggle.checked = enabled;
       }
 
-      if (hint && hintText) {
-        hint.textContent = hintText;
-      }
-    }
-
-    async function startMelody() {
-      if (isMusicPlaying) return true;
-
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextClass) {
-        updateMusicToggle(false, "Dein Browser unterstützt leider keine Hintergrundmelodie.");
-        return false;
-      }
-
-      if (!musicAudioContext) {
-        musicAudioContext = new AudioContextClass();
-        musicMasterGain = musicAudioContext.createGain();
-        musicMasterGain.gain.value = 0.035;
-        musicMasterGain.connect(musicAudioContext.destination);
-      }
-
-      try {
-        if (musicAudioContext.state === "suspended") {
-          await musicAudioContext.resume();
-        }
-      } catch (error) {
-        updateMusicToggle(false, "Die Melodie konnte nicht gestartet werden. Bitte noch einmal antippen.");
-        return false;
-      }
-
-      if (musicAudioContext.state !== "running") {
-        updateMusicToggle(false, "Die Melodie wartet auf eine Aktion von dir. Bitte noch einmal antippen.");
-        return false;
-      }
-
-      isMusicPlaying = true;
-      document.body.classList.add("music-on");
-
-      if (musicMasterGain) {
-        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
-        musicMasterGain.gain.setTargetAtTime(0.035, musicAudioContext.currentTime, 0.08);
-      }
-
-      playMelodyStep();
-      updateMusicToggle(true, "Melodie läuft leise im Hintergrund.");
-      return true;
-    }
-
-    function playMelodyStep() {
-      if (!isMusicPlaying || !musicAudioContext || !musicMasterGain) return;
-
-      const note = melodyNotes[musicStep % melodyNotes.length];
-      musicStep += 1;
-
-      if (note.frequency) {
-        const now = musicAudioContext.currentTime;
-        const oscillator = musicAudioContext.createOscillator();
-        const noteGain = musicAudioContext.createGain();
-
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(note.frequency, now);
-
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
-        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + note.duration);
-
-        oscillator.connect(noteGain);
-        noteGain.connect(musicMasterGain);
-
-        oscillator.start(now);
-        oscillator.stop(now + note.duration + 0.05);
-      }
-
-      musicTimer = window.setTimeout(playMelodyStep, (note.duration + 0.08) * 1000);
-    }
-
-    function stopMelody() {
-      isMusicPlaying = false;
-      document.body.classList.remove("music-on");
-
-      if (musicTimer) {
-        clearTimeout(musicTimer);
-        musicTimer = null;
-      }
-
-      if (musicAudioContext && musicMasterGain) {
-        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
-        musicMasterGain.gain.setTargetAtTime(0.0001, musicAudioContext.currentTime, 0.08);
-      }
-
-      updateMusicToggle(false, "Die Melodie ist ausgeschaltet.");
-    }
-
-    async function setMusicPreference(enabled) {
-      localStorage.setItem(musicStorageKey, enabled ? "true" : "false");
-
-      if (enabled) {
-        const started = await startMelody();
-
-        if (!started) {
-          localStorage.setItem(musicStorageKey, "false");
-          stopMelody();
-        }
-      } else {
-        stopMelody();
-      }
-    }
-
-    function initializeMusicPreference() {
-      const enabled = areMusicEnabled();
-      updateMusicToggle(enabled, enabled ? "Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick." : "Die Melodie ist ausgeschaltet.");
-
-      if (enabled) {
-        const startAfterInteraction = () => {
-          if (areMusicEnabled() && !isMusicPlaying) {
-            startMelody();
-          }
-        };
-
-        document.addEventListener("pointerdown", startAfterInteraction, { once: true });
-        document.addEventListener("keydown", startAfterInteraction, { once: true });
+      if (refreshAmbient) {
+        createAmbientAnimations();
       }
     }
 
@@ -1326,21 +1370,26 @@
 
       layer.innerHTML = "";
 
+      const darkMode = document.body.classList.contains("dark-mode");
       const symbols = ["🦋", "🦋", "🦋", "🍃", "✨"];
+      const totalItems = darkMode ? 26 : 14;
 
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < totalItems; i++) {
         const wrapper = document.createElement("div");
         const inner = document.createElement("span");
 
-        wrapper.className = "ambient-critter";
-        inner.textContent = symbols[i % symbols.length];
+        wrapper.className = darkMode ? "ambient-critter firefly" : "ambient-critter";
 
-        const top = 8 + ((i * 7) % 82);
-        const size = 18 + ((i * 5) % 17);
-        const duration = 22 + ((i * 4) % 18);
-        const delay = -1 * ((i * 6) % 36);
-        const drift = (i % 2 === 0 ? 1 : -1) * (18 + ((i * 9) % 38));
-        const opacity = i % 5 === 4 ? 0.32 : 0.5;
+        if (!darkMode) {
+          inner.textContent = symbols[i % symbols.length];
+        }
+
+        const top = darkMode ? 10 + ((i * 11) % 78) : 8 + ((i * 7) % 82);
+        const size = darkMode ? 9 + ((i * 3) % 9) : 18 + ((i * 5) % 17);
+        const duration = darkMode ? 24 + ((i * 5) % 24) : 22 + ((i * 4) % 18);
+        const delay = -1 * (darkMode ? ((i * 4) % 42) : ((i * 6) % 36));
+        const drift = (i % 2 === 0 ? 1 : -1) * (darkMode ? 28 + ((i * 7) % 52) : 18 + ((i * 9) % 38));
+        const opacity = darkMode ? 0.5 + ((i % 5) * 0.1) : (i % 5 === 4 ? 0.32 : 0.5);
 
         wrapper.style.setProperty("--top", top + "vh");
         wrapper.style.setProperty("--size", size + "px");
@@ -1348,6 +1397,11 @@
         wrapper.style.setProperty("--delay", delay + "s");
         wrapper.style.setProperty("--drift", drift + "px");
         wrapper.style.setProperty("--opacity", opacity);
+
+        if (darkMode) {
+          wrapper.style.setProperty("--firefly-size", size + "px");
+          wrapper.style.setProperty("--glow-duration", (1.4 + ((i % 6) * 0.35)).toFixed(2) + "s");
+        }
 
         wrapper.appendChild(inner);
         layer.appendChild(wrapper);
@@ -2663,8 +2717,8 @@
     document.getElementById("progressFilter").addEventListener("change", renderCritters);
     document.getElementById("sort").addEventListener("change", renderCritters);
 
+    setDarkModePreference(isDarkModeEnabled(), false);
     createAmbientAnimations();
-    initializeMusicPreference();
 
     loadData();
 
