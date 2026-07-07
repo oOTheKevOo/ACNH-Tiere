@@ -9,201 +9,11 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.85), transparent 32%),
-        radial-gradient(circle at top right, rgba(195,232,201,0.45), transparent 34%),
-        linear-gradient(180deg, #f7f0df 0%, #f4efe3 55%, #eee2cf 100%);
+      background: #f4efe3;
       margin: 0;
       padding: 20px;
       color: #222;
-      overflow-x: hidden;
     }
-
-    .ambient-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    body > *:not(.ambient-layer) {
-      position: relative;
-      z-index: 1;
-    }
-
-    body.animations-off .ambient-layer {
-      display: none;
-    }
-
-
-    .app-menu {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      z-index: 5000;
-      isolation: isolate;
-    }
-
-    .menu-button {
-      width: 52px;
-      height: 52px;
-      min-width: 52px;
-      padding: 0;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.94);
-      border: 1px solid #d8cbb8;
-      box-shadow: 0 3px 14px rgba(0,0,0,0.18);
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .menu-button:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-      background: #fffdf6;
-    }
-
-    .menu-button.active {
-      background: #e8f5e9;
-      border-color: #6abf69;
-    }
-
-    .menu-line {
-      width: 24px;
-      height: 3px;
-      border-radius: 999px;
-      background: #4b3b2d;
-      display: block;
-    }
-
-    .app-menu-panel {
-      display: none;
-      position: absolute;
-      top: 62px;
-      right: 0;
-      z-index: 5001;
-      width: min(320px, calc(100vw - 28px));
-      background: rgba(255,255,255,0.96);
-      border: 1px solid #e1d7c8;
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.24);
-      backdrop-filter: blur(8px);
-    }
-
-    .app-menu-panel.show {
-      display: block;
-      animation: panelDrop 0.18s ease-out;
-    }
-
-    .app-menu-title {
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .menu-switch {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: #fff9e8;
-      border: 1px solid #ead38e;
-      border-radius: 14px;
-      padding: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      margin-top: 10px;
-    }
-
-    .menu-switch input {
-      width: 22px;
-      height: 22px;
-      accent-color: #7abf7a;
-      flex: 0 0 auto;
-    }
-
-    .menu-note {
-      font-size: 13px;
-      color: #6a5a45;
-      line-height: 1.35;
-      margin: 10px 2px 0 2px;
-      text-align: center;
-    }
-
-    .ambient-critter {
-      position: absolute;
-      left: -80px;
-      top: var(--top);
-      font-size: var(--size);
-      opacity: var(--opacity);
-      animation: ambientFly var(--duration) linear infinite;
-      animation-delay: var(--delay);
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.16));
-      will-change: transform;
-    }
-
-    .ambient-critter span {
-      display: block;
-      animation: ambientFlutter 0.9s ease-in-out infinite alternate;
-      transform-origin: center;
-    }
-
-    @keyframes ambientFly {
-      0% {
-        transform: translateX(-12vw) translateY(0) rotate(-6deg);
-      }
-
-      50% {
-        transform: translateX(50vw) translateY(var(--drift)) rotate(7deg);
-      }
-
-      100% {
-        transform: translateX(118vw) translateY(0) rotate(-4deg);
-      }
-    }
-
-    @keyframes ambientFlutter {
-      from {
-        transform: translateY(-4px) rotate(-9deg) scale(0.96);
-      }
-
-      to {
-        transform: translateY(4px) rotate(9deg) scale(1.04);
-      }
-    }
-
-    @keyframes panelDrop {
-      from {
-        opacity: 0;
-        transform: translateY(-8px) scale(0.98);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes modalPop {
-      from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.97);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
 
     h1 {
       text-align: center;
@@ -238,12 +48,6 @@
       justify-content: center;
       background: #fff;
       box-shadow: 0 2px 10px rgba(0,0,0,0.18);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .filter-toggle:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 5px 16px rgba(0,0,0,0.2);
     }
 
     .filter-toggle svg {
@@ -269,7 +73,6 @@
 
     .filter-panel.show {
       display: block;
-      animation: panelDrop 0.18s ease-out;
     }
 
     .filter-panel-title {
@@ -277,32 +80,6 @@
       font-weight: bold;
       margin-bottom: 12px;
       font-size: 18px;
-    }
-
-    .animation-control {
-      display: flex;
-      justify-content: center;
-      margin-top: 14px;
-    }
-
-    .animation-switch {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff9e8;
-      border: 1px solid #ead38e;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .animation-switch input {
-      width: 20px;
-      height: 20px;
-      accent-color: #7abf7a;
     }
 
     .refresh-button {
@@ -595,10 +372,6 @@
       display: flex;
     }
 
-    .modal-overlay.show .modal {
-      animation: modalPop 0.2s ease-out;
-    }
-
     .modal {
       background: #fff;
       width: min(680px, 100%);
@@ -747,21 +520,6 @@
       margin-bottom: 3px;
     }
 
-
-    @media (prefers-reduced-motion: reduce) {
-      .ambient-layer {
-        display: none;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
     @media (max-width: 760px) {
       body {
         padding: 12px;
@@ -770,24 +528,6 @@
       h1 {
         font-size: 32px;
         margin-bottom: 14px;
-        padding-left: 54px;
-        padding-right: 54px;
-      }
-
-
-      .app-menu {
-        top: 10px;
-        right: 10px;
-      }
-
-      .menu-button {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-      }
-
-      .app-menu-panel {
-        top: 56px;
       }
 
       .progress-overview {
@@ -851,33 +591,6 @@
 </head>
 
 <body>
-
-  <div id="ambientLayer" class="ambient-layer" aria-hidden="true"></div>
-
-
-  <div id="appMenu" class="app-menu">
-    <button id="appMenuButton" class="menu-button" type="button" onclick="toggleAppMenu()" aria-label="Menü öffnen" aria-expanded="false" title="Menü">
-      <span class="menu-line"></span>
-      <span class="menu-line"></span>
-      <span class="menu-line"></span>
-    </button>
-
-    <div id="appMenuPanel" class="app-menu-panel">
-      <div class="app-menu-title">Einstellungen</div>
-
-      <label class="menu-switch">
-        <span>Animationen anzeigen</span>
-        <input id="animationToggle" type="checkbox" checked onchange="setAnimationPreference(this.checked)">
-      </label>
-
-      <label class="menu-switch">
-        <span>Hintergrundmelodie</span>
-        <input id="musicToggle" type="checkbox" checked onchange="setMusicPreference(this.checked)">
-      </label>
-
-      <p id="musicHint" class="menu-note">Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick.</p>
-    </div>
-  </div>
 
   <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
 
@@ -1000,29 +713,6 @@
     let activeCritterKey = null;
 
     const progressStorageKey = "acnhCritterProgress";
-    const animationStorageKey = "acnhAmbientAnimations";
-    const musicStorageKey = "acnhBackgroundMelody";
-
-    let musicAudioContext = null;
-    let musicMasterGain = null;
-    let musicTimer = null;
-    let musicStep = 0;
-    let isMusicPlaying = false;
-
-    const melodyNotes = [
-      { frequency: 392.00, duration: 0.45 },
-      { frequency: 440.00, duration: 0.45 },
-      { frequency: 523.25, duration: 0.70 },
-      { frequency: 493.88, duration: 0.45 },
-      { frequency: 440.00, duration: 0.65 },
-      { frequency: null, duration: 0.30 },
-      { frequency: 349.23, duration: 0.45 },
-      { frequency: 392.00, duration: 0.45 },
-      { frequency: 440.00, duration: 0.70 },
-      { frequency: 392.00, duration: 0.50 },
-      { frequency: 329.63, duration: 0.80 },
-      { frequency: null, duration: 0.70 }
-    ];
 
     const translations = {
       location: {
@@ -1116,211 +806,6 @@
 
     function saveProgress(progress) {
       localStorage.setItem(progressStorageKey, JSON.stringify(progress));
-    }
-
-    function areAnimationsEnabled() {
-      return localStorage.getItem(animationStorageKey) !== "false";
-    }
-
-    function setAnimationPreference(enabled) {
-      localStorage.setItem(animationStorageKey, enabled ? "true" : "false");
-      document.body.classList.toggle("animations-off", !enabled);
-
-      const toggle = document.getElementById("animationToggle");
-
-      if (toggle) {
-        toggle.checked = enabled;
-      }
-    }
-
-
-    function areMusicEnabled() {
-      return localStorage.getItem(musicStorageKey) !== "false";
-    }
-
-    function updateMusicToggle(enabled, hintText) {
-      const toggle = document.getElementById("musicToggle");
-      const hint = document.getElementById("musicHint");
-
-      if (toggle) {
-        toggle.checked = enabled;
-      }
-
-      if (hint && hintText) {
-        hint.textContent = hintText;
-      }
-    }
-
-    async function startMelody() {
-      if (isMusicPlaying) return true;
-
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextClass) {
-        updateMusicToggle(false, "Dein Browser unterstützt leider keine Hintergrundmelodie.");
-        return false;
-      }
-
-      if (!musicAudioContext) {
-        musicAudioContext = new AudioContextClass();
-        musicMasterGain = musicAudioContext.createGain();
-        musicMasterGain.gain.value = 0.035;
-        musicMasterGain.connect(musicAudioContext.destination);
-      }
-
-      try {
-        if (musicAudioContext.state === "suspended") {
-          await musicAudioContext.resume();
-        }
-      } catch (error) {
-        updateMusicToggle(false, "Die Melodie konnte nicht gestartet werden. Bitte noch einmal antippen.");
-        return false;
-      }
-
-      if (musicAudioContext.state !== "running") {
-        updateMusicToggle(false, "Die Melodie wartet auf eine Aktion von dir. Bitte noch einmal antippen.");
-        return false;
-      }
-
-      isMusicPlaying = true;
-      document.body.classList.add("music-on");
-
-      if (musicMasterGain) {
-        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
-        musicMasterGain.gain.setTargetAtTime(0.035, musicAudioContext.currentTime, 0.08);
-      }
-
-      playMelodyStep();
-      updateMusicToggle(true, "Melodie läuft leise im Hintergrund.");
-      return true;
-    }
-
-    function playMelodyStep() {
-      if (!isMusicPlaying || !musicAudioContext || !musicMasterGain) return;
-
-      const note = melodyNotes[musicStep % melodyNotes.length];
-      musicStep += 1;
-
-      if (note.frequency) {
-        const now = musicAudioContext.currentTime;
-        const oscillator = musicAudioContext.createOscillator();
-        const noteGain = musicAudioContext.createGain();
-
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(note.frequency, now);
-
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
-        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + note.duration);
-
-        oscillator.connect(noteGain);
-        noteGain.connect(musicMasterGain);
-
-        oscillator.start(now);
-        oscillator.stop(now + note.duration + 0.05);
-      }
-
-      musicTimer = window.setTimeout(playMelodyStep, (note.duration + 0.08) * 1000);
-    }
-
-    function stopMelody() {
-      isMusicPlaying = false;
-      document.body.classList.remove("music-on");
-
-      if (musicTimer) {
-        clearTimeout(musicTimer);
-        musicTimer = null;
-      }
-
-      if (musicAudioContext && musicMasterGain) {
-        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
-        musicMasterGain.gain.setTargetAtTime(0.0001, musicAudioContext.currentTime, 0.08);
-      }
-
-      updateMusicToggle(false, "Die Melodie ist ausgeschaltet.");
-    }
-
-    async function setMusicPreference(enabled) {
-      localStorage.setItem(musicStorageKey, enabled ? "true" : "false");
-
-      if (enabled) {
-        const started = await startMelody();
-
-        if (!started) {
-          localStorage.setItem(musicStorageKey, "false");
-          stopMelody();
-        }
-      } else {
-        stopMelody();
-      }
-    }
-
-    function initializeMusicPreference() {
-      const enabled = areMusicEnabled();
-      updateMusicToggle(enabled, enabled ? "Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick." : "Die Melodie ist ausgeschaltet.");
-
-      if (enabled) {
-        const startAfterInteraction = () => {
-          if (areMusicEnabled() && !isMusicPlaying) {
-            startMelody();
-          }
-        };
-
-        document.addEventListener("pointerdown", startAfterInteraction, { once: true });
-        document.addEventListener("keydown", startAfterInteraction, { once: true });
-      }
-    }
-
-    function toggleAppMenu(forceState) {
-      const panel = document.getElementById("appMenuPanel");
-      const button = document.getElementById("appMenuButton");
-
-      if (!panel || !button) return;
-
-      const shouldShow = typeof forceState === "boolean"
-        ? forceState
-        : !panel.classList.contains("show");
-
-      panel.classList.toggle("show", shouldShow);
-      button.classList.toggle("active", shouldShow);
-      button.setAttribute("aria-expanded", shouldShow ? "true" : "false");
-    }
-
-    function createAmbientAnimations() {
-      const layer = document.getElementById("ambientLayer");
-
-      if (!layer) return;
-
-      layer.innerHTML = "";
-
-      const symbols = ["🦋", "🦋", "🦋", "🍃", "✨"];
-
-      for (let i = 0; i < 14; i++) {
-        const wrapper = document.createElement("div");
-        const inner = document.createElement("span");
-
-        wrapper.className = "ambient-critter";
-        inner.textContent = symbols[i % symbols.length];
-
-        const top = 8 + ((i * 7) % 82);
-        const size = 18 + ((i * 5) % 17);
-        const duration = 22 + ((i * 4) % 18);
-        const delay = -1 * ((i * 6) % 36);
-        const drift = (i % 2 === 0 ? 1 : -1) * (18 + ((i * 9) % 38));
-        const opacity = i % 5 === 4 ? 0.32 : 0.5;
-
-        wrapper.style.setProperty("--top", top + "vh");
-        wrapper.style.setProperty("--size", size + "px");
-        wrapper.style.setProperty("--duration", duration + "s");
-        wrapper.style.setProperty("--delay", delay + "s");
-        wrapper.style.setProperty("--drift", drift + "px");
-        wrapper.style.setProperty("--opacity", opacity);
-
-        wrapper.appendChild(inner);
-        layer.appendChild(wrapper);
-      }
-
-      setAnimationPreference(areAnimationsEnabled());
     }
 
     function getCritterStorageKey(critter) {
@@ -2607,16 +2092,6 @@
       if (event.key === "Escape") {
         closeCritterDetail();
         toggleFilterPanel(false);
-        toggleAppMenu(false);
-      }
-    });
-
-
-    document.addEventListener("click", event => {
-      const appMenu = document.getElementById("appMenu");
-
-      if (appMenu && !appMenu.contains(event.target)) {
-        toggleAppMenu(false);
       }
     });
 
@@ -2626,9 +2101,6 @@
     document.getElementById("timeFilter").addEventListener("change", renderCritters);
     document.getElementById("progressFilter").addEventListener("change", renderCritters);
     document.getElementById("sort").addEventListener("change", renderCritters);
-
-    createAmbientAnimations();
-    initializeMusicPreference();
 
     loadData();
 
