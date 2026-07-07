@@ -9,11 +9,201 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4efe3;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.85), transparent 32%),
+        radial-gradient(circle at top right, rgba(195,232,201,0.45), transparent 34%),
+        linear-gradient(180deg, #f7f0df 0%, #f4efe3 55%, #eee2cf 100%);
       margin: 0;
       padding: 20px;
       color: #222;
+      overflow-x: hidden;
     }
+
+    .ambient-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    body > *:not(.ambient-layer) {
+      position: relative;
+      z-index: 1;
+    }
+
+    body.animations-off .ambient-layer {
+      display: none;
+    }
+
+
+    .app-menu {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 5000;
+      isolation: isolate;
+    }
+
+    .menu-button {
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
+      padding: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid #d8cbb8;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.18);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .menu-button:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+      background: #fffdf6;
+    }
+
+    .menu-button.active {
+      background: #e8f5e9;
+      border-color: #6abf69;
+    }
+
+    .menu-line {
+      width: 24px;
+      height: 3px;
+      border-radius: 999px;
+      background: #4b3b2d;
+      display: block;
+    }
+
+    .app-menu-panel {
+      display: none;
+      position: absolute;
+      top: 62px;
+      right: 0;
+      z-index: 5001;
+      width: min(320px, calc(100vw - 28px));
+      background: rgba(255,255,255,0.96);
+      border: 1px solid #e1d7c8;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.24);
+      backdrop-filter: blur(8px);
+    }
+
+    .app-menu-panel.show {
+      display: block;
+      animation: panelDrop 0.18s ease-out;
+    }
+
+    .app-menu-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .menu-switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #fff9e8;
+      border: 1px solid #ead38e;
+      border-radius: 14px;
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 10px;
+    }
+
+    .menu-switch input {
+      width: 22px;
+      height: 22px;
+      accent-color: #7abf7a;
+      flex: 0 0 auto;
+    }
+
+    .menu-note {
+      font-size: 13px;
+      color: #6a5a45;
+      line-height: 1.35;
+      margin: 10px 2px 0 2px;
+      text-align: center;
+    }
+
+    .ambient-critter {
+      position: absolute;
+      left: -80px;
+      top: var(--top);
+      font-size: var(--size);
+      opacity: var(--opacity);
+      animation: ambientFly var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.16));
+      will-change: transform;
+    }
+
+    .ambient-critter span {
+      display: block;
+      animation: ambientFlutter 0.9s ease-in-out infinite alternate;
+      transform-origin: center;
+    }
+
+    @keyframes ambientFly {
+      0% {
+        transform: translateX(-12vw) translateY(0) rotate(-6deg);
+      }
+
+      50% {
+        transform: translateX(50vw) translateY(var(--drift)) rotate(7deg);
+      }
+
+      100% {
+        transform: translateX(118vw) translateY(0) rotate(-4deg);
+      }
+    }
+
+    @keyframes ambientFlutter {
+      from {
+        transform: translateY(-4px) rotate(-9deg) scale(0.96);
+      }
+
+      to {
+        transform: translateY(4px) rotate(9deg) scale(1.04);
+      }
+    }
+
+    @keyframes panelDrop {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
 
     h1 {
       text-align: center;
@@ -48,6 +238,12 @@
       justify-content: center;
       background: #fff;
       box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .filter-toggle:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 5px 16px rgba(0,0,0,0.2);
     }
 
     .filter-toggle svg {
@@ -73,6 +269,7 @@
 
     .filter-panel.show {
       display: block;
+      animation: panelDrop 0.18s ease-out;
     }
 
     .filter-panel-title {
@@ -80,6 +277,32 @@
       font-weight: bold;
       margin-bottom: 12px;
       font-size: 18px;
+    }
+
+    .animation-control {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .animation-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff9e8;
+      border: 1px solid #ead38e;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .animation-switch input {
+      width: 20px;
+      height: 20px;
+      accent-color: #7abf7a;
     }
 
     .refresh-button {
@@ -126,7 +349,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 15px;
       max-width: 1400px;
       margin: 0 auto;
@@ -153,14 +376,23 @@
     }
 
     .card img {
-      width: 85px;
-      height: 85px;
+      width: 82px;
+      height: 82px;
       object-fit: contain;
     }
 
     .card h3 {
       margin: 8px 0;
-      font-size: 20px;
+      font-size: 19px;
+      line-height: 1.2;
+    }
+
+    .card-location {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.25;
     }
 
     .tag {
@@ -197,6 +429,11 @@
       color: #842029;
     }
 
+    .counter.unavailable {
+      background: #eeeeee;
+      color: #555;
+    }
+
     .error {
       background: #fff;
       padding: 15px;
@@ -205,6 +442,137 @@
       margin: 20px auto;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+
+    .progress-overview {
+      max-width: 980px;
+      margin: -8px auto 16px auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .progress-card {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid #e2d7c7;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .progress-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .progress-title span:first-child {
+      font-size: 17px;
+    }
+
+    .progress-title span:last-child {
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .progress-bar {
+      height: 11px;
+      background: #eee4d7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: #7abf7a;
+      transition: width 0.25s ease;
+    }
+
+    .progress-card.museum .progress-bar-fill {
+      background: #64a878;
+    }
+
+    .progress-details {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.45;
+    }
+
+    .time-insight {
+      max-width: 980px;
+      margin: 0 auto 18px auto;
+      background: #fff9e8;
+      border: 1px solid #ead38e;
+      border-radius: 18px;
+      padding: 13px 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-weight: bold;
+      line-height: 1.45;
+    }
+
+    .status-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .status-toggle {
+      background: #f7f7f7;
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      user-select: none;
+    }
+
+    .status-toggle:hover {
+      transform: translateY(-2px);
+      border-color: #9abf8f;
+    }
+
+    .status-toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .status-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #e4e4e4;
+      color: #555;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .status-toggle.active {
+      background: #e8f5e9;
+      border-color: #6abf69;
+      color: #1b5e20;
+    }
+
+    .status-toggle.active .status-icon {
+      background: #6abf69;
+      color: #fff;
     }
 
 
@@ -225,6 +593,10 @@
 
     .modal-overlay.show {
       display: flex;
+    }
+
+    .modal-overlay.show .modal {
+      animation: modalPop 0.2s ease-out;
     }
 
     .modal {
@@ -375,9 +747,71 @@
       margin-bottom: 3px;
     }
 
+
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-layer {
+        display: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
     @media (max-width: 760px) {
+      body {
+        padding: 12px;
+      }
+
       h1 {
-        font-size: 34px;
+        font-size: 32px;
+        margin-bottom: 14px;
+        padding-left: 54px;
+        padding-right: 54px;
+      }
+
+
+      .app-menu {
+        top: 10px;
+        right: 10px;
+      }
+
+      .menu-button {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+      }
+
+      .app-menu-panel {
+        top: 56px;
+      }
+
+      .progress-overview {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .time-insight {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        padding: 12px 10px;
+      }
+
+      .card img {
+        width: 74px;
+        height: 74px;
       }
 
       select {
@@ -399,8 +833,14 @@
         min-width: 54px;
       }
 
-      .check-row {
+      .check-row,
+      .status-actions {
         grid-template-columns: 1fr;
+      }
+
+      .modal {
+        padding: 18px;
+        border-radius: 18px;
       }
 
       .detail-facts {
@@ -412,7 +852,40 @@
 
 <body>
 
+  <div id="ambientLayer" class="ambient-layer" aria-hidden="true"></div>
+
+
+  <div id="appMenu" class="app-menu">
+    <button id="appMenuButton" class="menu-button" type="button" onclick="toggleAppMenu()" aria-label="Menü öffnen" aria-expanded="false" title="Menü">
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+    </button>
+
+    <div id="appMenuPanel" class="app-menu-panel">
+      <div class="app-menu-title">Einstellungen</div>
+
+      <label class="menu-switch">
+        <span>Animationen anzeigen</span>
+        <input id="animationToggle" type="checkbox" checked onchange="setAnimationPreference(this.checked)">
+      </label>
+
+      <label class="menu-switch">
+        <span>Hintergrundmelodie</span>
+        <input id="musicToggle" type="checkbox" checked onchange="setMusicPreference(this.checked)">
+      </label>
+
+      <p id="musicHint" class="menu-note">Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick.</p>
+    </div>
+  </div>
+
   <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
+
+  <section id="progressOverview" class="progress-overview" aria-live="polite"></section>
+
+  <section id="timeInsight" class="time-insight" aria-live="polite">
+    Daten werden geladen...
+  </section>
 
   <div class="controls-wrapper">
     <button id="filterToggle" class="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Filter öffnen" aria-expanded="false" title="Filter">
@@ -435,6 +908,12 @@
         <select id="hemisphere">
           <option value="northern">Nordhalbkugel</option>
           <option value="southern">Südhalbkugel</option>
+        </select>
+
+        <select id="availabilityFilter">
+          <option value="available">Jetzt verfügbar</option>
+          <option value="unavailable">Nicht verfügbar</option>
+          <option value="all">Alle Verfügbarkeiten</option>
         </select>
 
         <select id="timeFilter">
@@ -477,15 +956,17 @@
         <div id="detailType" class="tag"></div>
       </div>
 
-      <div class="check-row">
-        <label class="check-card">
+      <div class="status-actions">
+        <label id="caughtToggle" class="status-toggle">
           <input id="detailCaught" type="checkbox" onchange="saveDetailProgress('caught', this.checked)">
-          Gefunden
+          <span class="status-icon">✓</span>
+          <span>Gefunden</span>
         </label>
 
-        <label class="check-card">
+        <label id="donatedToggle" class="status-toggle">
           <input id="detailDonated" type="checkbox" onchange="saveDetailProgress('donated', this.checked)">
-          Gespendet
+          <span class="status-icon">★</span>
+          <span>Gespendet</span>
         </label>
       </div>
 
@@ -519,6 +1000,29 @@
     let activeCritterKey = null;
 
     const progressStorageKey = "acnhCritterProgress";
+    const animationStorageKey = "acnhAmbientAnimations";
+    const musicStorageKey = "acnhBackgroundMelody";
+
+    let musicAudioContext = null;
+    let musicMasterGain = null;
+    let musicTimer = null;
+    let musicStep = 0;
+    let isMusicPlaying = false;
+
+    const melodyNotes = [
+      { frequency: 392.00, duration: 0.45 },
+      { frequency: 440.00, duration: 0.45 },
+      { frequency: 523.25, duration: 0.70 },
+      { frequency: 493.88, duration: 0.45 },
+      { frequency: 440.00, duration: 0.65 },
+      { frequency: null, duration: 0.30 },
+      { frequency: 349.23, duration: 0.45 },
+      { frequency: 392.00, duration: 0.45 },
+      { frequency: 440.00, duration: 0.70 },
+      { frequency: 392.00, duration: 0.50 },
+      { frequency: 329.63, duration: 0.80 },
+      { frequency: null, duration: 0.70 }
+    ];
 
     const translations = {
       location: {
@@ -614,6 +1118,211 @@
       localStorage.setItem(progressStorageKey, JSON.stringify(progress));
     }
 
+    function areAnimationsEnabled() {
+      return localStorage.getItem(animationStorageKey) !== "false";
+    }
+
+    function setAnimationPreference(enabled) {
+      localStorage.setItem(animationStorageKey, enabled ? "true" : "false");
+      document.body.classList.toggle("animations-off", !enabled);
+
+      const toggle = document.getElementById("animationToggle");
+
+      if (toggle) {
+        toggle.checked = enabled;
+      }
+    }
+
+
+    function areMusicEnabled() {
+      return localStorage.getItem(musicStorageKey) !== "false";
+    }
+
+    function updateMusicToggle(enabled, hintText) {
+      const toggle = document.getElementById("musicToggle");
+      const hint = document.getElementById("musicHint");
+
+      if (toggle) {
+        toggle.checked = enabled;
+      }
+
+      if (hint && hintText) {
+        hint.textContent = hintText;
+      }
+    }
+
+    async function startMelody() {
+      if (isMusicPlaying) return true;
+
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioContextClass) {
+        updateMusicToggle(false, "Dein Browser unterstützt leider keine Hintergrundmelodie.");
+        return false;
+      }
+
+      if (!musicAudioContext) {
+        musicAudioContext = new AudioContextClass();
+        musicMasterGain = musicAudioContext.createGain();
+        musicMasterGain.gain.value = 0.035;
+        musicMasterGain.connect(musicAudioContext.destination);
+      }
+
+      try {
+        if (musicAudioContext.state === "suspended") {
+          await musicAudioContext.resume();
+        }
+      } catch (error) {
+        updateMusicToggle(false, "Die Melodie konnte nicht gestartet werden. Bitte noch einmal antippen.");
+        return false;
+      }
+
+      if (musicAudioContext.state !== "running") {
+        updateMusicToggle(false, "Die Melodie wartet auf eine Aktion von dir. Bitte noch einmal antippen.");
+        return false;
+      }
+
+      isMusicPlaying = true;
+      document.body.classList.add("music-on");
+
+      if (musicMasterGain) {
+        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
+        musicMasterGain.gain.setTargetAtTime(0.035, musicAudioContext.currentTime, 0.08);
+      }
+
+      playMelodyStep();
+      updateMusicToggle(true, "Melodie läuft leise im Hintergrund.");
+      return true;
+    }
+
+    function playMelodyStep() {
+      if (!isMusicPlaying || !musicAudioContext || !musicMasterGain) return;
+
+      const note = melodyNotes[musicStep % melodyNotes.length];
+      musicStep += 1;
+
+      if (note.frequency) {
+        const now = musicAudioContext.currentTime;
+        const oscillator = musicAudioContext.createOscillator();
+        const noteGain = musicAudioContext.createGain();
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(note.frequency, now);
+
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
+        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + note.duration);
+
+        oscillator.connect(noteGain);
+        noteGain.connect(musicMasterGain);
+
+        oscillator.start(now);
+        oscillator.stop(now + note.duration + 0.05);
+      }
+
+      musicTimer = window.setTimeout(playMelodyStep, (note.duration + 0.08) * 1000);
+    }
+
+    function stopMelody() {
+      isMusicPlaying = false;
+      document.body.classList.remove("music-on");
+
+      if (musicTimer) {
+        clearTimeout(musicTimer);
+        musicTimer = null;
+      }
+
+      if (musicAudioContext && musicMasterGain) {
+        musicMasterGain.gain.cancelScheduledValues(musicAudioContext.currentTime);
+        musicMasterGain.gain.setTargetAtTime(0.0001, musicAudioContext.currentTime, 0.08);
+      }
+
+      updateMusicToggle(false, "Die Melodie ist ausgeschaltet.");
+    }
+
+    async function setMusicPreference(enabled) {
+      localStorage.setItem(musicStorageKey, enabled ? "true" : "false");
+
+      if (enabled) {
+        const started = await startMelody();
+
+        if (!started) {
+          localStorage.setItem(musicStorageKey, "false");
+          stopMelody();
+        }
+      } else {
+        stopMelody();
+      }
+    }
+
+    function initializeMusicPreference() {
+      const enabled = areMusicEnabled();
+      updateMusicToggle(enabled, enabled ? "Melodie ist eingeschaltet. Sie startet nach deinem nächsten Klick." : "Die Melodie ist ausgeschaltet.");
+
+      if (enabled) {
+        const startAfterInteraction = () => {
+          if (areMusicEnabled() && !isMusicPlaying) {
+            startMelody();
+          }
+        };
+
+        document.addEventListener("pointerdown", startAfterInteraction, { once: true });
+        document.addEventListener("keydown", startAfterInteraction, { once: true });
+      }
+    }
+
+    function toggleAppMenu(forceState) {
+      const panel = document.getElementById("appMenuPanel");
+      const button = document.getElementById("appMenuButton");
+
+      if (!panel || !button) return;
+
+      const shouldShow = typeof forceState === "boolean"
+        ? forceState
+        : !panel.classList.contains("show");
+
+      panel.classList.toggle("show", shouldShow);
+      button.classList.toggle("active", shouldShow);
+      button.setAttribute("aria-expanded", shouldShow ? "true" : "false");
+    }
+
+    function createAmbientAnimations() {
+      const layer = document.getElementById("ambientLayer");
+
+      if (!layer) return;
+
+      layer.innerHTML = "";
+
+      const symbols = ["🦋", "🦋", "🦋", "🍃", "✨"];
+
+      for (let i = 0; i < 14; i++) {
+        const wrapper = document.createElement("div");
+        const inner = document.createElement("span");
+
+        wrapper.className = "ambient-critter";
+        inner.textContent = symbols[i % symbols.length];
+
+        const top = 8 + ((i * 7) % 82);
+        const size = 18 + ((i * 5) % 17);
+        const duration = 22 + ((i * 4) % 18);
+        const delay = -1 * ((i * 6) % 36);
+        const drift = (i % 2 === 0 ? 1 : -1) * (18 + ((i * 9) % 38));
+        const opacity = i % 5 === 4 ? 0.32 : 0.5;
+
+        wrapper.style.setProperty("--top", top + "vh");
+        wrapper.style.setProperty("--size", size + "px");
+        wrapper.style.setProperty("--duration", duration + "s");
+        wrapper.style.setProperty("--delay", delay + "s");
+        wrapper.style.setProperty("--drift", drift + "px");
+        wrapper.style.setProperty("--opacity", opacity);
+
+        wrapper.appendChild(inner);
+        layer.appendChild(wrapper);
+      }
+
+      setAnimationPreference(areAnimationsEnabled());
+    }
+
     function getCritterStorageKey(critter) {
       const fileName = critter["file-name"] || getGermanName(critter);
       const type = critter.type || "Tier";
@@ -644,6 +1353,164 @@
 
       saveProgress(progress);
     }
+
+
+
+    function makeProgressCard(title, count, total, extraText, className = "") {
+      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+
+      return `
+        <div class="progress-card ${escapeHTML(className)}">
+          <div class="progress-title">
+            <span>${escapeHTML(title)}</span>
+            <span>${count} / ${total}</span>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+          </div>
+          <div class="progress-details">${escapeHTML(percent)}% erledigt · ${escapeHTML(extraText)}</div>
+        </div>
+      `;
+    }
+
+    function updateProgressOverview() {
+      const overview = document.getElementById("progressOverview");
+      if (!overview) return;
+
+      if (rawCritters.length === 0) {
+        overview.innerHTML = "";
+        return;
+      }
+
+      const progress = getSavedProgress();
+      const totals = {
+        all: { total: 0, caught: 0, donated: 0 },
+        Fisch: { total: 0, caught: 0, donated: 0 },
+        Insekt: { total: 0, caught: 0, donated: 0 },
+        Meereswesen: { total: 0, caught: 0, donated: 0 }
+      };
+
+      rawCritters.forEach(critter => {
+        const key = getCritterStorageKey(critter);
+        const saved = progress[key] || { caught: false, donated: false };
+        const type = critter.type;
+
+        totals.all.total++;
+        if (totals[type]) totals[type].total++;
+
+        if (saved.caught === true) {
+          totals.all.caught++;
+          if (totals[type]) totals[type].caught++;
+        }
+
+        if (saved.donated === true) {
+          totals.all.donated++;
+          if (totals[type]) totals[type].donated++;
+        }
+      });
+
+      const typeTextCaught = `Fische ${totals.Fisch.caught}/${totals.Fisch.total} · Insekten ${totals.Insekt.caught}/${totals.Insekt.total} · Meer ${totals.Meereswesen.caught}/${totals.Meereswesen.total}`;
+      const typeTextDonated = `Fische ${totals.Fisch.donated}/${totals.Fisch.total} · Insekten ${totals.Insekt.donated}/${totals.Insekt.total} · Meer ${totals.Meereswesen.donated}/${totals.Meereswesen.total}`;
+
+      overview.innerHTML =
+        makeProgressCard("Gefunden", totals.all.caught, totals.all.total, typeTextCaught, "caught") +
+        makeProgressCard("Museum", totals.all.donated, totals.all.total, typeTextDonated, "museum");
+    }
+
+    function getDayPartText(date) {
+      const hour = date.getHours();
+
+      if (hour >= 5 && hour < 11) return "Morgen";
+      if (hour >= 11 && hour < 17) return "Tag";
+      if (hour >= 17 && hour < 22) return "Abend";
+      return "Nacht";
+    }
+
+    function matchesActiveFiltersRaw(critter) {
+      const category = document.getElementById("category").value;
+      const timeFilter = document.getElementById("timeFilter").value;
+      const progressFilter = document.getElementById("progressFilter").value;
+
+      if (category !== "all" && critter.type !== category) return false;
+      if (timeFilter === "allDay" && !isAllDayCritter(critter)) return false;
+      if (timeFilter === "timeWindow" && !hasTimeWindowCritter(critter)) return false;
+
+      const key = getCritterStorageKey(critter);
+      const progress = getCritterProgress(key);
+
+      if (progressFilter === "caught" && progress.caught !== true) return false;
+      if (progressFilter === "notCaught" && progress.caught === true) return false;
+      if (progressFilter === "donated" && progress.donated !== true) return false;
+      if (progressFilter === "notDonated" && progress.donated === true) return false;
+
+      return true;
+    }
+
+    function updateTimeInsight() {
+      const insight = document.getElementById("timeInsight");
+      if (!insight) return;
+
+      if (rawCritters.length === 0) {
+        insight.textContent = "Daten werden geladen...";
+        return;
+      }
+
+      const hemisphere = document.getElementById("hemisphere").value;
+      const availabilityFilter = document.getElementById("availabilityFilter").value;
+      const now = new Date();
+      const filteredRaw = rawCritters.filter(matchesActiveFiltersRaw);
+      const availableNow = filteredRaw.filter(critter => isAvailableAt(critter, hemisphere, now)).length;
+      const unavailableNow = filteredRaw.length - availableNow;
+
+      let nextDate = null;
+      let nextCount = 0;
+
+      for (let i = 1; i <= 24; i++) {
+        const checkDate = new Date(now);
+        checkDate.setMinutes(0, 0, 0);
+        checkDate.setHours(checkDate.getHours() + i);
+
+        const newAvailable = filteredRaw.filter(critter => {
+          return !isAvailableAt(critter, hemisphere, now) && isAvailableAt(critter, hemisphere, checkDate);
+        });
+
+        if (newAvailable.length > 0) {
+          nextDate = checkDate;
+          nextCount = newAvailable.length;
+          break;
+        }
+      }
+
+      const dayPart = getDayPartText(now);
+      const timeText = now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+      let nextText = "In den nächsten 24 Stunden werden nach deinen aktuellen Filtern keine weiteren Tiere fangbar.";
+
+      if (nextDate && nextCount > 0) {
+        const duration = formatDuration(nextDate - now);
+        const nextClock = nextDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+        if (nextCount === 1) {
+          nextText = `In ${duration} (${nextClock}) wird 1 weiteres Tier fangbar.`;
+        } else {
+          nextText = `In ${duration} (${nextClock}) werden ${nextCount} weitere Tiere fangbar.`;
+        }
+      }
+
+      const availableWord = availableNow === 1 ? "Tier" : "Tiere";
+      const unavailableWord = unavailableNow === 1 ? "Tier" : "Tiere";
+
+      if (availabilityFilter === "unavailable") {
+        insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Nicht verfügbar nach Filter: ${unavailableNow} ${unavailableWord}. ${nextText}`;
+        return;
+      }
+
+      if (availabilityFilter === "all") {
+        insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Fangbar: ${availableNow} ${availableWord} · Nicht verfügbar: ${unavailableNow} ${unavailableWord}. ${nextText}`;
+        return;
+      }
+
+      insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Jetzt fangbar nach Filter: ${availableNow} ${availableWord}. ${nextText}`;
+    }
+
 
     function formatBells(value) {
       if (!value && value !== 0) return "";
@@ -935,6 +1802,66 @@
       };
     }
 
+    function getNextAvailableDate(critter, hemisphere, now) {
+      const checkDate = new Date(now);
+
+      checkDate.setMinutes(0, 0, 0);
+      checkDate.setHours(checkDate.getHours() + 1);
+
+      for (let i = 0; i < 24 * 370; i++) {
+        if (isAvailableAt(critter, hemisphere, checkDate)) {
+          return new Date(checkDate);
+        }
+
+        checkDate.setHours(checkDate.getHours() + 1);
+      }
+
+      return null;
+    }
+
+    function formatNextAvailableText(nextDate, now) {
+      if (!nextDate) {
+        return "Nicht verfügbar";
+      }
+
+      const duration = formatDuration(nextDate - now);
+      const dateText = nextDate.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit"
+      });
+      const timeText = nextDate.toLocaleTimeString("de-DE", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      return `Wieder in ${duration} (${dateText}, ${timeText})`;
+    }
+
+    function getAvailabilityInfo(critter, hemisphere, now) {
+      if (isAvailableAt(critter, hemisphere, now)) {
+        const remaining = getRemainingInfo(critter, hemisphere, now);
+
+        return {
+          availableNow: true,
+          text: remaining.text,
+          ms: remaining.ms,
+          className: remaining.className,
+          nextAvailableDate: null
+        };
+      }
+
+      const nextAvailableDate = getNextAvailableDate(critter, hemisphere, now);
+      const nextAvailableMs = nextAvailableDate ? nextAvailableDate - now : Infinity;
+
+      return {
+        availableNow: false,
+        text: formatNextAvailableText(nextAvailableDate, now),
+        ms: nextAvailableMs,
+        className: "unavailable",
+        nextAvailableDate: nextAvailableDate
+      };
+    }
+
     function getGermanName(critter) {
       if (critter.name && critter.name["name-EUde"]) {
         return critter.name["name-EUde"];
@@ -1027,6 +1954,10 @@
     }
 
     function sortByEnding(a, b) {
+      if (a.availableNow !== b.availableNow) {
+        return a.availableNow ? -1 : 1;
+      }
+
       if (a.remainingMs === Infinity && b.remainingMs === Infinity) {
         return a.name.localeCompare(b.name);
       }
@@ -1042,14 +1973,18 @@
       return a.remainingMs - b.remainingMs;
     }
 
+
     function renderCritters() {
       const list = document.getElementById("list");
       const status = document.getElementById("status");
 
       updateTitle();
+      updateProgressOverview();
+      updateTimeInsight();
 
       const hemisphere = document.getElementById("hemisphere").value;
       const category = document.getElementById("category").value;
+      const availabilityFilter = document.getElementById("availabilityFilter").value;
       const timeFilter = document.getElementById("timeFilter").value;
       const progressFilter = document.getElementById("progressFilter").value;
       const sort = document.getElementById("sort").value;
@@ -1057,9 +1992,8 @@
       const now = new Date();
 
       let allCritters = rawCritters
-        .filter(critter => isAvailableAt(critter, hemisphere, now))
         .map(critter => {
-          const remaining = getRemainingInfo(critter, hemisphere, now);
+          const availability = getAvailabilityInfo(critter, hemisphere, now);
           const originalRarity = normalizeRarity(critter.availability.rarity);
           const key = getCritterStorageKey(critter);
           const progress = getCritterProgress(key);
@@ -1084,11 +2018,21 @@
             price: critter.price ? formatBells(critter.price) : "",
             caught: progress.caught === true,
             donated: progress.donated === true,
-            remainingText: remaining.text,
-            remainingMs: remaining.ms,
-            remainingClass: remaining.className
+            availableNow: availability.availableNow,
+            remainingText: availability.text,
+            remainingMs: availability.ms,
+            remainingClass: availability.className,
+            nextAvailableDate: availability.nextAvailableDate
           };
         });
+
+      if (availabilityFilter === "available") {
+        allCritters = allCritters.filter(critter => critter.availableNow === true);
+      }
+
+      if (availabilityFilter === "unavailable") {
+        allCritters = allCritters.filter(critter => critter.availableNow !== true);
+      }
 
       if (category !== "all") {
         allCritters = allCritters.filter(critter => critter.type === category);
@@ -1147,7 +2091,7 @@
       }
 
       status.textContent =
-        `Gefunden: ${allCritters.length} Tiere | Datum: ${now.toLocaleDateString("de-DE")} | Uhrzeit: ${now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`;
+        `Angezeigt: ${allCritters.length} Tiere | Datum: ${now.toLocaleDateString("de-DE")} | Uhrzeit: ${now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`;
 
       list.innerHTML = "";
 
@@ -1167,37 +2111,11 @@
         card.setAttribute("role", "button");
         card.setAttribute("aria-label", `Details zu ${critter.name} öffnen`);
 
-        let timeInfo = "";
-
-        if (critter.time && critter.time !== "") {
-          timeInfo = `<p class="small">Zeit: ${escapeHTML(critter.time)}</p>`;
-        }
-
-        let monthInfo = "";
-
-        if (critter.monthsText && critter.monthsText !== "") {
-          monthInfo = `<p class="small">Verfügbar: ${escapeHTML(critter.monthsText)}</p>`;
-        }
-
-        let extraInfo = "";
-
-        if (critter.shadow && critter.shadow !== "Keine Angabe") {
-          extraInfo += `<p class="small">Schatten: ${escapeHTML(critter.shadow)}</p>`;
-        }
-
-        if (critter.speed && critter.speed !== "Keine Angabe") {
-          extraInfo += `<p class="small">Geschwindigkeit: ${escapeHTML(critter.speed)}</p>`;
-        }
-
         card.innerHTML = `
           <img src="${escapeHTML(critter.image)}" alt="${escapeHTML(critter.name)}" onerror="this.style.display='none'">
           <h3>${escapeHTML(critter.name)}</h3>
           <div class="tag">${escapeHTML(critter.type)}</div>
-          <p class="small">Ort: ${escapeHTML(critter.location)}</p>
-          ${timeInfo}
-          ${monthInfo}
-          <p class="small">Seltenheit: ${escapeHTML(critter.rarity)}</p>
-          ${extraInfo}
+          <p class="small card-location">Ort: ${escapeHTML(critter.location)}</p>
           <div class="counter ${escapeHTML(critter.remainingClass)}">
             ${escapeHTML(critter.remainingText)}
           </div>
@@ -1560,13 +2478,38 @@
       `;
     }
 
-    function buildKnowledgeHTML(critter) {
-      const groupInfo = getCreatureGroupInfo(critter);
 
+
+    function buildEugenStyleBlurb(critter) {
+      const groupInfo = getCreatureGroupInfo(critter);
+      const cleanTime = getCleanTimeText(critter);
+      const cleanMonth = getCleanMonthText(critter);
+      const place = critter.bestPlace || critter.location || "auf der Insel";
+
+      let timeSentence = "Es kann grundsätzlich zu jeder Tageszeit auftauchen.";
+      if (cleanTime !== "Ganztägig" && cleanTime !== "Keine Angabe") {
+        timeSentence = `Achte besonders auf die Zeit von ${cleanTime}.`;
+      }
+
+      let raritySentence = "Es ist kein Prachtexemplar der Seltenheit, aber für eine vollständige Sammlung trotzdem wichtig.";
+      if (critter.rarityOriginal === "Rare" || critter.rarityOriginal === "Very rare" || critter.rarityOriginal === "Ultra-rare") {
+        raritySentence = "Da es eher selten auftaucht, solltest du nicht zu hastig werden und die Gelegenheit nutzen, sobald du es entdeckst.";
+      }
+
+      return `
+        Ach, <strong>${escapeHTML(critter.name)}</strong>! ${escapeHTML(groupInfo.text)}
+        In deiner Sammlung zählt dieses Tier zu <strong>${escapeHTML(groupInfo.label)}</strong>.
+        Am besten orientierst du dich an diesem Hinweis: <strong>${escapeHTML(place)}</strong>
+        ${escapeHTML(timeSentence)} Der passende Zeitraum ist <strong>${escapeHTML(cleanMonth)}</strong>.
+        ${escapeHTML(raritySentence)}
+      `;
+    }
+
+
+    function buildKnowledgeHTML(critter) {
       const mainText = `
         <p class="animal-blurb">
-          <strong>${escapeHTML(critter.name)}</strong> gehört zur Gruppe <strong>${escapeHTML(groupInfo.label)}</strong>.
-          ${escapeHTML(groupInfo.text)}
+          ${buildEugenStyleBlurb(critter)}
         </p>
       `;
 
@@ -1585,7 +2528,7 @@
         facts += makeFactCard("Geschwindigkeit", critter.speed);
       }
 
-      facts += makeFactCard("Aktuell", critter.remainingText);
+      facts += makeFactCard("Aktueller Status", critter.remainingText);
 
       const priceText = critter.price ? critter.price : "Keine Angabe";
 
@@ -1600,6 +2543,24 @@
         </div>
       `;
     }
+
+
+
+    function updateStatusToggleVisuals() {
+      const caughtInput = document.getElementById("detailCaught");
+      const donatedInput = document.getElementById("detailDonated");
+      const caughtToggle = document.getElementById("caughtToggle");
+      const donatedToggle = document.getElementById("donatedToggle");
+
+      if (caughtToggle && caughtInput) {
+        caughtToggle.classList.toggle("active", caughtInput.checked === true);
+      }
+
+      if (donatedToggle && donatedInput) {
+        donatedToggle.classList.toggle("active", donatedInput.checked === true);
+      }
+    }
+
 
     function openCritterDetail(critter) {
       activeCritterKey = critter.key;
@@ -1616,6 +2577,7 @@
       document.getElementById("detailType").textContent = critter.type;
       document.getElementById("detailCaught").checked = progress.caught === true;
       document.getElementById("detailDonated").checked = progress.donated === true;
+      updateStatusToggleVisuals();
       document.getElementById("detailKnowledge").innerHTML = buildKnowledgeHTML(critter);
 
       overlay.classList.add("show");
@@ -1636,6 +2598,7 @@
       if (!activeCritterKey) return;
 
       setCritterProgress(activeCritterKey, field, value);
+      updateStatusToggleVisuals();
 
       renderCritters();
     }
@@ -1644,14 +2607,28 @@
       if (event.key === "Escape") {
         closeCritterDetail();
         toggleFilterPanel(false);
+        toggleAppMenu(false);
+      }
+    });
+
+
+    document.addEventListener("click", event => {
+      const appMenu = document.getElementById("appMenu");
+
+      if (appMenu && !appMenu.contains(event.target)) {
+        toggleAppMenu(false);
       }
     });
 
     document.getElementById("hemisphere").addEventListener("change", renderCritters);
     document.getElementById("category").addEventListener("change", renderCritters);
+    document.getElementById("availabilityFilter").addEventListener("change", renderCritters);
     document.getElementById("timeFilter").addEventListener("change", renderCritters);
     document.getElementById("progressFilter").addEventListener("change", renderCritters);
     document.getElementById("sort").addEventListener("change", renderCritters);
+
+    createAmbientAnimations();
+    initializeMusicPreference();
 
     loadData();
 
