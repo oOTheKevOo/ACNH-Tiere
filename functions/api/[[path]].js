@@ -1,6 +1,6 @@
 const SESSION_COOKIE = 'acnh_session';
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
-const PASSWORD_ITERATIONS = 150000;
+const PASSWORD_ITERATIONS = 10000;
 const encoder = new TextEncoder();
 
 function json(data, status = 200, headers = {}) {
@@ -414,4 +414,3 @@ export async function onRequest(context) {
     return json({ error: 'Serverfehler: ' + (error && error.message ? error.message : 'Unbekannter Fehler') }, 500);
   }
 }
-
