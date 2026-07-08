@@ -1,0 +1,15 @@
+{
+  "name": "acnh-online-tracker",
+  "version": "1.0.0",
+  "description": "Animal Crossing New Horizons Tiere-Tracker mit Login, Fortschritt-Sync und Rangliste",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
