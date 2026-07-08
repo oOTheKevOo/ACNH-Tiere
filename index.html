@@ -105,6 +105,20 @@
       background: #84cfa2;
     }
 
+    body.dark-mode .progress-card:hover {
+      border-color: #8acb75;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+    }
+
+    body.dark-mode .progress-card.active {
+      border-color: #9ad27d;
+      box-shadow: 0 0 0 3px rgba(154,210,125,0.22), 0 8px 26px rgba(0,0,0,0.45);
+    }
+
+    body.dark-mode .progress-card-hint {
+      color: #b7f5b8;
+    }
+
     body.dark-mode .counter {
       background: #173d21;
       color: #b7f5b8;
@@ -663,6 +677,37 @@
       border-radius: 18px;
       padding: 14px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .progress-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+      border-color: #b8cf9a;
+    }
+
+    .progress-card:focus {
+      outline: 3px solid #7abf7a;
+      outline-offset: 3px;
+    }
+
+    .progress-card.active {
+      border-color: #4f9e56;
+      box-shadow: 0 0 0 3px rgba(122,191,122,0.22), 0 6px 18px rgba(0,0,0,0.16);
+    }
+
+    .progress-card.museum.active {
+      border-color: #4f9e73;
+      box-shadow: 0 0 0 3px rgba(100,168,120,0.24), 0 6px 18px rgba(0,0,0,0.16);
+    }
+
+    .progress-card-hint {
+      display: inline-block;
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #2f6f36;
     }
 
     .progress-title {
@@ -1948,11 +1993,18 @@
 
 
 
-    function makeProgressCard(title, count, total, extraText, className = "") {
+    function makeProgressCard(title, count, total, extraText, className = "", filterValue = "all") {
       const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+      const currentProgressFilter = document.getElementById("progressFilter")?.value || "all";
+      const activeClass = currentProgressFilter === filterValue ? "active" : "";
+      const hintText = filterValue === "caught"
+        ? "Gefundene Tiere anzeigen"
+        : filterValue === "donated"
+          ? "Museum-Tiere anzeigen"
+          : "Tiere anzeigen";
 
       return `
-        <div class="progress-card ${escapeHTML(className)}">
+        <div class="progress-card ${escapeHTML(className)} ${activeClass}" role="button" tabindex="0" onclick="showProgressList('${escapeHTML(filterValue)}')" onkeydown="handleProgressCardKey(event, '${escapeHTML(filterValue)}')" aria-label="${escapeHTML(hintText)}">
           <div class="progress-title">
             <span>${escapeHTML(title)}</span>
             <span>${count} / ${total}</span>
@@ -1961,6 +2013,7 @@
             <div class="progress-bar-fill" style="width: ${percent}%;"></div>
           </div>
           <div class="progress-details">${escapeHTML(percent)}% erledigt · ${escapeHTML(extraText)}</div>
+          <span class="progress-card-hint">${escapeHTML(hintText)}</span>
         </div>
       `;
     }
@@ -2005,8 +2058,43 @@
       const typeTextDonated = `Fische ${totals.Fisch.donated}/${totals.Fisch.total} · Insekten ${totals.Insekt.donated}/${totals.Insekt.total} · Meer ${totals.Meereswesen.donated}/${totals.Meereswesen.total}`;
 
       overview.innerHTML =
-        makeProgressCard("Gefunden", totals.all.caught, totals.all.total, typeTextCaught, "caught") +
-        makeProgressCard("Museum", totals.all.donated, totals.all.total, typeTextDonated, "museum");
+        makeProgressCard("Gefunden", totals.all.caught, totals.all.total, typeTextCaught, "caught", "caught") +
+        makeProgressCard("Museum", totals.all.donated, totals.all.total, typeTextDonated, "museum", "donated");
+    }
+
+    function showProgressList(filterValue) {
+      const progressFilter = document.getElementById("progressFilter");
+      const availabilityFilter = document.getElementById("availabilityFilter");
+      const sortSelect = document.getElementById("sort");
+      const list = document.getElementById("list");
+
+      if (progressFilter) {
+        progressFilter.value = filterValue;
+      }
+
+      // Beim Klick auf den Fortschritt sollen wirklich alle passenden Tiere gezeigt werden,
+      // nicht nur die Tiere, die gerade nach Uhrzeit oder Monat verfügbar sind.
+      if (availabilityFilter) {
+        availabilityFilter.value = "all";
+      }
+
+      if (sortSelect) {
+        sortSelect.value = "name";
+      }
+
+      toggleFilterPanel(false);
+      renderCritters();
+
+      if (list) {
+        list.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function handleProgressCardKey(event, filterValue) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        showProgressList(filterValue);
+      }
     }
 
     function getDayPartText(date) {
