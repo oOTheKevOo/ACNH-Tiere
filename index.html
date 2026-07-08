@@ -1062,6 +1062,193 @@
         grid-template-columns: 1fr;
       }
     }
+  
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .account-box {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #eadfcd;
+    }
+
+    .account-title,
+    .ranking-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .auth-fields {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .auth-fields input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid #c9bda9;
+      background: #fff;
+      font-size: 15px;
+    }
+
+    .auth-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .auth-actions button,
+    .logout-button {
+      min-width: 0;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .account-message {
+      margin: 9px 0 0 0;
+      color: #6b5941;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .account-user-card {
+      background: #f6efdd;
+      border: 1px solid #eadfcd;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+
+    .account-user-name {
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .ranking-overview {
+      max-width: 900px;
+      margin: 0 auto 16px auto;
+    }
+
+    .ranking-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid #eadfcd;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    }
+
+    .ranking-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .ranking-subtitle {
+      color: #6d604e;
+      font-size: 14px;
+    }
+
+    .ranking-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .ranking-row {
+      display: grid;
+      grid-template-columns: 44px 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 10px;
+      background: #f7f1e4;
+      border: 1px solid #eadfcd;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .ranking-row.own-rank {
+      background: #e8f5e9;
+      border-color: #a8d8ad;
+      font-weight: bold;
+    }
+
+    .ranking-place {
+      font-weight: bold;
+      color: #7a5b1d;
+    }
+
+    .ranking-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ranking-value {
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .ranking-note {
+      margin-top: 9px;
+      color: #6d604e;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    body.dark-mode .account-box {
+      border-top-color: #485a43;
+    }
+
+    body.dark-mode .auth-fields input {
+      background: #202d22;
+      color: #f7efd8;
+      border-color: #5a6d52;
+    }
+
+    body.dark-mode .account-message,
+    body.dark-mode .ranking-subtitle,
+    body.dark-mode .ranking-note {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .account-user-card,
+    body.dark-mode .ranking-card,
+    body.dark-mode .ranking-row {
+      background: rgba(24, 34, 26, 0.96);
+      border-color: #485a43;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .ranking-row.own-rank {
+      background: #214b2c;
+      border-color: #93d27b;
+      color: #cfffbc;
+    }
+
+    body.dark-mode .ranking-place {
+      color: #ffe18a;
+    }
+
+    @media (max-width: 760px) {
+      .ranking-row {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .ranking-row .ranking-value {
+        grid-column: 2;
+        font-size: 13px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1080,6 +1267,36 @@
     <div id="appMenuPanel" class="app-menu-panel">
       <div class="app-menu-title">Einstellungen</div>
 
+      <div class="account-box" id="accountBox">
+        <div class="account-title">Konto</div>
+
+        <div id="authLoggedOut">
+          <div class="menu-note">Melde dich mit Name und Passwort an. Dann wird dein Fortschritt online gespeichert und du bleibst angemeldet.</div>
+
+          <div class="auth-fields">
+            <input id="authUsername" type="text" placeholder="Name" autocomplete="username" maxlength="24">
+            <input id="authPassword" type="password" placeholder="Passwort" autocomplete="current-password" maxlength="80">
+          </div>
+
+          <div class="auth-actions">
+            <button type="button" onclick="loginAccount()">Einloggen</button>
+            <button type="button" onclick="registerAccount()">Registrieren</button>
+          </div>
+        </div>
+
+        <div id="authLoggedIn" hidden>
+          <div class="account-user-card">
+            <div class="account-user-name" id="accountUserName">Angemeldet</div>
+            <div class="menu-note">Dein Fortschritt wird automatisch gespeichert. Du bleibst auf diesem Gerät angemeldet.</div>
+          </div>
+
+          <button class="logout-button" type="button" onclick="logoutAccount()">Abmelden</button>
+        </div>
+
+        <p id="accountMessage" class="account-message"></p>
+      </div>
+
+
       <label class="menu-switch">
         <span>Animationen anzeigen</span>
         <input id="animationToggle" type="checkbox" checked onchange="setAnimationPreference(this.checked)">
@@ -1097,6 +1314,8 @@
   <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
 
   <section id="progressOverview" class="progress-overview" aria-live="polite"></section>
+
+  <section id="rankingOverview" class="ranking-overview" aria-live="polite"></section>
 
   <section id="timeInsight" class="time-insight" aria-live="polite">
     Daten werden geladen...
@@ -1215,6 +1434,11 @@
     let activeCritterKey = null;
 
     const progressStorageKey = "acnhCritterProgress";
+    let currentUser = null;
+    let onlineProgress = {};
+    let backendAvailable = true;
+    let rankingRows = [];
+
     const animationStorageKey = "acnhAmbientAnimations";
     const darkModeStorageKey = "acnhDarkMode";
 
@@ -1300,7 +1524,7 @@
         .replaceAll("'", "&#039;");
     }
 
-    function getSavedProgress() {
+    function getLocalProgress() {
       try {
         return JSON.parse(localStorage.getItem(progressStorageKey)) || {};
       } catch (error) {
@@ -1308,8 +1532,288 @@
       }
     }
 
+    function getSavedProgress() {
+      if (currentUser) {
+        return onlineProgress || {};
+      }
+
+      return getLocalProgress();
+    }
+
     function saveProgress(progress) {
-      localStorage.setItem(progressStorageKey, JSON.stringify(progress));
+      if (currentUser) {
+        onlineProgress = progress || {};
+        return;
+      }
+
+      localStorage.setItem(progressStorageKey, JSON.stringify(progress || {}));
+    }
+
+    function progressArrayToMap(rows) {
+      const map = {};
+
+      (rows || []).forEach(row => {
+        map[row.critter_key] = {
+          caught: row.caught === true || row.caught === 1,
+          donated: row.donated === true || row.donated === 1
+        };
+      });
+
+      return map;
+    }
+
+    function getTypeFromCritterKey(key) {
+      if (key.startsWith("Fisch-")) return "Fisch";
+      if (key.startsWith("Insekt-")) return "Insekt";
+      if (key.startsWith("Meereswesen-")) return "Meereswesen";
+      return "Tier";
+    }
+
+    async function apiRequest(path, options = {}) {
+      const requestOptions = {
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        ...options
+      };
+
+      if (options.body && typeof options.body !== "string") {
+        requestOptions.body = JSON.stringify(options.body);
+      }
+
+      const response = await fetch(path, requestOptions);
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || "Die Online-Anfrage ist fehlgeschlagen.");
+      }
+
+      backendAvailable = true;
+      return data;
+    }
+
+    function setAccountMessage(text) {
+      const message = document.getElementById("accountMessage");
+
+      if (message) {
+        message.textContent = text || "";
+      }
+    }
+
+    function updateAuthUI(message = "") {
+      const loggedOut = document.getElementById("authLoggedOut");
+      const loggedIn = document.getElementById("authLoggedIn");
+      const accountUserName = document.getElementById("accountUserName");
+
+      if (!loggedOut || !loggedIn) return;
+
+      loggedOut.hidden = currentUser !== null;
+      loggedIn.hidden = currentUser === null;
+
+      if (accountUserName && currentUser) {
+        accountUserName.textContent = `Angemeldet als ${currentUser.username}`;
+      }
+
+      if (message) {
+        setAccountMessage(message);
+      } else if (!backendAvailable) {
+        setAccountMessage("Online-Konto nicht erreichbar. Starte die Seite über Cloudflare Pages, nicht direkt als Datei.");
+      } else if (currentUser) {
+        setAccountMessage("Angemeldet bleiben ist aktiv. Dein Login bleibt per sicherem Cookie gespeichert.");
+      } else {
+        setAccountMessage("Ohne Anmeldung bleibt dein Fortschritt nur in diesem Browser gespeichert.");
+      }
+    }
+
+    async function syncLocalProgressToAccountIfNeeded() {
+      if (!currentUser) return;
+
+      const localProgress = getLocalProgress();
+      const localKeys = Object.keys(localProgress);
+      const onlineKeys = Object.keys(onlineProgress || {});
+
+      if (localKeys.length === 0 || onlineKeys.length > 0) return;
+
+      onlineProgress = { ...localProgress };
+
+      for (const key of localKeys) {
+        const item = localProgress[key] || {};
+
+        await apiRequest("/api/progress", {
+          method: "POST",
+          body: {
+            key: key,
+            type: getTypeFromCritterKey(key),
+            caught: item.caught === true,
+            donated: item.donated === true
+          }
+        });
+      }
+
+      setAccountMessage("Dein lokaler Fortschritt wurde in dein Konto übernommen.");
+    }
+
+    async function loadAccountState() {
+      try {
+        const data = await apiRequest("/api/me");
+        currentUser = data.user || null;
+        onlineProgress = progressArrayToMap(data.progress || []);
+
+        if (currentUser) {
+          await syncLocalProgressToAccountIfNeeded();
+        }
+
+        updateAuthUI();
+        await loadRanking();
+      } catch (error) {
+        backendAvailable = false;
+        currentUser = null;
+        onlineProgress = {};
+        updateAuthUI("Online-Konto nicht erreichbar. Du kannst die App lokal weiter nutzen.");
+        renderRanking();
+      }
+    }
+
+    async function registerAccount() {
+      const username = document.getElementById("authUsername").value.trim();
+      const password = document.getElementById("authPassword").value;
+
+      try {
+        setAccountMessage("Konto wird erstellt...");
+        await apiRequest("/api/register", {
+          method: "POST",
+          body: { username, password }
+        });
+        document.getElementById("authPassword").value = "";
+        await loadAccountState();
+        renderCritters();
+        setAccountMessage("Konto erstellt. Du bist jetzt angemeldet.");
+      } catch (error) {
+        setAccountMessage(error.message);
+      }
+    }
+
+    async function loginAccount() {
+      const username = document.getElementById("authUsername").value.trim();
+      const password = document.getElementById("authPassword").value;
+
+      try {
+        setAccountMessage("Anmeldung läuft...");
+        await apiRequest("/api/login", {
+          method: "POST",
+          body: { username, password }
+        });
+        document.getElementById("authPassword").value = "";
+        await loadAccountState();
+        renderCritters();
+        setAccountMessage("Angemeldet. Dein Online-Fortschritt wurde geladen.");
+      } catch (error) {
+        setAccountMessage(error.message);
+      }
+    }
+
+    async function logoutAccount() {
+      try {
+        await apiRequest("/api/logout", { method: "POST", body: {} });
+      } catch (error) {
+        // Auch wenn die Online-Funktion nicht antwortet, schalten wir lokal wieder auf Gastmodus.
+      }
+
+      currentUser = null;
+      onlineProgress = {};
+      updateAuthUI("Abgemeldet. Jetzt wird wieder der lokale Fortschritt dieses Browsers genutzt.");
+      await loadRanking();
+      renderCritters();
+    }
+
+    async function syncProgressItem(key, item) {
+      if (!currentUser) return;
+
+      try {
+        await apiRequest("/api/progress", {
+          method: "POST",
+          body: {
+            key: key,
+            type: getTypeFromCritterKey(key),
+            caught: item.caught === true,
+            donated: item.donated === true
+          }
+        });
+
+        await loadRanking();
+      } catch (error) {
+        setAccountMessage("Fortschritt konnte gerade nicht online gespeichert werden. Lokal bleibt er sichtbar.");
+      }
+    }
+
+    async function loadRanking() {
+      try {
+        const data = await apiRequest("/api/ranking");
+        rankingRows = data.ranking || [];
+        renderRanking();
+      } catch (error) {
+        backendAvailable = false;
+        rankingRows = [];
+        renderRanking();
+      }
+    }
+
+    function renderRanking() {
+      const container = document.getElementById("rankingOverview");
+      if (!container) return;
+
+      if (!backendAvailable) {
+        container.innerHTML = `
+          <div class="ranking-card">
+            <div class="ranking-title">Rangliste</div>
+            <div class="ranking-note">Die Rangliste ist verfügbar, sobald Cloudflare Pages und D1 verbunden sind.</div>
+          </div>
+        `;
+        return;
+      }
+
+      if (!rankingRows || rankingRows.length === 0) {
+        container.innerHTML = `
+          <div class="ranking-card">
+            <div class="ranking-title">Rangliste</div>
+            <div class="ranking-note">Noch keine Spieler in der Rangliste. Registriere dich und markiere Tiere als gefunden.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const topRows = rankingRows.slice(0, 5);
+      const ownRow = currentUser ? rankingRows.find(row => row.username === currentUser.username) : null;
+
+      const rowsHtml = topRows.map(row => {
+        const isOwn = currentUser && row.username === currentUser.username;
+        return `
+          <div class="ranking-row ${isOwn ? "own-rank" : ""}">
+            <div class="ranking-place">#${escapeHTML(row.rank)}</div>
+            <div class="ranking-name">${escapeHTML(row.username)}</div>
+            <div class="ranking-value">${escapeHTML(row.caught)} gefunden</div>
+            <div class="ranking-value">${escapeHTML(row.donated)} Museum</div>
+          </div>
+        `;
+      }).join("");
+
+      const ownText = ownRow
+        ? `Dein Platz: #${ownRow.rank} mit ${ownRow.caught} gefundenen und ${ownRow.donated} gespendeten Tieren.`
+        : "Melde dich an, damit dein Fortschritt in der Rangliste erscheint.";
+
+      container.innerHTML = `
+        <div class="ranking-card">
+          <div class="ranking-header">
+            <div>
+              <div class="ranking-title">Rangliste</div>
+              <div class="ranking-subtitle">Sortiert nach den meisten gefundenen Tieren.</div>
+            </div>
+          </div>
+          <div class="ranking-list">${rowsHtml}</div>
+          <div class="ranking-note">${escapeHTML(ownText)}</div>
+        </div>
+      `;
     }
 
     function areAnimationsEnabled() {
@@ -1439,6 +1943,7 @@
       progress[key][field] = value;
 
       saveProgress(progress);
+      syncProgressItem(key, progress[key]);
     }
 
 
@@ -2719,10 +3224,14 @@
 
     setDarkModePreference(isDarkModeEnabled(), false);
     createAmbientAnimations();
+    updateAuthUI();
 
-    loadData();
+    loadAccountState().finally(() => {
+      loadData();
+    });
 
     setInterval(renderCritters, 1000);
+    setInterval(loadRanking, 60 * 1000);
   </script>
 
 </body>
