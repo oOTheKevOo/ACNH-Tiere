@@ -1375,7 +1375,7 @@
     </button>
 
     <div id="filterPanel" class="filter-panel">
-      <div class="filter-panel-title">Filter auswählen</div>
+      <div class="filter-panel-title">Ansicht filtern</div>
       <div class="controls">
         <select id="category">
           <option value="all">Alles anzeigen</option>
@@ -1401,12 +1401,11 @@
           <option value="timeWindow">Nur mit Uhrzeit</option>
         </select>
 
-        <select id="progressFilter">
-          <option value="all">Alle Gefangen-/Spenden-Status</option>
-          <option value="caught">Nur gefundene Tiere</option>
+        <input id="progressFilter" type="hidden" value="all">
+
+        <select id="missingFilter">
+          <option value="all">Alle Tiere</option>
           <option value="notCaught">Nur nicht gefundene Tiere</option>
-          <option value="donated">Nur gespendete Tiere</option>
-          <option value="notDonated">Nur nicht gespendete Tiere</option>
         </select>
 
         <select id="sort">
@@ -1996,12 +1995,15 @@
     function makeProgressCard(title, count, total, extraText, className = "", filterValue = "all") {
       const percent = total > 0 ? Math.round((count / total) * 100) : 0;
       const currentProgressFilter = document.getElementById("progressFilter")?.value || "all";
-      const activeClass = currentProgressFilter === filterValue ? "active" : "";
-      const hintText = filterValue === "caught"
-        ? "Gefundene Tiere anzeigen"
-        : filterValue === "donated"
-          ? "Museum-Tiere anzeigen"
-          : "Tiere anzeigen";
+      const isActive = currentProgressFilter === filterValue;
+      const activeClass = isActive ? "active" : "";
+      const hintText = isActive
+        ? "Nochmal klicken: alle Tiere anzeigen"
+        : filterValue === "caught"
+          ? "Gefundene Tiere anzeigen"
+          : filterValue === "donated"
+            ? "Museum-Tiere anzeigen"
+            : "Tiere anzeigen";
 
       return `
         <div class="progress-card ${escapeHTML(className)} ${activeClass}" role="button" tabindex="0" onclick="showProgressList('${escapeHTML(filterValue)}')" onkeydown="handleProgressCardKey(event, '${escapeHTML(filterValue)}')" aria-label="${escapeHTML(hintText)}">
@@ -2068,8 +2070,16 @@
       const sortSelect = document.getElementById("sort");
       const list = document.getElementById("list");
 
+      const currentValue = progressFilter ? progressFilter.value : "all";
+      const nextValue = currentValue === filterValue ? "all" : filterValue;
+
       if (progressFilter) {
-        progressFilter.value = filterValue;
+        progressFilter.value = nextValue;
+      }
+
+      const missingFilter = document.getElementById("missingFilter");
+      if (missingFilter) {
+        missingFilter.value = nextValue === "notCaught" ? "notCaught" : "all";
       }
 
       // Beim Klick auf den Fortschritt sollen wirklich alle passenden Tiere gezeigt werden,
@@ -2095,6 +2105,30 @@
         event.preventDefault();
         showProgressList(filterValue);
       }
+    }
+
+    function applyMissingFilter(value) {
+      const progressFilter = document.getElementById("progressFilter");
+      const sortSelect = document.getElementById("sort");
+
+      if (progressFilter) {
+        progressFilter.value = value;
+      }
+
+      if (value === "notCaught" && sortSelect) {
+        sortSelect.value = "name";
+      }
+
+      renderCritters();
+    }
+
+    function syncMissingFilterSelect() {
+      const progressFilter = document.getElementById("progressFilter");
+      const missingFilter = document.getElementById("missingFilter");
+
+      if (!progressFilter || !missingFilter) return;
+
+      missingFilter.value = progressFilter.value === "notCaught" ? "notCaught" : "all";
     }
 
     function getDayPartText(date) {
@@ -2659,6 +2693,7 @@
       const list = document.getElementById("list");
       const status = document.getElementById("status");
 
+      syncMissingFilterSelect();
       updateTitle();
       updateProgressOverview();
       updateTimeInsight();
@@ -3307,6 +3342,7 @@
     document.getElementById("category").addEventListener("change", renderCritters);
     document.getElementById("availabilityFilter").addEventListener("change", renderCritters);
     document.getElementById("timeFilter").addEventListener("change", renderCritters);
+    document.getElementById("missingFilter").addEventListener("change", event => applyMissingFilter(event.target.value));
     document.getElementById("progressFilter").addEventListener("change", renderCritters);
     document.getElementById("sort").addEventListener("change", renderCritters);
 
