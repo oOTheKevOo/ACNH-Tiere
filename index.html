@@ -2910,6 +2910,101 @@
     }
 
 
+    /* v31: Filter-Reihenfolge und Breite verbessert */
+    .clean-filter-panel {
+      width: min(920px, calc(100vw - 32px)) !important;
+      max-width: 920px;
+    }
+
+    .clean-filter-controls {
+      grid-template-columns:
+        minmax(170px, 0.85fr)
+        minmax(220px, 1fr)
+        minmax(300px, 1.35fr)
+        auto !important;
+      gap: 14px !important;
+      align-items: end;
+    }
+
+    .type-field {
+      min-width: 170px;
+    }
+
+    .hemisphere-field {
+      min-width: 220px;
+    }
+
+    .search-field {
+      min-width: 300px;
+    }
+
+    .filter-field select,
+    .filter-field input[type="search"] {
+      height: 56px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 17px;
+    }
+
+    .clean-filter-panel .compact-refresh {
+      height: 56px;
+      min-width: 170px;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .clean-filter-panel {
+        width: min(720px, calc(100vw - 28px)) !important;
+      }
+
+      .clean-filter-controls {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      .search-field,
+      .clean-filter-panel .compact-refresh {
+        grid-column: 1 / -1;
+      }
+
+      .search-field {
+        min-width: 0;
+      }
+
+      .clean-filter-panel .compact-refresh {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .clean-filter-panel {
+        width: min(360px, calc(100vw - 20px)) !important;
+      }
+
+      .clean-filter-controls {
+        grid-template-columns: 1fr !important;
+      }
+
+      .type-field,
+      .hemisphere-field,
+      .search-field {
+        min-width: 0;
+      }
+
+      .filter-field select,
+      .filter-field input[type="search"] {
+        height: 52px;
+        font-size: 16px;
+      }
+
+      .clean-filter-panel .compact-refresh {
+        height: 52px;
+        min-width: 0;
+      }
+    }
+
+
   </style>
 </head>
 
@@ -2997,7 +3092,7 @@
         <div class="filter-panel-title">Filter</div>
 
         <div class="controls clean-filter-controls">
-          <label class="filter-field">
+          <label class="filter-field type-field">
             <span>Art</span>
             <select id="category">
               <option value="all">Alle Arten</option>
@@ -3007,17 +3102,17 @@
             </select>
           </label>
 
-          <label class="filter-field search-field">
-            <span>Suche</span>
-            <input id="searchInput" type="search" placeholder="Tier suchen..." autocomplete="off">
-          </label>
-
-          <label class="filter-field">
+          <label class="filter-field hemisphere-field">
             <span>Halbkugel</span>
             <select id="hemisphere">
               <option value="northern">Nordhalbkugel</option>
               <option value="southern">Südhalbkugel</option>
             </select>
+          </label>
+
+          <label class="filter-field search-field">
+            <span>Suche</span>
+            <input id="searchInput" type="search" placeholder="Tier suchen..." autocomplete="off">
           </label>
 
           <button class="refresh-button compact-refresh" onclick="loadData(true)" title="Daten aktualisieren">↻ Aktualisieren</button>
