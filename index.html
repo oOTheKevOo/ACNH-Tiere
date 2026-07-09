@@ -2851,6 +2851,65 @@
     }
 
 
+    /* v30: Suchleiste im Filtermenü */
+    .clean-filter-controls {
+      grid-template-columns: 1.15fr 1fr 1fr auto;
+    }
+
+    .filter-field input[type="search"] {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 14px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #999;
+      background: #fff;
+      color: #222;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .filter-field input[type="search"]:focus {
+      border-color: #78bf7a;
+      box-shadow: 0 0 0 3px rgba(120, 191, 122, 0.22);
+    }
+
+    .search-field {
+      min-width: 180px;
+    }
+
+    body.dark-mode .filter-field input[type="search"] {
+      background: rgba(255,255,255,0.08);
+      border-color: #60715b;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .filter-field input[type="search"]::placeholder {
+      color: #b9b09d;
+    }
+
+    @media (max-width: 900px) {
+      .clean-filter-controls {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .clean-filter-panel .compact-refresh {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .clean-filter-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .search-field {
+        min-width: 0;
+      }
+    }
+
+
   </style>
 </head>
 
@@ -2946,6 +3005,11 @@
               <option value="Insekt">Insekten</option>
               <option value="Meereswesen">Meereswesen</option>
             </select>
+          </label>
+
+          <label class="filter-field search-field">
+            <span>Suche</span>
+            <input id="searchInput" type="search" placeholder="Tier suchen..." autocomplete="off">
           </label>
 
           <label class="filter-field">
@@ -3132,6 +3196,18 @@
       "Juli", "August", "September", "Oktober", "November", "Dezember"
     ];
 
+
+    function normalizeSearchText(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ä/g, "a")
+        .replace(/ö/g, "o")
+        .replace(/ü/g, "u")
+        .replace(/ß/g, "ss")
+        .trim();
+    }
 
     function escapeHTML(value) {
       if (value === null || value === undefined) return "";
@@ -4510,6 +4586,8 @@
 
       const hemisphere = document.getElementById("hemisphere").value;
       const category = document.getElementById("category").value;
+      const searchInput = document.getElementById("searchInput");
+      const searchTerm = searchInput ? normalizeSearchText(searchInput.value) : "";
 
       const now = new Date();
 
@@ -4555,6 +4633,24 @@
         allCritters = allCritters.filter(critter => critter.type === category);
       }
 
+      if (searchTerm !== "") {
+        allCritters = allCritters.filter(critter => {
+          const original = critter.original || {};
+          const englishName = original.name && original.name["name-USen"] ? original.name["name-USen"] : "";
+          const fileName = original["file-name"] || "";
+
+          const searchableText = normalizeSearchText([
+            critter.name,
+            englishName,
+            fileName,
+            critter.type,
+            critter.location
+          ].join(" "));
+
+          return searchableText.includes(searchTerm);
+        });
+      }
+
       // Automatische Hauptseiten-Sortierung:
       // 1. jetzt verfügbare Tiere, die bald verschwinden
       // 2. länger verfügbare Tiere
@@ -4562,8 +4658,9 @@
       allCritters.sort(sortByEnding);
 
       const categoryText = category === "all" ? "alle Arten" : category;
-      status.textContent =
-        `Offen: ${allCritters.length} Tiere`;
+      status.textContent = searchTerm
+        ? `Gefunden für Suche: ${allCritters.length} Tiere`
+        : `Offen: ${allCritters.length} Tiere`;
 
       list.innerHTML = "";
 
@@ -5115,6 +5212,12 @@
 
     document.getElementById("hemisphere").addEventListener("change", renderCritters);
     document.getElementById("category").addEventListener("change", renderCritters);
+
+    const searchInputElement = document.getElementById("searchInput");
+    if (searchInputElement) {
+      searchInputElement.addEventListener("input", renderCritters);
+      searchInputElement.addEventListener("search", renderCritters);
+    }
 
     const availabilityFilterElement = document.getElementById("availabilityFilter");
     const timeFilterElement = document.getElementById("timeFilter");
