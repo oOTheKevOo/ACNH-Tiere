@@ -1294,6 +1294,1264 @@
       }
     }
 
+
+
+    /* Dashboard-Aufräumung v20 */
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto 18px auto;
+      text-align: center;
+      padding: 4px 70px 0 70px;
+    }
+
+    .hero-kicker {
+      margin: 0 0 6px 0;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f7d4e;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-subtitle {
+      margin: 12px auto 0 auto;
+      color: #6d604e;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .dashboard-grid {
+      max-width: 1180px;
+      margin: 0 auto 20px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .dashboard-grid .progress-overview {
+      max-width: none;
+      margin: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .dashboard-grid .time-insight {
+      max-width: none;
+      margin: 0;
+      text-align: left;
+      display: flex;
+      align-items: stretch;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .dashboard-grid .ranking-overview {
+      max-width: none;
+      margin: 0;
+      grid-column: 1 / -1;
+    }
+
+    .progress-card {
+      padding: 13px 14px;
+      min-height: 116px;
+    }
+
+    .progress-title {
+      margin-bottom: 8px;
+    }
+
+    .progress-title span:first-child {
+      font-size: 18px;
+    }
+
+    .progress-title span:last-child {
+      font-size: 16px;
+    }
+
+    .progress-card-hint {
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    .time-insight-content {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .time-insight-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .time-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #fff;
+      border: 1px solid #eadfcd;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: #5e513f;
+      white-space: nowrap;
+    }
+
+    .time-main-number {
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+      color: #1b5e20;
+    }
+
+    .time-main-label {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .time-next-box {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid #eadfcd;
+      border-radius: 14px;
+      padding: 10px;
+      line-height: 1.35;
+      color: #4f4435;
+    }
+
+    .ranking-card {
+      padding: 14px 16px;
+    }
+
+    .ranking-card.compact .ranking-list {
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    }
+
+    .ranking-card.compact .ranking-row {
+      grid-template-columns: 44px 1fr auto;
+    }
+
+    .ranking-card.compact .ranking-row .ranking-value:last-child {
+      display: none;
+    }
+
+    .ranking-toggle-button {
+      min-width: auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+      background: #fff9e8;
+      border-color: #ead38e;
+    }
+
+    .list-toolbar {
+      max-width: 1180px;
+      margin: 0 auto 18px auto;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid #eadfcd;
+      border-radius: 22px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .list-toolbar #status {
+      margin: 0 0 12px 0;
+      font-size: 17px;
+    }
+
+    .list-toolbar .controls-wrapper {
+      margin: 0;
+      gap: 10px;
+    }
+
+    .list-toolbar .refresh-button {
+      padding: 10px 14px;
+      font-size: 15px;
+      border-radius: 999px;
+      min-width: auto;
+      background: #fff;
+    }
+
+    .list-toolbar .filter-toggle {
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
+    }
+
+    body.dark-mode .hero-kicker {
+      color: #aee68a;
+    }
+
+    body.dark-mode .hero-subtitle,
+    body.dark-mode .time-main-label {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .time-pill,
+    body.dark-mode .time-next-box,
+    body.dark-mode .list-toolbar {
+      background: rgba(24, 34, 26, 0.92);
+      border-color: #485a43;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .time-main-number {
+      color: #aee68a;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-grid .progress-overview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding: 0 58px 0 8px;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        font-size: 34px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .time-insight-top {
+        flex-direction: column-reverse;
+      }
+
+      .ranking-card.compact .ranking-list {
+        grid-template-columns: 1fr;
+      }
+
+      .list-toolbar {
+        padding: 12px;
+        border-radius: 18px;
+      }
+    }
+
+    /* Startseite v21: Rangliste als eigene Seite */
+    .dashboard-grid {
+      max-width: 1180px;
+      margin: 0 auto 20px auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .dashboard-grid .progress-overview {
+      max-width: none;
+      margin: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .dashboard-grid .ranking-overview {
+      max-width: none;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column: auto;
+    }
+
+    .ranking-entry-button {
+      width: 138px;
+      height: 138px;
+      min-width: 138px;
+      border-radius: 999px;
+      border: 1px solid #d8c48b;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(255,249,232,0.78) 42%, rgba(238,213,138,0.9));
+      box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      color: #2a241b;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .ranking-entry-button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    }
+
+    .ranking-entry-button:focus {
+      outline: 3px solid #7abf7a;
+      outline-offset: 4px;
+    }
+
+    .ranking-entry-medal {
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .ranking-entry-title {
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .ranking-entry-subtitle {
+      font-size: 12px;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .ranking-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 0 30px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ranking-page-inner {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #eadfcd;
+      border-radius: 24px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+      padding: 20px;
+    }
+
+    .ranking-back-button {
+      min-width: auto;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #fff9e8;
+      border-color: #ead38e;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .ranking-page-hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 20px;
+      background: #fff9e8;
+      border: 1px solid #ead38e;
+    }
+
+    .ranking-page-medal {
+      width: 76px;
+      height: 76px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px #ead38e;
+      font-size: 42px;
+      flex: 0 0 auto;
+    }
+
+    .ranking-page-hero h2 {
+      margin: 0 0 6px 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1;
+    }
+
+    .ranking-page-hero p {
+      margin: 0;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .ranking-page-content .ranking-card {
+      box-shadow: none;
+      border-radius: 18px;
+    }
+
+    .ranking-page-content .ranking-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ranking-page-content .ranking-row {
+      grid-template-columns: 56px 1fr auto auto;
+      padding: 13px 14px;
+    }
+
+    body.ranking-page-active .hero,
+    body.ranking-page-active .dashboard-grid,
+    body.ranking-page-active .list-toolbar,
+    body.ranking-page-active #list {
+      display: none !important;
+    }
+
+    body.ranking-page-active #rankingPage {
+      display: block;
+    }
+
+    body.dark-mode .ranking-entry-button {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), rgba(60,74,42,0.92) 44%, rgba(40,50,32,0.98));
+      border-color: #70885d;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .ranking-entry-subtitle,
+    body.dark-mode .ranking-page-hero p {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .ranking-page-inner {
+      background: rgba(18, 27, 20, 0.94);
+      border-color: #485a43;
+    }
+
+    body.dark-mode .ranking-page-hero,
+    body.dark-mode .ranking-back-button {
+      background: rgba(255, 224, 138, 0.1);
+      border-color: #6f7546;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .ranking-page-medal {
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px #6f7546;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid .progress-overview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .ranking-entry-button {
+        width: 116px;
+        height: 116px;
+        min-width: 116px;
+      }
+
+      .ranking-entry-medal {
+        font-size: 34px;
+      }
+
+      .ranking-entry-title {
+        font-size: 15px;
+      }
+
+      .ranking-page-inner {
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .ranking-page-hero {
+        align-items: flex-start;
+      }
+
+      .ranking-page-medal {
+        width: 58px;
+        height: 58px;
+        font-size: 32px;
+      }
+
+      .ranking-page-content .ranking-row {
+        grid-template-columns: 42px 1fr;
+      }
+
+      .ranking-page-content .ranking-row .ranking-value {
+        grid-column: 2;
+      }
+    }
+
+
+    /* v22: Runde Startseiten-Kreise und eigene Sammlungsseiten */
+    .dashboard-circles {
+      max-width: 760px;
+      margin: 0 auto 24px auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(130px, 1fr));
+      gap: 18px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .circle-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .dashboard-circle {
+      width: 150px;
+      height: 150px;
+      min-width: 150px;
+      border-radius: 999px;
+      border: 1px solid #d8c48b;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      overflow: hidden;
+      padding: 8px;
+      color: #2a241b;
+    }
+
+    .dashboard-circle:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 13px 30px rgba(0,0,0,0.2);
+    }
+
+    .dashboard-circle:focus {
+      outline: 3px solid #7abf7a;
+      outline-offset: 4px;
+    }
+
+    .progress-circle {
+      background:
+        conic-gradient(var(--circle-color) var(--circle-progress), #eee4d7 var(--circle-progress));
+    }
+
+    .dashboard-circle-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2px;
+      padding: 10px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.75);
+      position: relative;
+      z-index: 1;
+    }
+
+    .dashboard-circle-icon {
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .dashboard-circle-title {
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .dashboard-circle-count {
+      font-size: 15px;
+      font-weight: 900;
+      margin-top: 3px;
+    }
+
+    .dashboard-circle-note {
+      font-size: 12px;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .ranking-entry-button {
+      width: 150px;
+      height: 150px;
+      min-width: 150px;
+    }
+
+    .ranking-entry-medal {
+      font-size: 42px;
+    }
+
+    .collection-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 0 30px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .collection-page-inner {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #eadfcd;
+      border-radius: 24px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+      padding: 20px;
+    }
+
+    .collection-page-hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 20px;
+      background: #fff9e8;
+      border: 1px solid #ead38e;
+    }
+
+    .collection-page-icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px #ead38e;
+      font-size: 42px;
+      flex: 0 0 auto;
+    }
+
+    .collection-page-icon.caught {
+      box-shadow: inset 0 0 0 4px rgba(120,189,115,0.35);
+    }
+
+    .collection-page-icon.museum {
+      box-shadow: inset 0 0 0 4px rgba(106,167,160,0.35);
+    }
+
+    .collection-page-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .collection-page-hero h2 {
+      margin: 0 0 6px 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1;
+    }
+
+    .collection-page-hero p {
+      margin: 0 0 10px 0;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .collection-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 10px 0;
+    }
+
+    .collection-summary span {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid #eadfcd;
+      padding: 6px 10px;
+      font-size: 13px;
+      color: #5c5145;
+      font-weight: bold;
+    }
+
+    .collection-progress-bar {
+      height: 12px;
+      background: #eee4d7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .collection-progress-bar div {
+      height: 100%;
+      background: #78bd73;
+      border-radius: 999px;
+    }
+
+    .collection-page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin: 0 0 14px 0;
+      padding: 0 4px;
+    }
+
+    .collection-page-heading h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .collection-page-heading p {
+      margin: 0;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    .collection-animal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .collection-animal-card {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid #eadfcd;
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .collection-animal-card img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .collection-animal-card h3 {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+    }
+
+    .collection-animal-card p {
+      margin: 0;
+      color: #665b4d;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .collection-animal-card span {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e8f5e9;
+      color: #1b5e20;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .collection-empty {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #eadfcd;
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      color: #6d604e;
+      font-weight: bold;
+    }
+
+    body.progress-page-active .hero,
+    body.progress-page-active .dashboard-grid,
+    body.progress-page-active .list-toolbar,
+    body.progress-page-active #list,
+    body.progress-page-active #rankingPage {
+      display: none !important;
+    }
+
+    body.progress-page-active #collectionPage {
+      display: block;
+    }
+
+    body.ranking-page-active #collectionPage {
+      display: none !important;
+    }
+
+    body.dark-mode .dashboard-circle {
+      color: #f7efd8;
+      border-color: #70885d;
+    }
+
+    body.dark-mode .dashboard-circle-inner {
+      background: rgba(18, 27, 20, 0.94);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    body.dark-mode .dashboard-circle-note,
+    body.dark-mode .collection-page-hero p,
+    body.dark-mode .collection-page-heading p {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .progress-circle {
+      background:
+        conic-gradient(var(--circle-color) var(--circle-progress), rgba(255,255,255,0.15) var(--circle-progress));
+    }
+
+    body.dark-mode .collection-page-inner,
+    body.dark-mode .collection-animal-card,
+    body.dark-mode .collection-empty {
+      background: rgba(18, 27, 20, 0.94);
+      border-color: #485a43;
+    }
+
+    body.dark-mode .collection-page-hero {
+      background: rgba(255, 224, 138, 0.1);
+      border-color: #6f7546;
+    }
+
+    body.dark-mode .collection-page-icon {
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px #6f7546;
+    }
+
+    body.dark-mode .collection-summary span {
+      background: rgba(255,255,255,0.08);
+      border-color: #485a43;
+      color: #e8ddce;
+    }
+
+    body.dark-mode .collection-animal-card p {
+      color: #cfc5ad;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard-circles {
+        max-width: 100%;
+        grid-template-columns: repeat(3, minmax(90px, 1fr));
+        gap: 10px;
+      }
+
+      .dashboard-circle,
+      .ranking-entry-button {
+        width: 104px;
+        height: 104px;
+        min-width: 104px;
+        padding: 6px;
+      }
+
+      .dashboard-circle-inner {
+        padding: 7px;
+      }
+
+      .dashboard-circle-icon,
+      .ranking-entry-medal {
+        font-size: 27px;
+      }
+
+      .dashboard-circle-title,
+      .ranking-entry-title {
+        font-size: 13px;
+      }
+
+      .dashboard-circle-count {
+        font-size: 12px;
+      }
+
+      .dashboard-circle-note,
+      .ranking-entry-subtitle {
+        font-size: 10px;
+      }
+
+      .collection-page-inner {
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .collection-page-hero {
+        align-items: flex-start;
+        padding: 13px;
+      }
+
+      .collection-page-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 31px;
+      }
+
+      .collection-summary {
+        gap: 6px;
+      }
+
+      .collection-summary span {
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+
+      .collection-page-heading {
+        display: block;
+      }
+
+      .collection-page-heading p {
+        margin-top: 4px;
+      }
+
+      .collection-animal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    /* v23: sauberere Kreis-Darstellung auf der Hauptseite */
+    .dashboard-circles {
+      max-width: 820px;
+      gap: 34px;
+    }
+
+    .dashboard-circle,
+    .ranking-entry-button {
+      width: 158px;
+      height: 158px;
+      min-width: 158px;
+      border-radius: 999px;
+      padding: 0;
+      border: none;
+      overflow: visible;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .progress-circle {
+      background: transparent !important;
+      --ring-track: rgba(120, 110, 88, 0.22);
+      --inner-bg: rgba(255, 253, 248, 0.96);
+      --inner-border: rgba(234, 211, 142, 0.85);
+    }
+
+    .progress-circle::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background:
+        conic-gradient(
+          from -90deg,
+          var(--circle-color) 0 var(--circle-progress),
+          var(--ring-track) var(--circle-progress) 100%
+        );
+      box-shadow:
+        0 8px 22px rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.4);
+      z-index: 0;
+    }
+
+    .progress-circle::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 999px;
+      background: var(--inner-bg);
+      border: 1px solid var(--inner-border);
+      box-shadow: inset 0 0 18px rgba(255,255,255,0.55);
+      z-index: 1;
+    }
+
+    .progress-circle.caught {
+      --circle-color: #74be78;
+    }
+
+    .progress-circle.donated {
+      --circle-color: #72b8b0;
+    }
+
+    .dashboard-circle-inner {
+      position: absolute;
+      inset: 12px;
+      width: auto;
+      height: auto;
+      border-radius: 999px;
+      background: transparent !important;
+      box-shadow: none !important;
+      z-index: 2;
+      padding: 12px;
+    }
+
+    .dashboard-circle-icon {
+      font-size: 36px;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18));
+      margin-bottom: 4px;
+    }
+
+    .dashboard-circle-title {
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .dashboard-circle-count {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    .dashboard-circle-note {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .ranking-entry-button {
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255,255,255,0.96), rgba(255,247,220,0.92) 42%, rgba(229,196,99,0.95));
+      box-shadow:
+        0 8px 22px rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.7);
+      border: 1px solid rgba(216,196,139,0.95);
+    }
+
+    .ranking-entry-button::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(160,129,47,0.22);
+      pointer-events: none;
+    }
+
+    body.dark-mode .progress-circle {
+      --ring-track: rgba(255,255,255,0.20);
+      --inner-bg: rgba(18, 31, 21, 0.96);
+      --inner-border: rgba(129, 154, 100, 0.65);
+    }
+
+    body.dark-mode .progress-circle::before {
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.38),
+        0 0 20px rgba(167, 207, 111, 0.08),
+        inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    body.dark-mode .ranking-entry-button {
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255,255,255,0.16), rgba(74,86,45,0.96) 42%, rgba(36,48,30,0.98));
+      border-color: rgba(129,154,100,0.65);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.38),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    body.dark-mode .ranking-entry-button::after {
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    @media (max-width: 760px) {
+      .dashboard-circles {
+        gap: 8px;
+        grid-template-columns: repeat(3, minmax(96px, 1fr));
+      }
+
+      .dashboard-circle,
+      .ranking-entry-button {
+        width: 108px;
+        height: 108px;
+        min-width: 108px;
+      }
+
+      .progress-circle::after,
+      .dashboard-circle-inner {
+        inset: 8px;
+      }
+
+      .dashboard-circle-inner {
+        padding: 7px;
+      }
+
+      .dashboard-circle-icon {
+        font-size: 28px;
+        margin-bottom: 2px;
+      }
+
+      .dashboard-circle-title,
+      .ranking-entry-title {
+        font-size: 13px;
+      }
+
+      .dashboard-circle-count {
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      .dashboard-circle-note,
+      .ranking-entry-subtitle {
+        font-size: 10px;
+      }
+    }
+
+
+    /* v24: Hauptseite nur noch offene Tiere, Filter stark reduziert */
+    .list-toolbar {
+      max-width: 1080px;
+      margin: 0 auto 22px auto;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .main-filter-card {
+      width: min(820px, 100%);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #eadfcd;
+      border-radius: 22px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .main-filter-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .main-filter-title span {
+      font-size: 23px;
+      font-weight: 900;
+      color: #272321;
+    }
+
+    .main-filter-title small {
+      color: #6d604e;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .main-filter-controls {
+      display: grid;
+      grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .main-filter-controls label {
+      display: grid;
+      gap: 6px;
+      font-weight: 900;
+      color: #3d352e;
+    }
+
+    .main-filter-controls label span {
+      font-size: 13px;
+      color: #6d604e;
+      padding-left: 3px;
+    }
+
+    .main-filter-controls select {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .compact-refresh {
+      min-width: auto;
+      white-space: nowrap;
+      align-self: end;
+      background: #fff9e8;
+      border-color: #ead38e;
+      font-weight: bold;
+    }
+
+    #status {
+      margin: 0;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,249,232,0.9);
+      border: 1px solid #ead38e;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .availability-mini {
+      font-weight: bold;
+      color: #6d604e;
+    }
+
+    .counter.unavailable {
+      background: #eef1f6;
+      color: #354056;
+    }
+
+    body.dark-mode .main-filter-card {
+      background: rgba(18, 27, 20, 0.94);
+      border-color: #485a43;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    body.dark-mode .main-filter-title span,
+    body.dark-mode .main-filter-controls label {
+      color: #f7efd8;
+    }
+
+    body.dark-mode .main-filter-title small,
+    body.dark-mode .main-filter-controls label span,
+    body.dark-mode .availability-mini {
+      color: #cfc5ad;
+    }
+
+    body.dark-mode .compact-refresh {
+      background: rgba(255, 224, 138, 0.1);
+      border-color: #6f7546;
+      color: #f7efd8;
+    }
+
+    body.dark-mode #status {
+      background: rgba(255, 224, 138, 0.1);
+      border-color: #6f7546;
+      color: #f7efd8;
+    }
+
+    body.dark-mode .counter.unavailable {
+      background: rgba(255,255,255,0.12);
+      color: #d7dbea;
+    }
+
+    @media (max-width: 760px) {
+      .main-filter-card {
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .main-filter-title {
+        display: block;
+        text-align: center;
+      }
+
+      .main-filter-title span {
+        display: block;
+        font-size: 20px;
+      }
+
+      .main-filter-title small {
+        display: block;
+        margin-top: 5px;
+        font-size: 13px;
+      }
+
+      .main-filter-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .compact-refresh {
+        width: 100%;
+      }
+
+      #status {
+        border-radius: 18px;
+        font-size: 14px;
+      }
+    }
+
+
   </style>
 </head>
 
@@ -1356,73 +2614,84 @@
     </div>
   </div>
 
-  <h1 id="mainTitle">Animal Crossing: Jetzt fangbar</h1>
+  <header class="hero">
+    <p class="hero-kicker">Deine ACNH-Sammelübersicht</p>
+    <h1 id="mainTitle">Animal Crossing: Tier-Tracker</h1>
+    <p id="heroSubtitle" class="hero-subtitle">Daten werden geladen...</p>
+  </header>
 
-  <section id="progressOverview" class="progress-overview" aria-live="polite"></section>
-
-  <section id="rankingOverview" class="ranking-overview" aria-live="polite"></section>
-
-  <section id="timeInsight" class="time-insight" aria-live="polite">
-    Daten werden geladen...
+  <section class="dashboard-grid dashboard-circles" aria-label="Übersicht">
+    <section id="foundOverview" class="circle-slot found-slot" aria-live="polite"></section>
+    <section id="rankingOverview" class="ranking-overview circle-slot" aria-live="polite"></section>
+    <section id="museumOverview" class="circle-slot museum-slot" aria-live="polite"></section>
   </section>
 
-  <div class="controls-wrapper">
-    <button id="filterToggle" class="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Filter öffnen" aria-expanded="false" title="Filter">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 5h16l-6.2 7.1v5.2l-3.6 1.9v-7.1L4 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-      </svg>
-      <span class="visually-hidden">Filter</span>
-    </button>
-
-    <div id="filterPanel" class="filter-panel">
-      <div class="filter-panel-title">Ansicht filtern</div>
-      <div class="controls">
-        <select id="category">
-          <option value="all">Alles anzeigen</option>
-          <option value="Fisch">Nur Fische</option>
-          <option value="Insekt">Nur Insekten</option>
-          <option value="Meereswesen">Nur Meereswesen</option>
-        </select>
-
-        <select id="hemisphere">
-          <option value="northern">Nordhalbkugel</option>
-          <option value="southern">Südhalbkugel</option>
-        </select>
-
-        <select id="availabilityFilter">
-          <option value="available">Jetzt verfügbar</option>
-          <option value="unavailable">Nicht verfügbar</option>
-          <option value="all">Alle Verfügbarkeiten</option>
-        </select>
-
-        <select id="timeFilter">
-          <option value="all">Alle Zeiten</option>
-          <option value="allDay">Nur ganztägig</option>
-          <option value="timeWindow">Nur mit Uhrzeit</option>
-        </select>
-
-        <input id="progressFilter" type="hidden" value="all">
-
-        <select id="missingFilter">
-          <option value="all">Alle Tiere</option>
-          <option value="notCaught">Nur nicht gefundene Tiere</option>
-        </select>
-
-        <select id="sort">
-          <option value="ending">Läuft bald ab</option>
-          <option value="type">Nach Art sortieren</option>
-          <option value="rarity">Nach Seltenheit sortieren</option>
-          <option value="name">Nach Name sortieren</option>
-        </select>
+  <section class="list-toolbar" aria-label="Tierliste steuern">
+    <div class="main-filter-card">
+      <div class="main-filter-title">
+        <span>Offene Tiere</span>
+        <small>Alles, was noch nicht komplett erledigt ist.</small>
       </div>
+
+      <div class="main-filter-controls">
+        <label>
+          <span>Art</span>
+          <select id="category">
+            <option value="all">Alle Arten</option>
+            <option value="Fisch">Fische</option>
+            <option value="Insekt">Insekten</option>
+            <option value="Meereswesen">Meereswesen</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Halbkugel</span>
+          <select id="hemisphere">
+            <option value="northern">Nordhalbkugel</option>
+            <option value="southern">Südhalbkugel</option>
+          </select>
+        </label>
+
+        <button class="refresh-button compact-refresh" onclick="loadData(true)" title="Daten aktualisieren">↻ Aktualisieren</button>
+      </div>
+
+      <input id="availabilityFilter" type="hidden" value="all">
+      <input id="timeFilter" type="hidden" value="all">
+      <input id="progressFilter" type="hidden" value="open">
+      <input id="missingFilter" type="hidden" value="all">
+      <input id="sort" type="hidden" value="automatic">
     </div>
 
-    <button class="refresh-button" onclick="loadData(true)">Aktualisieren</button>
-  </div>
-
-  <p id="status">Daten werden geladen...</p>
+    <p id="status">Daten werden geladen...</p>
+  </section>
 
   <div id="list" class="grid"></div>
+
+  <section id="rankingPage" class="ranking-page" aria-label="Rangliste" hidden>
+    <div class="ranking-page-inner">
+      <button class="ranking-back-button" type="button" onclick="closeRankingPage()">← Zurück zur Hauptseite</button>
+
+      <div class="ranking-page-hero">
+        <div class="ranking-page-medal" aria-hidden="true">🏅</div>
+        <div>
+          <h2>Rangliste</h2>
+          <p>Hier siehst du, wer aktuell die meisten Tiere gefunden hat.</p>
+        </div>
+      </div>
+
+      <div id="rankingPageContent" class="ranking-page-content" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="collectionPage" class="collection-page" aria-label="Sammlungsübersicht" hidden>
+    <div class="collection-page-inner">
+      <button class="ranking-back-button" type="button" onclick="closeProgressPage()">← Zurück zur Hauptseite</button>
+
+      <div id="collectionPageHero" class="collection-page-hero"></div>
+      <div id="collectionPageContent" class="collection-page-content" aria-live="polite"></div>
+    </div>
+  </section>
+
 
   <div id="detailOverlay" class="modal-overlay" onclick="closeCritterDetail(event)">
     <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
@@ -1482,6 +2751,8 @@
     let onlineProgress = {};
     let backendAvailable = true;
     let rankingRows = [];
+    let rankingExpanded = false;
+    let currentProgressPageMode = null;
 
     const animationStorageKey = "acnhAmbientAnimations";
     const darkModeStorageKey = "acnhDarkMode";
@@ -1769,6 +3040,10 @@
       updateAuthUI("Abgemeldet. Jetzt wird wieder der lokale Fortschritt dieses Browsers genutzt.");
       await loadRanking();
       renderCritters();
+
+      if (document.body.classList.contains("progress-page-active")) {
+        renderProgressPage();
+      }
     }
 
     async function syncProgressItem(key, item) {
@@ -1803,14 +3078,212 @@
       }
     }
 
+    function getCollectionData(mode) {
+      const progress = getSavedProgress();
+      const field = mode === "donated" ? "donated" : "caught";
+      const totals = getProgressTotals();
+
+      const animals = rawCritters
+        .map(critter => {
+          const key = getCritterStorageKey(critter);
+          const saved = progress[key] || { caught: false, donated: false };
+
+          return {
+            key: key,
+            original: critter,
+            type: critter.type,
+            name: getGermanName(critter),
+            image: getImageUrl(critter, critter.folder),
+            location: translateValue("location", critter.availability.location),
+            price: critter.price ? formatBells(critter.price) : "",
+            caught: saved.caught === true,
+            donated: saved.donated === true
+          };
+        })
+        .filter(critter => critter[field] === true)
+        .sort((a, b) => {
+          if (a.type !== b.type) {
+            return a.type.localeCompare(b.type);
+          }
+
+          return a.name.localeCompare(b.name);
+        });
+
+      return {
+        animals: animals,
+        totals: totals
+      };
+    }
+
+    function openProgressPage(mode) {
+      currentProgressPageMode = mode === "donated" ? "donated" : "caught";
+
+      const rankingPage = document.getElementById("rankingPage");
+      if (rankingPage) {
+        rankingPage.hidden = true;
+      }
+
+      document.body.classList.remove("ranking-page-active");
+
+      const page = document.getElementById("collectionPage");
+      if (page) {
+        page.hidden = false;
+      }
+
+      document.body.classList.add("progress-page-active");
+      toggleAppMenu(false);
+      toggleFilterPanel(false);
+      renderProgressPage();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closeProgressPage() {
+      document.body.classList.remove("progress-page-active");
+      currentProgressPageMode = null;
+
+      const page = document.getElementById("collectionPage");
+      if (page) {
+        page.hidden = true;
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderProgressPage() {
+      if (!currentProgressPageMode) return;
+
+      const hero = document.getElementById("collectionPageHero");
+      const content = document.getElementById("collectionPageContent");
+
+      if (!hero || !content) return;
+
+      if (rawCritters.length === 0) {
+        hero.innerHTML = "";
+        content.innerHTML = `
+          <div class="collection-empty">
+            Daten werden geladen...
+          </div>
+        `;
+        return;
+      }
+
+      const isMuseum = currentProgressPageMode === "donated";
+      const data = getCollectionData(currentProgressPageMode);
+      const totals = data.totals;
+      const count = isMuseum ? totals.all.donated : totals.all.caught;
+      const total = totals.all.total;
+      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+      const title = isMuseum ? "Museum-Übersicht" : "Gefundene Tiere";
+      const icon = isMuseum ? "🏛️" : "🔎";
+      const subtitle = isMuseum
+        ? "Alle Tiere, die du bereits im Museum gespendet hast."
+        : "Alle Tiere, die du bereits gefunden oder gefangen hast.";
+
+      const fish = isMuseum ? totals.Fisch.donated : totals.Fisch.caught;
+      const bugs = isMuseum ? totals.Insekt.donated : totals.Insekt.caught;
+      const sea = isMuseum ? totals.Meereswesen.donated : totals.Meereswesen.caught;
+
+      hero.innerHTML = `
+        <div class="collection-page-icon ${isMuseum ? "museum" : "caught"}" aria-hidden="true">${escapeHTML(icon)}</div>
+        <div class="collection-page-title-wrap">
+          <h2>${escapeHTML(title)}</h2>
+          <p>${escapeHTML(subtitle)}</p>
+          <div class="collection-summary">
+            <span><strong>${escapeHTML(count)} / ${escapeHTML(total)}</strong> erreicht</span>
+            <span>Fische ${escapeHTML(fish)}/${escapeHTML(totals.Fisch.total)}</span>
+            <span>Insekten ${escapeHTML(bugs)}/${escapeHTML(totals.Insekt.total)}</span>
+            <span>Meer ${escapeHTML(sea)}/${escapeHTML(totals.Meereswesen.total)}</span>
+          </div>
+          <div class="collection-progress-bar" aria-hidden="true">
+            <div style="width: ${percent}%;"></div>
+          </div>
+        </div>
+      `;
+
+      if (data.animals.length === 0) {
+        content.innerHTML = `
+          <div class="collection-empty">
+            Hier ist noch nichts eingetragen. Öffne ein Tier und markiere es als ${isMuseum ? "gespendet" : "gefunden"}.
+          </div>
+        `;
+        return;
+      }
+
+      const animalCards = data.animals.map(critter => `
+        <article class="collection-animal-card">
+          <img src="${escapeHTML(critter.image)}" alt="${escapeHTML(critter.name)}" onerror="this.style.display='none'">
+          <div>
+            <h3>${escapeHTML(critter.name)}</h3>
+            <p>${escapeHTML(critter.type)} · ${escapeHTML(critter.location)}</p>
+            ${critter.price ? `<span>${escapeHTML(critter.price)}</span>` : ""}
+          </div>
+        </article>
+      `).join("");
+
+      content.innerHTML = `
+        <div class="collection-page-heading">
+          <h3>${escapeHTML(data.animals.length)} Tiere</h3>
+          <p>Sortiert nach Art und Name.</p>
+        </div>
+        <div class="collection-animal-grid">${animalCards}</div>
+      `;
+    }
+
+    function openRankingPage() {
+      const collectionPage = document.getElementById("collectionPage");
+      if (collectionPage) {
+        collectionPage.hidden = true;
+      }
+
+      currentProgressPageMode = null;
+      document.body.classList.remove("progress-page-active");
+
+      const page = document.getElementById("rankingPage");
+      if (page) {
+        page.hidden = false;
+      }
+
+      document.body.classList.add("ranking-page-active");
+      toggleAppMenu(false);
+      renderRanking();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closeRankingPage() {
+      document.body.classList.remove("ranking-page-active");
+
+      const page = document.getElementById("rankingPage");
+      if (page) {
+        page.hidden = true;
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function makeRankingEntryButton() {
+      return `
+        <button class="ranking-entry-button" type="button" onclick="openRankingPage()" aria-label="Rangliste öffnen">
+          <span class="ranking-entry-medal" aria-hidden="true">🏅</span>
+          <span class="ranking-entry-title">Rangliste</span>
+          <span class="ranking-entry-subtitle">Plätze ansehen</span>
+        </button>
+      `;
+    }
+
     function renderRanking() {
-      const container = document.getElementById("rankingOverview");
-      if (!container) return;
+      const homeContainer = document.getElementById("rankingOverview");
+      const pageContainer = document.getElementById("rankingPageContent");
+
+      if (homeContainer) {
+        homeContainer.innerHTML = makeRankingEntryButton();
+      }
+
+      if (!pageContainer) return;
 
       if (!backendAvailable) {
-        container.innerHTML = `
-          <div class="ranking-card">
-            <div class="ranking-title">Rangliste</div>
+        pageContainer.innerHTML = `
+          <div class="ranking-card expanded">
+            <div class="ranking-title">Rangliste nicht erreichbar</div>
             <div class="ranking-note">Die Rangliste ist verfügbar, sobald Cloudflare Pages und D1 verbunden sind.</div>
           </div>
         `;
@@ -1818,19 +3291,18 @@
       }
 
       if (!rankingRows || rankingRows.length === 0) {
-        container.innerHTML = `
-          <div class="ranking-card">
-            <div class="ranking-title">Rangliste</div>
-            <div class="ranking-note">Noch keine Spieler in der Rangliste. Registriere dich und markiere Tiere als gefunden.</div>
+        pageContainer.innerHTML = `
+          <div class="ranking-card expanded">
+            <div class="ranking-title">Noch keine Spieler</div>
+            <div class="ranking-note">Registriere dich und markiere Tiere als gefunden, dann erscheinst du hier.</div>
           </div>
         `;
         return;
       }
 
-      const topRows = rankingRows.slice(0, 5);
       const ownRow = currentUser ? rankingRows.find(row => row.username === currentUser.username) : null;
 
-      const rowsHtml = topRows.map(row => {
+      const rowsHtml = rankingRows.map(row => {
         const isOwn = currentUser && row.username === currentUser.username;
         return `
           <div class="ranking-row ${isOwn ? "own-rank" : ""}">
@@ -1843,14 +3315,14 @@
       }).join("");
 
       const ownText = ownRow
-        ? `Dein Platz: #${ownRow.rank} mit ${ownRow.caught} gefundenen und ${ownRow.donated} gespendeten Tieren.`
+        ? `Dein Platz: #${ownRow.rank} · ${ownRow.caught} gefunden · ${ownRow.donated} Museum.`
         : "Melde dich an, damit dein Fortschritt in der Rangliste erscheint.";
 
-      container.innerHTML = `
-        <div class="ranking-card">
+      pageContainer.innerHTML = `
+        <div class="ranking-card expanded">
           <div class="ranking-header">
             <div>
-              <div class="ranking-title">Rangliste</div>
+              <div class="ranking-title">Alle Plätze</div>
               <div class="ranking-subtitle">Sortiert nach den meisten gefundenen Tieren.</div>
             </div>
           </div>
@@ -1992,43 +3464,7 @@
 
 
 
-    function makeProgressCard(title, count, total, extraText, className = "", filterValue = "all") {
-      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
-      const currentProgressFilter = document.getElementById("progressFilter")?.value || "all";
-      const isActive = currentProgressFilter === filterValue;
-      const activeClass = isActive ? "active" : "";
-      const hintText = isActive
-        ? "Nochmal klicken: alle Tiere anzeigen"
-        : filterValue === "caught"
-          ? "Gefundene Tiere anzeigen"
-          : filterValue === "donated"
-            ? "Museum-Tiere anzeigen"
-            : "Tiere anzeigen";
-
-      return `
-        <div class="progress-card ${escapeHTML(className)} ${activeClass}" role="button" tabindex="0" onclick="showProgressList('${escapeHTML(filterValue)}')" onkeydown="handleProgressCardKey(event, '${escapeHTML(filterValue)}')" aria-label="${escapeHTML(hintText)}">
-          <div class="progress-title">
-            <span>${escapeHTML(title)}</span>
-            <span>${count} / ${total}</span>
-          </div>
-          <div class="progress-bar" aria-hidden="true">
-            <div class="progress-bar-fill" style="width: ${percent}%;"></div>
-          </div>
-          <div class="progress-details">${escapeHTML(percent)}% erledigt · ${escapeHTML(extraText)}</div>
-          <span class="progress-card-hint">${escapeHTML(hintText)}</span>
-        </div>
-      `;
-    }
-
-    function updateProgressOverview() {
-      const overview = document.getElementById("progressOverview");
-      if (!overview) return;
-
-      if (rawCritters.length === 0) {
-        overview.innerHTML = "";
-        return;
-      }
-
+    function getProgressTotals() {
       const progress = getSavedProgress();
       const totals = {
         all: { total: 0, caught: 0, donated: 0 },
@@ -2043,25 +3479,78 @@
         const type = critter.type;
 
         totals.all.total++;
-        if (totals[type]) totals[type].total++;
+
+        if (totals[type]) {
+          totals[type].total++;
+        }
 
         if (saved.caught === true) {
           totals.all.caught++;
-          if (totals[type]) totals[type].caught++;
+
+          if (totals[type]) {
+            totals[type].caught++;
+          }
         }
 
         if (saved.donated === true) {
           totals.all.donated++;
-          if (totals[type]) totals[type].donated++;
+
+          if (totals[type]) {
+            totals[type].donated++;
+          }
         }
       });
 
-      const typeTextCaught = `Fische ${totals.Fisch.caught}/${totals.Fisch.total} · Insekten ${totals.Insekt.caught}/${totals.Insekt.total} · Meer ${totals.Meereswesen.caught}/${totals.Meereswesen.total}`;
-      const typeTextDonated = `Fische ${totals.Fisch.donated}/${totals.Fisch.total} · Insekten ${totals.Insekt.donated}/${totals.Insekt.total} · Meer ${totals.Meereswesen.donated}/${totals.Meereswesen.total}`;
+      return totals;
+    }
 
-      overview.innerHTML =
-        makeProgressCard("Gefunden", totals.all.caught, totals.all.total, typeTextCaught, "caught", "caught") +
-        makeProgressCard("Museum", totals.all.donated, totals.all.total, typeTextDonated, "museum", "donated");
+    function makeProgressCircle(mode, title, icon, count, total) {
+      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+      const ariaText = mode === "caught"
+        ? "Gefundene Tiere öffnen"
+        : "Museum-Tiere öffnen";
+
+      return `
+        <button class="dashboard-circle progress-circle ${escapeHTML(mode)}" type="button" onclick="openProgressPage('${escapeHTML(mode)}')" aria-label="${escapeHTML(ariaText)}" style="--circle-progress: ${percent}%; --circle-color: ${mode === "caught" ? "#78bd73" : "#6aa7a0"};">
+          <span class="dashboard-circle-inner">
+            <span class="dashboard-circle-icon" aria-hidden="true">${escapeHTML(icon)}</span>
+            <span class="dashboard-circle-title">${escapeHTML(title)}</span>
+            <span class="dashboard-circle-count">${escapeHTML(count)} / ${escapeHTML(total)}</span>
+            <span class="dashboard-circle-note">erreicht</span>
+          </span>
+        </button>
+      `;
+    }
+
+    function updateProgressOverview() {
+      const foundOverview = document.getElementById("foundOverview");
+      const museumOverview = document.getElementById("museumOverview");
+
+      if (!foundOverview || !museumOverview) return;
+
+      if (rawCritters.length === 0) {
+        foundOverview.innerHTML = "";
+        museumOverview.innerHTML = "";
+        return;
+      }
+
+      const totals = getProgressTotals();
+
+      foundOverview.innerHTML = makeProgressCircle(
+        "caught",
+        "Gefunden",
+        "🔎",
+        totals.all.caught,
+        totals.all.total
+      );
+
+      museumOverview.innerHTML = makeProgressCircle(
+        "donated",
+        "Museum",
+        "🏛️",
+        totals.all.donated,
+        totals.all.total
+      );
     }
 
     function showProgressList(filterValue) {
@@ -2142,22 +3631,13 @@
 
     function matchesActiveFiltersRaw(critter) {
       const category = document.getElementById("category").value;
-      const timeFilter = document.getElementById("timeFilter").value;
-      const progressFilter = document.getElementById("progressFilter").value;
 
       if (category !== "all" && critter.type !== category) return false;
-      if (timeFilter === "allDay" && !isAllDayCritter(critter)) return false;
-      if (timeFilter === "timeWindow" && !hasTimeWindowCritter(critter)) return false;
 
       const key = getCritterStorageKey(critter);
       const progress = getCritterProgress(key);
 
-      if (progressFilter === "caught" && progress.caught !== true) return false;
-      if (progressFilter === "notCaught" && progress.caught === true) return false;
-      if (progressFilter === "donated" && progress.donated !== true) return false;
-      if (progressFilter === "notDonated" && progress.donated === true) return false;
-
-      return true;
+      return !(progress.caught === true && progress.donated === true);
     }
 
     function updateTimeInsight() {
@@ -2197,32 +3677,43 @@
 
       const dayPart = getDayPartText(now);
       const timeText = now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
-      let nextText = "In den nächsten 24 Stunden werden nach deinen aktuellen Filtern keine weiteren Tiere fangbar.";
+      const availableWord = availableNow === 1 ? "Tier" : "Tiere";
+      const unavailableWord = unavailableNow === 1 ? "Tier" : "Tiere";
+
+      let mainNumber = availableNow;
+      let mainLabel = `${availableWord} jetzt fangbar`;
+
+      if (availabilityFilter === "unavailable") {
+        mainNumber = unavailableNow;
+        mainLabel = `${unavailableWord} nicht verfügbar`;
+      }
+
+      if (availabilityFilter === "all") {
+        mainLabel = `${availableWord} fangbar · ${unavailableNow} nicht verfügbar`;
+      }
+
+      let nextText = "In den nächsten 24 Stunden kommt nach deinen aktuellen Filtern nichts Neues dazu.";
 
       if (nextDate && nextCount > 0) {
         const duration = formatDuration(nextDate - now);
         const nextClock = nextDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
-        if (nextCount === 1) {
-          nextText = `In ${duration} (${nextClock}) wird 1 weiteres Tier fangbar.`;
-        } else {
-          nextText = `In ${duration} (${nextClock}) werden ${nextCount} weitere Tiere fangbar.`;
-        }
+        const animalWord = nextCount === 1 ? "Tier" : "Tiere";
+        const verb = nextCount === 1 ? "wird" : "werden";
+        nextText = `In ${duration} um ${nextClock} ${verb} ${nextCount} weitere ${animalWord} fangbar.`;
       }
 
-      const availableWord = availableNow === 1 ? "Tier" : "Tiere";
-      const unavailableWord = unavailableNow === 1 ? "Tier" : "Tiere";
-
-      if (availabilityFilter === "unavailable") {
-        insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Nicht verfügbar nach Filter: ${unavailableNow} ${unavailableWord}. ${nextText}`;
-        return;
-      }
-
-      if (availabilityFilter === "all") {
-        insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Fangbar: ${availableNow} ${availableWord} · Nicht verfügbar: ${unavailableNow} ${unavailableWord}. ${nextText}`;
-        return;
-      }
-
-      insight.textContent = `Aktuell ist ${dayPart} (${timeText}) · Jetzt fangbar nach Filter: ${availableNow} ${availableWord}. ${nextText}`;
+      insight.innerHTML = `
+        <div class="time-insight-content">
+          <div class="time-insight-top">
+            <div>
+              <div class="time-main-number">${escapeHTML(mainNumber)}</div>
+              <div class="time-main-label">${escapeHTML(mainLabel)}</div>
+            </div>
+            <div class="time-pill">${dayPart === "Nacht" ? "🌙" : dayPart === "Abend" ? "🌆" : dayPart === "Morgen" ? "🌅" : "🌤"} ${escapeHTML(dayPart)} · ${escapeHTML(timeText)} Uhr</div>
+          </div>
+          <div class="time-next-box">${escapeHTML(nextText)}</div>
+        </div>
+      `;
     }
 
 
@@ -2239,9 +3730,23 @@
 
     function updateTitle() {
       const month = getCurrentGermanMonth();
+      const now = new Date();
+      const hemisphereSelect = document.getElementById("hemisphere");
+      const hemisphereText = hemisphereSelect && hemisphereSelect.value === "southern"
+        ? "Südhalbkugel"
+        : "Nordhalbkugel";
+      const timeText = now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
 
-      document.getElementById("mainTitle").textContent =
-        `Animal Crossing: Jetzt fangbar im ${month}`;
+      const title = document.getElementById("mainTitle");
+      const subtitle = document.getElementById("heroSubtitle");
+
+      if (title) {
+        title.textContent = "Animal Crossing: Tier-Tracker";
+      }
+
+      if (subtitle) {
+        subtitle.textContent = `Jetzt fangbar im ${month} · ${hemisphereText} · ${timeText} Uhr`;
+      }
     }
 
     function translateValue(category, value) {
@@ -2700,10 +4205,6 @@
 
       const hemisphere = document.getElementById("hemisphere").value;
       const category = document.getElementById("category").value;
-      const availabilityFilter = document.getElementById("availabilityFilter").value;
-      const timeFilter = document.getElementById("timeFilter").value;
-      const progressFilter = document.getElementById("progressFilter").value;
-      const sort = document.getElementById("sort").value;
 
       const now = new Date();
 
@@ -2740,81 +4241,31 @@
             remainingClass: availability.className,
             nextAvailableDate: availability.nextAvailableDate
           };
-        });
-
-      if (availabilityFilter === "available") {
-        allCritters = allCritters.filter(critter => critter.availableNow === true);
-      }
-
-      if (availabilityFilter === "unavailable") {
-        allCritters = allCritters.filter(critter => critter.availableNow !== true);
-      }
+        })
+        // Auf der Hauptseite bleiben nur Tiere, die noch nicht komplett erledigt sind:
+        // Erst wenn Gefunden UND Museum angekreuzt sind, verschwindet das Tier hier.
+        .filter(critter => !(critter.caught === true && critter.donated === true));
 
       if (category !== "all") {
         allCritters = allCritters.filter(critter => critter.type === category);
       }
 
-      if (timeFilter === "allDay") {
-        allCritters = allCritters.filter(critter => critter.isAllDay);
-      }
+      // Automatische Hauptseiten-Sortierung:
+      // 1. jetzt verfügbare Tiere, die bald verschwinden
+      // 2. länger verfügbare Tiere
+      // 3. aktuell nicht verfügbare Tiere nach nächster Verfügbarkeit
+      allCritters.sort(sortByEnding);
 
-      if (timeFilter === "timeWindow") {
-        allCritters = allCritters.filter(critter => critter.hasTimeWindow);
-      }
-
-      if (progressFilter === "caught") {
-        allCritters = allCritters.filter(critter => critter.caught === true);
-      }
-
-      if (progressFilter === "notCaught") {
-        allCritters = allCritters.filter(critter => critter.caught !== true);
-      }
-
-      if (progressFilter === "donated") {
-        allCritters = allCritters.filter(critter => critter.donated === true);
-      }
-
-      if (progressFilter === "notDonated") {
-        allCritters = allCritters.filter(critter => critter.donated !== true);
-      }
-
-      if (sort === "ending") {
-        allCritters.sort(sortByEnding);
-      }
-
-      if (sort === "rarity") {
-        allCritters.sort((a, b) => {
-          if (b.rarityNumber !== a.rarityNumber) {
-            return b.rarityNumber - a.rarityNumber;
-          }
-
-          return sortByEnding(a, b);
-        });
-      }
-
-      if (sort === "name") {
-        allCritters.sort((a, b) => a.name.localeCompare(b.name));
-      }
-
-      if (sort === "type") {
-        allCritters.sort((a, b) => {
-          if (a.type !== b.type) {
-            return a.type.localeCompare(b.type);
-          }
-
-          return sortByEnding(a, b);
-        });
-      }
-
+      const categoryText = category === "all" ? "alle Arten" : category;
       status.textContent =
-        `Angezeigt: ${allCritters.length} Tiere | Datum: ${now.toLocaleDateString("de-DE")} | Uhrzeit: ${now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`;
+        `Offen: ${allCritters.length} Tiere · ${categoryText} · Tiere verschwinden erst, wenn Gefunden und Museum erledigt sind.`;
 
       list.innerHTML = "";
 
       if (allCritters.length === 0) {
         list.innerHTML = `
           <div class="error">
-            Aktuell wurde nichts gefunden.
+            Alles in dieser Auswahl ist bereits gefunden und im Museum gespendet.
           </div>
         `;
         return;
@@ -2828,11 +4279,16 @@
         card.setAttribute("aria-label", `Details zu ${critter.name} öffnen`);
         card.__critterData = critter;
 
+        const availabilityLabel = critter.availableNow
+          ? "Jetzt fangbar"
+          : "Später fangbar";
+
         card.innerHTML = `
           <img src="${escapeHTML(critter.image)}" alt="${escapeHTML(critter.name)}" onerror="this.style.display='none'">
           <h3>${escapeHTML(critter.name)}</h3>
           <div class="tag">${escapeHTML(critter.type)}</div>
           <p class="small card-location">Ort: ${escapeHTML(critter.location)}</p>
+          <p class="small availability-mini">${escapeHTML(availabilityLabel)}</p>
           <div class="counter ${escapeHTML(critter.remainingClass)}">
             ${escapeHTML(critter.remainingText)}
           </div>
@@ -3318,11 +4774,25 @@
       updateStatusToggleVisuals();
 
       renderCritters();
+
+      if (document.body.classList.contains("progress-page-active")) {
+        renderProgressPage();
+      }
     }
 
 
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
+        if (document.body.classList.contains("progress-page-active")) {
+          closeProgressPage();
+          return;
+        }
+
+        if (document.body.classList.contains("ranking-page-active")) {
+          closeRankingPage();
+          return;
+        }
+
         closeCritterDetail();
         toggleFilterPanel(false);
         toggleAppMenu(false);
@@ -3340,11 +4810,18 @@
 
     document.getElementById("hemisphere").addEventListener("change", renderCritters);
     document.getElementById("category").addEventListener("change", renderCritters);
-    document.getElementById("availabilityFilter").addEventListener("change", renderCritters);
-    document.getElementById("timeFilter").addEventListener("change", renderCritters);
-    document.getElementById("missingFilter").addEventListener("change", event => applyMissingFilter(event.target.value));
-    document.getElementById("progressFilter").addEventListener("change", renderCritters);
-    document.getElementById("sort").addEventListener("change", renderCritters);
+
+    const availabilityFilterElement = document.getElementById("availabilityFilter");
+    const timeFilterElement = document.getElementById("timeFilter");
+    const missingFilterElement = document.getElementById("missingFilter");
+    const progressFilterElement = document.getElementById("progressFilter");
+    const sortElement = document.getElementById("sort");
+
+    if (availabilityFilterElement) availabilityFilterElement.addEventListener("change", renderCritters);
+    if (timeFilterElement) timeFilterElement.addEventListener("change", renderCritters);
+    if (missingFilterElement) missingFilterElement.addEventListener("change", event => applyMissingFilter(event.target.value));
+    if (progressFilterElement) progressFilterElement.addEventListener("change", renderCritters);
+    if (sortElement) sortElement.addEventListener("change", renderCritters);
 
     setDarkModePreference(isDarkModeEnabled(), false);
     createAmbientAnimations();
