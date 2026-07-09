@@ -2552,6 +2552,305 @@
     }
 
 
+    /* v26: Filter wieder als Icon, ohne sichtbaren Infotext */
+    .compact-list-toolbar {
+      max-width: 1080px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 4;
+    }
+
+    .compact-filter-wrapper {
+      margin: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .compact-filter-wrapper .filter-toggle {
+      margin: 0 auto;
+    }
+
+    .clean-filter-panel {
+      top: 76px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: min(560px, calc(100vw - 28px));
+      padding: 18px;
+      text-align: left;
+    }
+
+    .clean-filter-panel.show {
+      display: block;
+    }
+
+    .clean-filter-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      width: 100%;
+    }
+
+    .filter-field {
+      display: grid;
+      gap: 6px;
+      font-weight: 900;
+      color: #3d352e;
+    }
+
+    .filter-field span {
+      font-size: 13px;
+      color: #6d604e;
+      padding-left: 3px;
+    }
+
+    .filter-field select {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .clean-filter-panel .compact-refresh {
+      min-width: auto;
+      height: 48px;
+      white-space: nowrap;
+    }
+
+    .main-filter-card,
+    .main-filter-title,
+    .main-filter-controls {
+      display: none;
+    }
+
+    body.dark-mode .filter-field {
+      color: #f7efd8;
+    }
+
+    body.dark-mode .filter-field span {
+      color: #cfc5ad;
+    }
+
+    @media (max-width: 760px) {
+      .compact-list-toolbar {
+        margin-bottom: 18px;
+      }
+
+      .clean-filter-panel {
+        top: 66px;
+        width: min(340px, calc(100vw - 20px));
+        padding: 14px;
+      }
+
+      .clean-filter-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .clean-filter-panel .compact-refresh {
+        width: 100%;
+      }
+    }
+
+
+    /* v27: Filter-Icon ohne weißen Kasten, sauber zentriert */
+    .compact-list-toolbar {
+      width: 100%;
+      max-width: none;
+      margin: 8px auto 22px auto;
+      padding: 0;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .compact-filter-wrapper {
+      width: auto;
+      max-width: none;
+      margin: 0 auto;
+      padding: 0;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .compact-filter-wrapper::before,
+    .compact-filter-wrapper::after,
+    .compact-list-toolbar::before,
+    .compact-list-toolbar::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .compact-filter-wrapper .filter-toggle {
+      position: relative;
+      margin: 0 auto;
+      left: auto;
+      right: auto;
+      top: auto;
+      transform: none;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(120, 191, 122, 0.85);
+      box-shadow: 0 5px 16px rgba(0,0,0,0.16);
+    }
+
+    .compact-filter-wrapper .filter-toggle:hover {
+      background: #f5fff3;
+      transform: translateY(-2px);
+    }
+
+    .clean-filter-panel {
+      position: absolute;
+      top: 74px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: min(560px, calc(100vw - 28px));
+      z-index: 25;
+      text-align: left;
+    }
+
+    .clean-filter-panel.show {
+      display: block;
+      animation: panelDropCentered 0.18s ease-out;
+    }
+
+    @keyframes panelDropCentered {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    body.dark-mode .compact-list-toolbar,
+    body.dark-mode .compact-filter-wrapper {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    body.dark-mode .compact-filter-wrapper .filter-toggle {
+      background: rgba(18, 27, 20, 0.94);
+      border-color: rgba(120, 191, 122, 0.7);
+      color: #f7efd8;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.32);
+    }
+
+    body.dark-mode .compact-filter-wrapper .filter-toggle:hover {
+      background: rgba(34, 52, 36, 0.96);
+    }
+
+    @media (max-width: 760px) {
+      .compact-list-toolbar {
+        margin: 6px auto 18px auto;
+      }
+
+      .clean-filter-panel {
+        top: 66px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(340px, calc(100vw - 20px));
+      }
+
+      .clean-filter-panel.show {
+        animation: panelDropCentered 0.18s ease-out;
+      }
+    }
+
+
+    /* v28: Filter-Popup immer über den Tierkarten anzeigen */
+    .compact-list-toolbar {
+      position: relative !important;
+      z-index: 50000 !important;
+      overflow: visible !important;
+      isolation: isolate;
+    }
+
+    .compact-filter-wrapper {
+      position: relative !important;
+      z-index: 50001 !important;
+      overflow: visible !important;
+      isolation: isolate;
+    }
+
+    .compact-filter-wrapper .filter-toggle {
+      position: relative !important;
+      z-index: 50003 !important;
+    }
+
+    .clean-filter-panel,
+    .filter-panel.clean-filter-panel {
+      position: absolute !important;
+      z-index: 50002 !important;
+      pointer-events: auto;
+    }
+
+    .clean-filter-panel.show,
+    .filter-panel.clean-filter-panel.show {
+      display: block !important;
+      z-index: 50002 !important;
+      pointer-events: auto;
+    }
+
+    .grid {
+      position: relative;
+      z-index: 1 !important;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1 !important;
+    }
+
+    body.ranking-page-active .clean-filter-panel,
+    body.progress-page-active .clean-filter-panel {
+      display: none !important;
+    }
+
+
+    /* v29: X-Button im Tierfenster sauber zentrieren */
+    .modal-close {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+      font-size: 30px !important;
+      font-weight: 700;
+    }
+
+    .modal-close span,
+    .modal-close svg {
+      display: block;
+      margin: auto;
+    }
+
+    @media (max-width: 760px) {
+      .modal-close {
+        font-size: 28px !important;
+      }
+    }
+
+
   </style>
 </head>
 
@@ -2626,43 +2925,49 @@
     <section id="museumOverview" class="circle-slot museum-slot" aria-live="polite"></section>
   </section>
 
-  <section class="list-toolbar" aria-label="Tierliste steuern">
-    <div class="main-filter-card">
-      <div class="main-filter-title">
-        <span>Offene Tiere</span>
-        <small>Alles, was noch nicht komplett erledigt ist.</small>
+  <section class="list-toolbar compact-list-toolbar" aria-label="Tierliste steuern">
+    <div class="controls-wrapper compact-filter-wrapper">
+      <button id="filterToggle" class="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Filter öffnen" aria-expanded="false" title="Filter">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 5h16l-6.2 7.1v5.2l-3.6 1.9v-7.1L4 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <span class="visually-hidden">Filter</span>
+      </button>
+
+      <div id="filterPanel" class="filter-panel clean-filter-panel">
+        <div class="filter-panel-title">Filter</div>
+
+        <div class="controls clean-filter-controls">
+          <label class="filter-field">
+            <span>Art</span>
+            <select id="category">
+              <option value="all">Alle Arten</option>
+              <option value="Fisch">Fische</option>
+              <option value="Insekt">Insekten</option>
+              <option value="Meereswesen">Meereswesen</option>
+            </select>
+          </label>
+
+          <label class="filter-field">
+            <span>Halbkugel</span>
+            <select id="hemisphere">
+              <option value="northern">Nordhalbkugel</option>
+              <option value="southern">Südhalbkugel</option>
+            </select>
+          </label>
+
+          <button class="refresh-button compact-refresh" onclick="loadData(true)" title="Daten aktualisieren">↻ Aktualisieren</button>
+        </div>
       </div>
-
-      <div class="main-filter-controls">
-        <label>
-          <span>Art</span>
-          <select id="category">
-            <option value="all">Alle Arten</option>
-            <option value="Fisch">Fische</option>
-            <option value="Insekt">Insekten</option>
-            <option value="Meereswesen">Meereswesen</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Halbkugel</span>
-          <select id="hemisphere">
-            <option value="northern">Nordhalbkugel</option>
-            <option value="southern">Südhalbkugel</option>
-          </select>
-        </label>
-
-        <button class="refresh-button compact-refresh" onclick="loadData(true)" title="Daten aktualisieren">↻ Aktualisieren</button>
-      </div>
-
-      <input id="availabilityFilter" type="hidden" value="all">
-      <input id="timeFilter" type="hidden" value="all">
-      <input id="progressFilter" type="hidden" value="open">
-      <input id="missingFilter" type="hidden" value="all">
-      <input id="sort" type="hidden" value="automatic">
     </div>
 
-    <p id="status">Daten werden geladen...</p>
+    <input id="availabilityFilter" type="hidden" value="all">
+    <input id="timeFilter" type="hidden" value="all">
+    <input id="progressFilter" type="hidden" value="open">
+    <input id="missingFilter" type="hidden" value="all">
+    <input id="sort" type="hidden" value="automatic">
+
+    <p id="status" class="visually-hidden">Daten werden geladen...</p>
   </section>
 
   <div id="list" class="grid"></div>
@@ -4258,7 +4563,7 @@
 
       const categoryText = category === "all" ? "alle Arten" : category;
       status.textContent =
-        `Offen: ${allCritters.length} Tiere · ${categoryText} · Tiere verschwinden erst, wenn Gefunden und Museum erledigt sind.`;
+        `Offen: ${allCritters.length} Tiere`;
 
       list.innerHTML = "";
 
